@@ -10,7 +10,7 @@ class KategoriWidget extends StatefulWidget {
 class _KategoriWidgetState extends State<KategoriWidget> {
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return const SizedBox(
       child: Text('hasan'),
     );
   }

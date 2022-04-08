@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:tidi_islam/view/anasayfa/anasayfa_widget.dart';
 import 'package:tidi_islam/view/anasayfa/widgets/alt_menu_widget.dart';
 import 'package:tidi_islam/view/anasayfa/widgets/yan_menu_widget.dart';
-import 'package:tidi_islam/view/kategoriler/kategori_widget.dart';
 
 class KategoriView extends StatefulWidget {
   const KategoriView({Key? key}) : super(key: key);
