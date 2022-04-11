@@ -14,6 +14,8 @@ class _AltMenuState extends State<AltMenu> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      /// [value] değeri [currentIndex] değerine eşitlenip her dokunmada güncelleniyor
+      /// bu güncelleme sayfanın indexini değiştirdiği için sayfa değişiyor.
       onTap: (value) {
         setState(() {
           value = currentIndex;

@@ -15,11 +15,11 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        /// Fotoğraf geçişleri [CarouselSlider] ile yapılıyor.
+        /// Fotoğraf geçişleri [ImageSlideshow] ile yapılıyor.
         /// Fotoğraflar
-        /// Dinamikleştirmek için [CarouselSlider.builder] kullanılacaktır.
+      
 
-        /// Atomic yapıda olan [VideoBaslikWidget] video başlığını tutar.
+        /// Atomic yapıda olan [VideoBaslikWidget] video başlığını tutar static.
         /// [baslikAdi] parametresi [String] yapıdadır.
 
         ImageSlideshow(
@@ -58,7 +58,7 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
         const VideoBaslikWidget(
           baslikAdi: 'DİNİ KELİMELER VE ANLAMLARI KADIN',
         ),
-
+      /// Anasayfa üzerindeki üç adet video staic yapıda kuruldu.
         const VideoOynatici(
           embedCode: 'vRKYrcmqZEk',
         ),

@@ -111,7 +111,7 @@ class VideoOynatici extends StatelessWidget {
     );
   }
 }
-
+/// Video dialog çalışmasını sağlayan metod.
 showVideoDialog(BuildContext context, YoutubePlayerController _controller) {
   showDialog(
     context: context,

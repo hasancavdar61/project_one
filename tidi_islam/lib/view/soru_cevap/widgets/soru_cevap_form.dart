@@ -18,8 +18,7 @@ class SoruCevapForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Form(
-          child: Column(
+      child: Column(
         children: [
           Container(
             padding: const EdgeInsets.only(bottom: 20.0),
@@ -46,7 +45,7 @@ class SoruCevapForm extends StatelessWidget {
             ),
           )
         ],
-      )),
+      ),
     );
   }
 }

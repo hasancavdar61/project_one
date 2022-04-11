@@ -8,6 +8,9 @@ class VideoBaslikWidget extends StatelessWidget {
 
   final String? baslikAdi;
 
+/// [Padding] widgeti içinde bulunan [Container] sadece anasayfada kategori
+/// aralarını bölmek ve hangş kategori hangi isimi alıyor göstermek için
+/// static yapıda kullanılmıştır.
   @override
   Widget build(BuildContext context) {
     return Padding(

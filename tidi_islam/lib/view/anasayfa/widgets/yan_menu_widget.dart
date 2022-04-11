@@ -13,10 +13,13 @@ class YanMenu extends StatefulWidget {
 class _YanMenuState extends State<YanMenu> {
   @override
   Widget build(BuildContext context) {
+
+    //! [Drawer] şimdilik static veriler ile dolduruldu veritabanı bağlantısı 
+    //! yapılcak ve dinamik yapıya kavuşacak.
+    
     return Drawer(
       backgroundColor: Colors.teal,
       child: ListView(
-        // Important: Remove any padding from the ListView.
         padding: const EdgeInsets.only(top: 20.0),
         children: [
           Container(
@@ -31,6 +34,9 @@ class _YanMenuState extends State<YanMenu> {
               ),
             ),
           ),
+        /// Custom oluşturulan [ExpansionMenu] [ExpansionTile] özellilkleri 
+        /// barındırıp custom propertyler alarak kullanımı hafife kolaya 
+        /// indirilmiştir.
           const ExpansionMenu(
             kategoriAdi: 'DİNİ KELİMELER VE ANLAMLARI',
           ),
@@ -40,6 +46,7 @@ class _YanMenuState extends State<YanMenu> {
           const ExpansionMenu(
             kategoriAdi: 'HZ. MUHAMMED (S.A.S.)',
           ),
+          /// Tek dokunma ve açılmayan menü yapısı
           const ListTile(
             title: Text(
               "TİD KUR'AN-I KERİM MEALİ",

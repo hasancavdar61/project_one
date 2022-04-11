@@ -15,6 +15,10 @@ class ExpansionMenu extends StatelessWidget {
   final VoidCallback? onTapCocuk;
   @override
   Widget build(BuildContext context) {
+    ///Açılır menü başlığı [ExpansionTile] bu açılır menü kadın, erkek, çocuk
+    ///alt kategorilerine sahip ve dokunma etkileşimi bu alt kategorilerin
+    ///[GestureDetector] ile sarmalanmasından sonra yine [GestureDetector]
+    ///özelliği olan [onTap] metoduyla sağlanıyor.
     return ExpansionTile(
       title: Text(
         kategoriAdi!,
@@ -24,6 +28,7 @@ class ExpansionMenu extends StatelessWidget {
       collapsedIconColor: Colors.white,
       iconColor: Colors.white,
       children: [
+        /// Kadın isimli alt kategori butonu
         GestureDetector(
           onTap: onTapKadin,
           child: Container(
@@ -39,6 +44,8 @@ class ExpansionMenu extends StatelessWidget {
             ),
           ),
         ),
+
+         /// Erkek isimli alt kategori butonu
         GestureDetector(
           onTap: onTapErkek,
           child: Container(
@@ -54,6 +61,8 @@ class ExpansionMenu extends StatelessWidget {
             ),
           ),
         ),
+
+         /// Çocuk isimli alt kategori butonu
         GestureDetector(
           onTap: onTapCocuk,
           child: Container(

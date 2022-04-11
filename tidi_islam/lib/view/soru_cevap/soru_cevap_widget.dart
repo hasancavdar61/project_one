@@ -12,6 +12,8 @@ class SoruCevapWidget extends StatefulWidget {
 }
 
 class _SoruCevapWidgetState extends State<SoruCevapWidget> {
+  ///Video dosyasını cihazdan almak ya da video çekmek için bu metod kullanılır.
+  //! try - catch bloğuna almayı unutma!!!!!!!!!--------
   File? _image;
   late bool _isVisible = false;
 
@@ -30,6 +32,8 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
 
   @override
   Widget build(BuildContext context) {
+    ///Form yapısı ana widgeti [SingleChildScrollView]
+
     return SingleChildScrollView(
       child: Center(
         child: Column(
@@ -47,43 +51,55 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
               'SORULARINIZI VİDEO \n İLE BİZE ULAŞTIRIN',
               style: Theme.of(context).textTheme.headline4,
             ),
-            const SoruCevapForm(
-              inputType: TextInputType.name,
-              topLabel: 'İSİM*',
-              formFieldLabel: 'İsminizi Giriniz',
-              maxAlan: 1,
+
+            ///Form yapısını tutan parent widget.
+            Form(
+              child: Column(
+                children: const [
+                  /// Custom yapıda bulunan [SoruCevap]
+                  SoruCevapForm(
+                    inputType: TextInputType.name,
+                    topLabel: 'İSİM*',
+                    formFieldLabel: 'İsminizi Giriniz',
+                    maxAlan: 1,
+                  ),
+                  SoruCevapForm(
+                    inputType: TextInputType.name,
+                    topLabel: 'SOYİSİM*',
+                    formFieldLabel: 'Soyisminizi Giriniz',
+                    maxAlan: 1,
+                  ),
+                  SoruCevapForm(
+                    inputType: TextInputType.emailAddress,
+                    topLabel: 'E-POSTA*',
+                    formFieldLabel: 'eposta@epostagiriniz.com',
+                    maxAlan: 1,
+                  ),
+                  SoruCevapForm(
+                    inputType: TextInputType.phone,
+                    topLabel: 'TELEFON*',
+                    formFieldLabel: '0 (---) --- -- --',
+                    maxAlan: 1,
+                  ),
+                  SoruCevapForm(
+                    inputType: TextInputType.text,
+                    topLabel: 'KONU BAŞLIĞI*',
+                    formFieldLabel: 'Konu Başlığı Giriniz',
+                    maxAlan: 1,
+                  ),
+                  SoruCevapForm(
+                    inputType: TextInputType.text,
+                    topLabel: 'KONU*',
+                    formFieldLabel: 'Sorunuzu Giriniz',
+                    maxAlan: 6,
+                  ),
+                ],
+              ),
             ),
-            const SoruCevapForm(
-              inputType: TextInputType.name,
-              topLabel: 'SOYİSİM*',
-              formFieldLabel: 'Soyisminizi Giriniz',
-              maxAlan: 1,
-            ),
-            const SoruCevapForm(
-              inputType: TextInputType.emailAddress,
-              topLabel: 'E-POSTA*',
-              formFieldLabel: 'eposta@epostagiriniz.com',
-              maxAlan: 1,
-            ),
-            const SoruCevapForm(
-              inputType: TextInputType.phone,
-              topLabel: 'TELEFON*',
-              formFieldLabel: '0 (---) --- -- --',
-              maxAlan: 1,
-            ),
-            const SoruCevapForm(
-              inputType: TextInputType.text,
-              topLabel: 'KONU BAŞLIĞI*',
-              formFieldLabel: 'Konu Başlığı Giriniz',
-              maxAlan: 1,
-            ),
-            const SoruCevapForm(
-              inputType: TextInputType.text,
-              topLabel: 'KONU*',
-              formFieldLabel: 'Sorunuzu Giriniz',
-              maxAlan: 6,
-            ),
-            //! Bottomsheet yapısnı kullan.
+
+            /// [ElevatedButton] -> [onPressed] metodu [_openImagePicker] metodunu
+            /// kullanarak video seçim ekranını açmakta.
+            //! Bottomsheet yapısını kullan.
             ElevatedButton(
               onPressed: _openImagePicker,
               child: const Text('VİDEOUNUZU SEÇİNİZ*'),
@@ -91,6 +107,8 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.teal)),
             ),
+            // Bu yapı kullanılarak seçilen videonun ekranda gözükmesi olayı
+            //seçim yapıldığında aktif olmaktadır.
             Visibility(
               visible: _isVisible,
               child: SizedBox(
@@ -106,6 +124,7 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
               ),
             ),
 
+            /// Submit butonu [ElevatedButton]
             Container(
               padding: const EdgeInsets.all(20.0),
               width: double.infinity,
