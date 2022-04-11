@@ -1,13 +1,25 @@
 import 'package:flutter/material.dart';
 
-class AltMenu extends StatelessWidget {
+class AltMenu extends StatefulWidget {
   const AltMenu({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<AltMenu> createState() => _AltMenuState();
+}
+
+class _AltMenuState extends State<AltMenu> {
+  int currentIndex = 0;
+  @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      onTap: (value) {
+        setState(() {
+          value = currentIndex;
+        });
+      },
+      currentIndex: currentIndex,
       type: BottomNavigationBarType.fixed,
       unselectedItemColor: Colors.black,
       selectedItemColor: Colors.teal,
