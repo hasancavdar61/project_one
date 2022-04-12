@@ -2,6 +2,8 @@ import 'dart:io';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:tidi_islam/view/soru_cevap/widgets/modal_fit.dart';
 import 'package:tidi_islam/view/soru_cevap/widgets/soru_cevap_form.dart';
 
 class SoruCevapWidget extends StatefulWidget {
@@ -19,7 +21,7 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
 
   final _picker = ImagePicker();
   // Implementing the image picker
-  Future<void> _openImagePicker() async {
+  Future<void> openImagePicker() async {
     final XFile? pickedImage =
         await _picker.pickVideo(source: ImageSource.camera);
     if (pickedImage != null) {
@@ -101,7 +103,12 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
             /// kullanarak video seçim ekranını açmakta.
             //! Bottomsheet yapısını kullan.
             ElevatedButton(
-              onPressed: _openImagePicker,
+              onPressed: () {
+                showMaterialModalBottomSheet(
+                  context: context,
+                  builder: (context) => const ModalFit(),
+                );
+              },
               child: const Text('VİDEOUNUZU SEÇİNİZ*'),
               style: ButtonStyle(
                   backgroundColor:

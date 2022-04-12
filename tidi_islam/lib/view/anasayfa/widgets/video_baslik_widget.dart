@@ -8,9 +8,9 @@ class VideoBaslikWidget extends StatelessWidget {
 
   final String? baslikAdi;
 
-/// [Padding] widgeti içinde bulunan [Container] sadece anasayfada kategori
-/// aralarını bölmek ve hangş kategori hangi isimi alıyor göstermek için
-/// static yapıda kullanılmıştır.
+  /// [Padding] widgeti içinde bulunan [Container] sadece anasayfada kategori
+  /// aralarını bölmek ve hangş kategori hangi isimi alıyor göstermek için
+  /// static yapıda kullanılmıştır.
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -19,9 +19,15 @@ class VideoBaslikWidget extends StatelessWidget {
         color: Colors.teal,
         padding: const EdgeInsets.all(12.0),
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          const Icon(
-            Icons.play_arrow,
-            color: Colors.white,
+          Container(
+            padding: const EdgeInsets.only(left: 5.0, right: 5.0),
+            decoration: const BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.all(Radius.circular(3))),
+            child: const Icon(
+              Icons.play_arrow,
+              color: Colors.white,
+            ),
           ),
           Text(
             baslikAdi!,

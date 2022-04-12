@@ -13,45 +13,64 @@ class YanMenu extends StatefulWidget {
 class _YanMenuState extends State<YanMenu> {
   @override
   Widget build(BuildContext context) {
-
-    //! [Drawer] şimdilik static veriler ile dolduruldu veritabanı bağlantısı 
+    //! [Drawer] şimdilik static veriler ile dolduruldu veritabanı bağlantısı
     //! yapılcak ve dinamik yapıya kavuşacak.
-    
+
     return Drawer(
       backgroundColor: Colors.teal,
       child: ListView(
-        padding: const EdgeInsets.only(top: 20.0),
         children: [
           Container(
-            margin: const EdgeInsets.only(top: 20.0, left: 20.0, bottom: 20.0),
+            padding: const EdgeInsets.all(14.0),
+            color: Colors.teal.shade600,
             child: const Text(
               'MENÜLERİMİZ',
               textAlign: TextAlign.start,
               style: TextStyle(
                 color: Colors.white,
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
+                fontSize: 22,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),
-        /// Custom oluşturulan [ExpansionMenu] [ExpansionTile] özellilkleri 
-        /// barındırıp custom propertyler alarak kullanımı hafife kolaya 
-        /// indirilmiştir.
+
+          /// Custom oluşturulan [ExpansionMenu] [ExpansionTile] özellilkleri
+          /// barındırıp custom propertyler alarak kullanımı hafife kolaya
+          /// indirilmiştir.
           const ExpansionMenu(
             kategoriAdi: 'DİNİ KELİMELER VE ANLAMLARI',
+          ),
+          const Divider(
+            height: 1.0,
+            thickness: 1.0,
+            endIndent: 20.0,
+            color: Colors.grey,
           ),
           const ExpansionMenu(
             kategoriAdi: 'DİNİ BİLGİLER',
           ),
-          const ExpansionMenu(
-            kategoriAdi: 'HZ. MUHAMMED (S.A.S.)',
+          const Divider(
+            height: 1.0,
+            thickness: 1.0,
+            endIndent: 20.0,
+            color: Colors.grey,
           ),
+          const ExpansionMenu(
+            kategoriAdi: 'PEYGAMBERLERİN HAYATI',
+          ),
+          const Divider(
+            height: 1.0,
+            thickness: 1.0,
+            endIndent: 20.0,
+            color: Colors.grey,
+          ),
+
           /// Tek dokunma ve açılmayan menü yapısı
           const ListTile(
             title: Text(
               "TİD KUR'AN-I KERİM MEALİ",
               style:
-                  TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
+                  TextStyle(fontWeight: FontWeight.w400, color: Colors.white),
             ),
           ),
         ],

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:tidi_islam/view/anasayfa/anasayfa_widget.dart';
 import 'package:tidi_islam/view/anasayfa/widgets/yan_menu_widget.dart';
 import 'package:tidi_islam/view/favoriler/favoriler_view.dart';
 import 'package:tidi_islam/view/iletisim/iletisim_view.dart';
+import 'package:tidi_islam/view/info/info_view.dart';
 import 'package:tidi_islam/view/soru_cevap/soru_cevap_view.dart';
 
 class AnasayfaView extends StatefulWidget {
@@ -24,13 +26,20 @@ class _AnasayfaViewState extends State<AnasayfaView> {
     const SoruCevapView(),
     //4
     const IletisimView(),
+    //5
+    const InfoView(),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: true,
-          title: const Text('TİDİSLAM'),
+          title: GestureDetector(
+            onTap: () => setState(() {
+              currentIndex = 0;
+            }),
+            child: const Text('TİDİSLAM'),
+          ),
           actions: [
             TextButton(
               onPressed: () => Get.toNamed('/KategoriSayfasi'),
@@ -56,24 +65,31 @@ class _AnasayfaViewState extends State<AnasayfaView> {
           },
           currentIndex: currentIndex,
           type: BottomNavigationBarType.fixed,
+          selectedFontSize: 12.0,
           unselectedItemColor: Colors.black,
           selectedItemColor: Colors.teal,
           items: const [
             BottomNavigationBarItem(
               label: 'Anasayfa',
-              icon: Icon(Icons.home),
+              icon: FaIcon(
+                FontAwesomeIcons.houseChimney,
+              ),
             ),
             BottomNavigationBarItem(
               label: 'Favoriler',
-              icon: Icon(Icons.favorite),
+              icon: FaIcon(FontAwesomeIcons.heart),
             ),
             BottomNavigationBarItem(
               label: 'Soru-Cevap',
-              icon: Icon(Icons.question_mark),
+              icon: FaIcon(FontAwesomeIcons.question),
             ),
             BottomNavigationBarItem(
               label: 'İletişim',
-              icon: Icon(Icons.mail),
+              icon: FaIcon(FontAwesomeIcons.commentDots),
+            ),
+            BottomNavigationBarItem(
+              label: 'Hakkımızda',
+              icon: FaIcon(FontAwesomeIcons.circleInfo),
             ),
           ],
         ),

@@ -23,12 +23,96 @@ class ExpansionMenu extends StatelessWidget {
       title: Text(
         kategoriAdi!,
         style:
-            const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            const TextStyle(color: Colors.white, fontWeight: FontWeight.w400),
       ),
       collapsedIconColor: Colors.white,
       iconColor: Colors.white,
       children: [
-        /// Kadın isimli alt kategori butonu
+        Container(
+          padding: const EdgeInsets.only(
+              left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.black.withOpacity(0.05),
+                Colors.black.withOpacity(0.35)
+              ],
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.25),
+                spreadRadius: 8,
+                blurRadius: 10,
+                offset: const Offset(0, 1),
+              ),
+            ],
+          ),
+          child: Column(
+            children: [
+              Container(
+                color: Colors.black87,
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  children: const [
+                    Icon(
+                      Icons.menu,
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      width: 8.0,
+                    ),
+                    Text(
+                      'ALT MENÜ',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    Spacer(),
+                    Icon(
+                      Icons.arrow_forward_ios_sharp,
+                      size: 18.0,
+                      color: Colors.white,
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  border:
+                      Border(bottom: BorderSide(color: Colors.grey.shade400)),
+                  color: Colors.white,
+                ),
+                padding: const EdgeInsets.all(14.0),
+                width: double.infinity,
+                child: const Text('KADIN'),
+              ),
+              Container(
+                decoration: BoxDecoration(
+                  border:
+                      Border(bottom: BorderSide(color: Colors.grey.shade400)),
+                  color: Colors.white,
+                ),
+                padding: const EdgeInsets.all(14.0),
+                width: double.infinity,
+                child: const Text('ERKEK'),
+              ),
+              Container(
+                padding: const EdgeInsets.all(14.0),
+                width: double.infinity,
+                color: Colors.white,
+                child: const Text('ÇOCUK'),
+              ),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+}
+
+
+/*
+ /// Kadın isimli alt kategori butonu
         GestureDetector(
           onTap: onTapKadin,
           child: Container(
@@ -78,7 +162,4 @@ class ExpansionMenu extends StatelessWidget {
             ),
           ),
         ),
-      ],
-    );
-  }
-}
+*/

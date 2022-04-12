@@ -45,6 +45,10 @@ dependencies:
   flutter_expanded_tile: ^0.3.6
   get: ^4.6.1
   image_picker: ^0.8.5
+  font_awesome_flutter: ^10.1.0
+  flutter_riverpod: ^1.0.3
+  cached_network_image: ^3.2.0
+  modal_bottom_sheet: ^2.0.1
 
 dev_dependencies:
   flutter_test:
