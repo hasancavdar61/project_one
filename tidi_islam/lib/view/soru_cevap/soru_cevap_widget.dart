@@ -4,8 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:tidi_islam/view/soru_cevap/widgets/modal_fit.dart';
-import 'package:tidi_islam/view/soru_cevap/widgets/soru_cevap_form.dart';
-import 'package:video_player/video_player.dart';
+import 'package:tidi_islam/view/soru_cevap/widgets/custom_form.dart';
 
 class SoruCevapWidget extends StatefulWidget {
   const SoruCevapWidget({Key? key}) : super(key: key);
@@ -20,7 +19,6 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
   late bool _isVisible = false;
   File? video;
   File? videoKamera;
-  late VideoPlayerController controller;
 
   final _picker = ImagePicker();
 
@@ -75,37 +73,37 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
               child: Column(
                 children: const [
                   /// Custom yapıda bulunan [SoruCevap]
-                  SoruCevapForm(
+                  CustomForm(
                     inputType: TextInputType.name,
                     topLabel: 'İSİM*',
                     formFieldLabel: 'İsminizi Giriniz',
                     maxAlan: 1,
                   ),
-                  SoruCevapForm(
+                  CustomForm(
                     inputType: TextInputType.name,
                     topLabel: 'SOYİSİM*',
                     formFieldLabel: 'Soyisminizi Giriniz',
                     maxAlan: 1,
                   ),
-                  SoruCevapForm(
+                  CustomForm(
                     inputType: TextInputType.emailAddress,
                     topLabel: 'E-POSTA*',
                     formFieldLabel: 'eposta@epostagiriniz.com',
                     maxAlan: 1,
                   ),
-                  SoruCevapForm(
+                  CustomForm(
                     inputType: TextInputType.phone,
                     topLabel: 'TELEFON*',
                     formFieldLabel: '0 (---) --- -- --',
                     maxAlan: 1,
                   ),
-                  SoruCevapForm(
+                  CustomForm(
                     inputType: TextInputType.text,
                     topLabel: 'KONU BAŞLIĞI*',
                     formFieldLabel: 'Konu Başlığı Giriniz',
                     maxAlan: 1,
                   ),
-                  SoruCevapForm(
+                  CustomForm(
                     inputType: TextInputType.text,
                     topLabel: 'KONU*',
                     formFieldLabel: 'Sorunuzu Giriniz',
