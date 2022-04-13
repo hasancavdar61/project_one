@@ -1,10 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-
 import 'package:tidi_islam/services/video_oynatici.dart';
 import 'package:tidi_islam/view/anasayfa/widgets/video_baslik_widget.dart';
-import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 
 class AnasayfaWidget extends StatefulWidget {
   const AnasayfaWidget({Key? key}) : super(key: key);

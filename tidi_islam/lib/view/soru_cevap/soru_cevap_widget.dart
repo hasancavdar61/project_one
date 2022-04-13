@@ -5,6 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:tidi_islam/view/soru_cevap/widgets/modal_fit.dart';
 import 'package:tidi_islam/view/soru_cevap/widgets/soru_cevap_form.dart';
+import 'package:video_player/video_player.dart';
 
 class SoruCevapWidget extends StatefulWidget {
   const SoruCevapWidget({Key? key}) : super(key: key);
@@ -16,19 +17,34 @@ class SoruCevapWidget extends StatefulWidget {
 class _SoruCevapWidgetState extends State<SoruCevapWidget> {
   ///Video dosyasını cihazdan almak ya da video çekmek için bu metod kullanılır.
   //! try - catch bloğuna almayı unutma!!!!!!!!!--------
-  File? _image;
   late bool _isVisible = false;
+  File? video;
+  File? videoKamera;
+  late VideoPlayerController controller;
 
   final _picker = ImagePicker();
-  // Implementing the image picker
-  Future<void> openImagePicker() async {
-    final XFile? pickedImage =
-        await _picker.pickVideo(source: ImageSource.camera);
-    if (pickedImage != null) {
+
+  Future<void> openVideoPicker() async {
+    final XFile? secilenVideo =
+        await _picker.pickVideo(source: ImageSource.gallery);
+    if (secilenVideo != null) {
       setState(() {
-        _image = File(pickedImage.path);
+        video = File(secilenVideo.path);
         _isVisible = true;
       });
+      Navigator.pop(context);
+    }
+  }
+
+  Future<void> openVideoTaker() async {
+    final XFile? cekilenVideo =
+        await _picker.pickVideo(source: ImageSource.camera);
+    if (cekilenVideo != null) {
+      setState(() {
+        videoKamera = File(cekilenVideo.path);
+        _isVisible = true;
+      });
+      Navigator.pop(context);
     }
   }
 
@@ -106,7 +122,10 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
               onPressed: () {
                 showMaterialModalBottomSheet(
                   context: context,
-                  builder: (context) => const ModalFit(),
+                  builder: (context) => ModalFit(
+                    videoSec: openVideoPicker,
+                    videoCek: openVideoTaker,
+                  ),
                 );
               },
               child: const Text('VİDEOUNUZU SEÇİNİZ*'),
@@ -119,10 +138,10 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
             Visibility(
               visible: _isVisible,
               child: SizedBox(
-                width: 100,
-                height: 100,
-                child: _image != null
-                    ? Image.file(_image!)
+                child: videoKamera != null
+                    ? const Text('Video Kaydedildi',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.amber))
                     : const Text(
                         'Dosya Seçilmedi',
                         textAlign: TextAlign.center,

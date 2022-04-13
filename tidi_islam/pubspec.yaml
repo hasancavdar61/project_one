@@ -49,6 +49,7 @@ dependencies:
   flutter_riverpod: ^1.0.3
   cached_network_image: ^3.2.0
   modal_bottom_sheet: ^2.0.1
+  video_player: ^2.3.0
 
 dev_dependencies:
   flutter_test:

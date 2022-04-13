@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ModalFit extends StatelessWidget {
-  const ModalFit({Key? key}) : super(key: key);
+  const ModalFit({Key? key, this.videoSec, this.videoCek}) : super(key: key);
+
+  final VoidCallback? videoSec;
+  final VoidCallback? videoCek;
 
   @override
   Widget build(BuildContext context) {
@@ -12,30 +15,20 @@ class ModalFit extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           ListTile(
-            title: const Text('Edit'),
-            leading: const Icon(Icons.edit),
-            onTap: () => Navigator.of(context).pop(),
-          ),
-          ListTile(
-            title: const Text('Copy'),
-            leading: const Icon(Icons.content_copy),
-            onTap: () => Navigator.of(context).pop(),
-          ),
-          ListTile(
-            title: const Text('Cut'),
-            leading: const Icon(Icons.content_cut),
-            onTap: () => Navigator.of(context).pop(),
-          ),
-          ListTile(
-            title: const Text('Move'),
+            title: const Text('Video Seç'),
             leading: const Icon(Icons.folder_open),
-            onTap: () => Navigator.of(context).pop(),
+            onTap: videoSec,
           ),
           ListTile(
-            title: const Text('Delete'),
-            leading: const Icon(Icons.delete),
-            onTap: () => Navigator.of(context).pop(),
-          )
+            title: const Text('Video Çek'),
+            leading: const Icon(Icons.photo_camera_front),
+            onTap: videoCek,
+          ),
+          ListTile(
+            title: const Text('İptal'),
+            leading: const Icon(Icons.cancel_outlined),
+            onTap: () => Navigator.pop(context),
+          ),
         ],
       ),
     ));
