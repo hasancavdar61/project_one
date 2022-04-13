@@ -1,5 +1,6 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:octo_image/octo_image.dart';
 import 'package:tidi_islam/services/video_oynatici.dart';
 import 'package:tidi_islam/view/anasayfa/widgets/video_baslik_widget.dart';
 
@@ -40,8 +41,16 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
             indicatorLayout: PageIndicatorLayout.NONE,
             layout: SwiperLayout.DEFAULT,
             itemCount: urls.length,
-            itemBuilder: (BuildContext context, int index) => Image.network(
-              urls[index],
+            itemBuilder: (BuildContext context, int index) => OctoImage(
+              image: NetworkImage(
+                urls[index],
+              ),
+              placeholderBuilder: (context) => const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.red,
+                  backgroundColor: Colors.teal,
+                ),
+              ),
               fit: BoxFit.fill,
             ),
             autoplay: true,

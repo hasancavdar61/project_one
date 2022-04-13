@@ -42,7 +42,7 @@ class _AnasayfaViewState extends State<AnasayfaView> {
           ),
           actions: [
             TextButton(
-              onPressed: () => Get.toNamed('/KategoriSayfasi'),
+              onPressed: () => Get.toNamed('/GirisSayfasi'),
               child: const Text(
                 'Giriş Yap',
                 style: TextStyle(color: Colors.white),

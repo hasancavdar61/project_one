@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:octo_image/octo_image.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class VideoOynatici extends StatelessWidget {
@@ -48,9 +49,20 @@ class VideoOynatici extends StatelessWidget {
                 Stack(children: [
                   SizedBox(
                     width: MediaQuery.of(context).size.width / 2.3,
-                    child: Image.network(
-                        'https://i3.ytimg.com/vi/$embedCode/maxresdefault.jpg'),
+                    child: OctoImage(
+                      image: NetworkImage(
+                        'https://i3.ytimg.com/vi/$embedCode/maxresdefault.jpg',
+                      ),
+                      placeholderBuilder: (context) => const Center(
+                        child: CircularProgressIndicator(
+                          color: Colors.red,
+                          backgroundColor: Colors.teal,
+                        ),
+                      ),
+                      fit: BoxFit.fill,
+                    ),
                   ),
+
                   Positioned(
                     left: 60,
                     right: 60,
@@ -111,6 +123,7 @@ class VideoOynatici extends StatelessWidget {
     );
   }
 }
+
 /// Video dialog çalışmasını sağlayan metod.
 showVideoDialog(BuildContext context, YoutubePlayerController _controller) {
   showDialog(

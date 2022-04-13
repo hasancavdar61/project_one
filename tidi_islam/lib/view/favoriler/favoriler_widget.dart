@@ -6,10 +6,9 @@ class FavorilerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
+    return SingleChildScrollView(
+      child: Center(
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text(
             'Favori Video Yok',
             style: TextStyle(
@@ -18,9 +17,18 @@ class FavorilerWidget extends StatelessWidget {
                 fontWeight: FontWeight.bold),
           ),
           ElevatedButton(
-              onPressed: () => Get.toNamed("/KayitSayfasi"),
-              child: Text('Kayıt Formu UI Test Butonu'))
-        ],
+            onPressed: () => Get.toNamed("/KayitSayfasi"),
+            child: Text('Kayıt Formu UI Test Butonu'),
+          ),
+          ElevatedButton(
+            onPressed: () => Get.toNamed("/KategoriSayfasi"),
+            child: Text('Kategori UI Test Butonu'),
+          ),
+          ElevatedButton(
+            onPressed: () => Get.toNamed("/ProfilSayfasi"),
+            child: Text('Profil Formu UI Test Butonu'),
+          ),
+        ]),
       ),
     );
   }

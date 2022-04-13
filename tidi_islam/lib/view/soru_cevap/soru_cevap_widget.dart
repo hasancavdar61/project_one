@@ -69,47 +69,50 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
             ),
 
             ///Form yapısını tutan parent widget.
-            Form(
-              child: Column(
-                children: const [
-                  /// Custom yapıda bulunan [SoruCevap]
-                  CustomForm(
-                    inputType: TextInputType.name,
-                    topLabel: 'İSİM*',
-                    formFieldLabel: 'İsminizi Giriniz',
-                    maxAlan: 1,
-                  ),
-                  CustomForm(
-                    inputType: TextInputType.name,
-                    topLabel: 'SOYİSİM*',
-                    formFieldLabel: 'Soyisminizi Giriniz',
-                    maxAlan: 1,
-                  ),
-                  CustomForm(
-                    inputType: TextInputType.emailAddress,
-                    topLabel: 'E-POSTA*',
-                    formFieldLabel: 'eposta@epostagiriniz.com',
-                    maxAlan: 1,
-                  ),
-                  CustomForm(
-                    inputType: TextInputType.phone,
-                    topLabel: 'TELEFON*',
-                    formFieldLabel: '0 (---) --- -- --',
-                    maxAlan: 1,
-                  ),
-                  CustomForm(
-                    inputType: TextInputType.text,
-                    topLabel: 'KONU BAŞLIĞI*',
-                    formFieldLabel: 'Konu Başlığı Giriniz',
-                    maxAlan: 1,
-                  ),
-                  CustomForm(
-                    inputType: TextInputType.text,
-                    topLabel: 'KONU*',
-                    formFieldLabel: 'Sorunuzu Giriniz',
-                    maxAlan: 6,
-                  ),
-                ],
+            Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: Form(
+                child: Column(
+                  children: const [
+                    /// Custom yapıda bulunan [SoruCevap]
+                    CustomForm(
+                      inputType: TextInputType.name,
+                      topLabel: 'İSİM*',
+                      formFieldLabel: 'İsminizi Giriniz',
+                      maxAlan: 1,
+                    ),
+                    CustomForm(
+                      inputType: TextInputType.name,
+                      topLabel: 'SOYİSİM*',
+                      formFieldLabel: 'Soyisminizi Giriniz',
+                      maxAlan: 1,
+                    ),
+                    CustomForm(
+                      inputType: TextInputType.emailAddress,
+                      topLabel: 'E-POSTA*',
+                      formFieldLabel: 'eposta@epostagiriniz.com',
+                      maxAlan: 1,
+                    ),
+                    CustomForm(
+                      inputType: TextInputType.phone,
+                      topLabel: 'TELEFON*',
+                      formFieldLabel: '0 (---) --- -- --',
+                      maxAlan: 1,
+                    ),
+                    CustomForm(
+                      inputType: TextInputType.text,
+                      topLabel: 'KONU BAŞLIĞI*',
+                      formFieldLabel: 'Konu Başlığı Giriniz',
+                      maxAlan: 1,
+                    ),
+                    CustomForm(
+                      inputType: TextInputType.text,
+                      topLabel: 'KONU*',
+                      formFieldLabel: 'Sorunuzu Giriniz',
+                      maxAlan: 6,
+                    ),
+                  ],
+                ),
               ),
             ),
 

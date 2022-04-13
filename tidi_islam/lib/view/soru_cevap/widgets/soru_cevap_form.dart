@@ -1,25 +1,23 @@
 import 'package:flutter/material.dart';
 
-class CustomForm extends StatelessWidget {
-  const CustomForm({
+class SoruCevapForm extends StatelessWidget {
+  const SoruCevapForm({
     Key? key,
     this.topLabel,
     this.formFieldLabel,
     this.maxAlan,
     this.inputType,
-    this.isObsecure = false,
   }) : super(key: key);
 
   final String? topLabel;
   final String? formFieldLabel;
   final int? maxAlan;
   final TextInputType? inputType;
-  final bool? isObsecure;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 14.0),
+      padding: const EdgeInsets.all(20.0),
       child: Column(
         children: [
           Container(
@@ -31,7 +29,6 @@ class CustomForm extends StatelessWidget {
             ),
           ),
           TextFormField(
-            obscureText: isObsecure!,
             style: const TextStyle(color: Colors.white),
             maxLines: maxAlan,
             keyboardType: inputType,
