@@ -23,26 +23,34 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
   final _picker = ImagePicker();
 
   Future<void> openVideoPicker() async {
-    final XFile? secilenVideo =
-        await _picker.pickVideo(source: ImageSource.gallery);
-    if (secilenVideo != null) {
-      setState(() {
-        video = File(secilenVideo.path);
-        _isVisible = true;
-      });
-      Navigator.pop(context);
+    try {
+      final XFile? secilenVideo =
+          await _picker.pickVideo(source: ImageSource.gallery);
+      if (secilenVideo != null) {
+        setState(() {
+          video = File(secilenVideo.path);
+          _isVisible = true;
+        });
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      debugPrint(e.toString());
     }
   }
 
   Future<void> openVideoTaker() async {
-    final XFile? cekilenVideo =
-        await _picker.pickVideo(source: ImageSource.camera);
-    if (cekilenVideo != null) {
-      setState(() {
-        videoKamera = File(cekilenVideo.path);
-        _isVisible = true;
-      });
-      Navigator.pop(context);
+    try {
+      final XFile? cekilenVideo =
+          await _picker.pickVideo(source: ImageSource.camera);
+      if (cekilenVideo != null) {
+        setState(() {
+          videoKamera = File(cekilenVideo.path);
+          _isVisible = true;
+        });
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      debugPrint(e.toString());
     }
   }
 
@@ -56,13 +64,6 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const FlutterLogo(
-              size: 50.0,
-            ),
-            const Divider(
-              height: 3,
-              color: Colors.grey,
-            ),
             Text(
               'SORULARINIZI VİDEO \n İLE BİZE ULAŞTIRIN',
               style: Theme.of(context).textTheme.headline4,
@@ -124,6 +125,8 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
                 showMaterialModalBottomSheet(
                   context: context,
                   builder: (context) => ModalFit(
+                    pickerLabel: 'Video Seç',
+                    takerLabel: 'Video Çek',
                     videoSec: openVideoPicker,
                     videoCek: openVideoTaker,
                   ),

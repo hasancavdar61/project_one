@@ -28,6 +28,10 @@ class FavorilerWidget extends StatelessWidget {
             onPressed: () => Get.toNamed("/ProfilSayfasi"),
             child: Text('Profil Formu UI Test Butonu'),
           ),
+          ElevatedButton(
+            onPressed: () => Get.toNamed("/SifreDegistirmeSayfasi"),
+            child: Text('Şifre Değiştirme UI Test Butonu'),
+          ),
         ]),
       ),
     );

@@ -8,6 +8,7 @@ class CustomForm extends StatelessWidget {
     this.maxAlan,
     this.inputType,
     this.isObsecure = false,
+    this.isReadOnly = false,
   }) : super(key: key);
 
   final String? topLabel;
@@ -15,6 +16,7 @@ class CustomForm extends StatelessWidget {
   final int? maxAlan;
   final TextInputType? inputType;
   final bool? isObsecure;
+  final bool? isReadOnly;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +33,7 @@ class CustomForm extends StatelessWidget {
             ),
           ),
           TextFormField(
+            readOnly: isReadOnly!,
             obscureText: isObsecure!,
             style: const TextStyle(color: Colors.white),
             maxLines: maxAlan,

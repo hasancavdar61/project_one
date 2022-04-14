@@ -1,6 +1,7 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:octo_image/octo_image.dart';
+import 'package:tidi_islam/core/helpers/screen_size_helper.dart';
 import 'package:tidi_islam/services/video_oynatici.dart';
 import 'package:tidi_islam/view/anasayfa/widgets/video_baslik_widget.dart';
 

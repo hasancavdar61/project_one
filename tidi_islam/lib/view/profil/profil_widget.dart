@@ -1,8 +1,51 @@
-import 'package:flutter/material.dart';
-import 'package:tidi_islam/view/soru_cevap/widgets/custom_form.dart';
+part of 'profil_view.dart';
 
-class ProfilWidget extends StatelessWidget {
+class ProfilWidget extends StatefulWidget {
   const ProfilWidget({Key? key}) : super(key: key);
+
+  @override
+  State<ProfilWidget> createState() => _ProfilWidgetState();
+}
+
+class _ProfilWidgetState extends State<ProfilWidget> {
+  ///Video dosyasını cihazdan almak ya da video çekmek için bu metod kullanılır.
+  //! try - catch bloğuna almayı unutma!!!!!!!!!--------
+  final bool _isVisible = false;
+  late bool _isReadOnly = true;
+  File? fotograf;
+  File? fotografKamera;
+
+  final _picker = ImagePicker();
+
+  Future<void> openPhotoPicker() async {
+    try {
+      final XFile? secilenFotograf =
+          await _picker.pickImage(source: ImageSource.gallery);
+      if (secilenFotograf != null) {
+        setState(() {
+          fotograf = File(secilenFotograf.path);
+        });
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
+  Future<void> openPhotoTaker() async {
+    try {
+      final XFile? cekilenFotograf =
+          await _picker.pickImage(source: ImageSource.camera);
+      if (cekilenFotograf != null) {
+        setState(() {
+          fotografKamera = File(cekilenFotograf.path);
+        });
+        Navigator.pop(context);
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -12,15 +55,8 @@ class ProfilWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const FlutterLogo(
-              size: 50.0,
-            ),
-            const Divider(
-              height: 3,
-              color: Colors.grey,
-            ),
             Text(
-              'KAYIT FORMU',
+              'KULLANICI BİLGİLERİ',
               style: Theme.of(context).textTheme.headline4,
             ),
 
@@ -29,39 +65,45 @@ class ProfilWidget extends StatelessWidget {
               padding: const EdgeInsets.all(24.0),
               child: Form(
                 child: Column(
-                  children: const [
+                  children: [
                     /// Custom yapıda bulunan [SoruCevap]
                     CustomForm(
+                      isReadOnly: _isReadOnly,
                       inputType: TextInputType.name,
                       topLabel: 'İSİM*',
-                      formFieldLabel: 'İsminizi Giriniz',
+                      formFieldLabel: 'DAYNEX',
                       maxAlan: 1,
                     ),
                     CustomForm(
+                      isReadOnly: _isReadOnly,
                       inputType: TextInputType.name,
                       topLabel: 'SOYİSİM*',
-                      formFieldLabel: 'Soyisminizi Giriniz',
+                      formFieldLabel: 'EDİTÖR KULLANICISI',
                       maxAlan: 1,
                     ),
                     CustomForm(
+                      isReadOnly: _isReadOnly,
                       inputType: TextInputType.name,
                       topLabel: 'İL*',
-                      formFieldLabel: 'İl Giriniz',
+                      formFieldLabel: 'TRABZON',
                       maxAlan: 1,
                     ),
                     CustomForm(
+                      isReadOnly: _isReadOnly,
                       inputType: TextInputType.name,
                       topLabel: 'İLÇE*',
-                      formFieldLabel: 'İlçe Giriniz',
+                      formFieldLabel: 'ORTAHİSAR',
                       maxAlan: 1,
                     ),
                     CustomForm(
+                      isReadOnly: _isReadOnly,
                       inputType: TextInputType.phone,
                       topLabel: 'TELEFON*',
                       formFieldLabel: '0 (---) --- -- --',
                       maxAlan: 1,
                     ),
                     CustomForm(
+                      isReadOnly: _isReadOnly,
                       inputType: TextInputType.emailAddress,
                       topLabel: 'E-POSTA*',
                       formFieldLabel: 'eposta@epostagiriniz.com',
@@ -69,6 +111,7 @@ class ProfilWidget extends StatelessWidget {
                     ),
 
                     CustomForm(
+                      isReadOnly: _isReadOnly,
                       isObsecure: true,
                       inputType: TextInputType.visiblePassword,
                       topLabel: 'ŞİFRE*',
@@ -76,6 +119,7 @@ class ProfilWidget extends StatelessWidget {
                       maxAlan: 1,
                     ),
                     CustomForm(
+                      isReadOnly: _isReadOnly,
                       isObsecure: true,
                       inputType: TextInputType.visiblePassword,
                       topLabel: 'ŞİFRE TEKRAR*',
@@ -85,6 +129,47 @@ class ProfilWidget extends StatelessWidget {
                   ],
                 ),
               ),
+            ),
+            Visibility(
+              visible: _isVisible,
+              child: SizedBox(
+                child: fotograf != null
+                    ? const Text('Fotoğraf Kaydedildi',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.amber))
+                    : const Text(
+                        'Dosya Seçilmedi',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.amber),
+                      ),
+              ),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                showMaterialModalBottomSheet(
+                  context: context,
+                  builder: (context) => ModalFit(
+                    pickerLabel: 'Fotoğraf Seç',
+                    takerLabel: 'Fotoğraf Çek',
+                    videoSec: openPhotoPicker,
+                    videoCek: openPhotoTaker,
+                  ),
+                );
+              },
+              child: const Text('FOTOĞRAF SEÇİNİZ*'),
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.teal)),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  _isReadOnly == true
+                      ? _isReadOnly = false
+                      : _isReadOnly = true;
+                });
+              },
+              child: Text('Düzenle'),
             ),
 
             /// Submit butonu [ElevatedButton]

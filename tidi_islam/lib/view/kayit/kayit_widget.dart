@@ -19,13 +19,6 @@ class _KayitWidgetState extends State<KayitWidget> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const FlutterLogo(
-              size: 50.0,
-            ),
-            const Divider(
-              height: 3,
-              color: Colors.grey,
-            ),
             Text(
               'KAYIT FORMU',
               style: Theme.of(context).textTheme.headline4,
