@@ -24,6 +24,7 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      shrinkWrap: true,
       children: [
         /// Fotoğraf geçişleri [ImageSlideshow] ile yapılıyor.
         /// Fotoğraflar
