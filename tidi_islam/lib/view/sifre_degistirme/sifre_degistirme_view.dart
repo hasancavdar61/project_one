@@ -8,7 +8,7 @@ class SifreDegistirmeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: SifreDegistirmeWidget(),
+      body: const SifreDegistirmeWidget(),
     );
   }
 }

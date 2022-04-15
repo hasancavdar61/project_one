@@ -7,10 +7,13 @@ import 'package:tidi_islam/view/soru_cevap/widgets/modal_fit.dart';
 import 'package:tidi_islam/view/soru_cevap/widgets/custom_form.dart';
 
 class SoruCevapWidget extends StatefulWidget {
-  const SoruCevapWidget({Key? key}) : super(key: key);
+  SoruCevapWidget({Key? key}) : super(key: key);
 
   @override
   State<SoruCevapWidget> createState() => _SoruCevapWidgetState();
+
+  final controller = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 }
 
 class _SoruCevapWidgetState extends State<SoruCevapWidget> {
@@ -73,6 +76,7 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
             Padding(
               padding: const EdgeInsets.all(24.0),
               child: Form(
+                key: widget._formKey,
                 child: Column(
                   children: const [
                     /// Custom yapıda bulunan [SoruCevap]
@@ -159,7 +163,9 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
               padding: const EdgeInsets.all(20.0),
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  widget._formKey.currentState!.validate();
+                },
                 child: const Text('SORUNUZU GÖNDERİN'),
                 style: ButtonStyle(
                     backgroundColor:

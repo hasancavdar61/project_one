@@ -50,6 +50,10 @@ class VideoOynatici extends StatelessWidget {
                   SizedBox(
                     width: MediaQuery.of(context).size.width / 2.3,
                     child: OctoImage(
+                      errorBuilder: (context, error, stackTrace) => const Text(
+                        'Bir sorun oluştu.',
+                        style: TextStyle(color: Colors.white),
+                      ),
                       image: NetworkImage(
                         'https://i3.ytimg.com/vi/$embedCode/maxresdefault.jpg',
                       ),

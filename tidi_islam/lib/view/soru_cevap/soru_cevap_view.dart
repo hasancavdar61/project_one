@@ -11,6 +11,6 @@ class SoruCevapView extends StatefulWidget {
 class _SoruCevapViewState extends State<SoruCevapView> {
   @override
   Widget build(BuildContext context) {
-    return const SoruCevapWidget();
+    return SoruCevapWidget();
   }
 }

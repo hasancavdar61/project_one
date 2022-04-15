@@ -169,7 +169,7 @@ class _ProfilWidgetState extends State<ProfilWidget> {
                       : _isReadOnly = true;
                 });
               },
-              child: Text('Düzenle'),
+              child: const Text('Düzenle'),
             ),
 
             /// Submit butonu [ElevatedButton]

@@ -9,7 +9,7 @@ class FavorilerWidget extends StatelessWidget {
     return SingleChildScrollView(
       child: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          Text(
+          const Text(
             'Favori Video Yok',
             style: TextStyle(
                 color: Colors.grey,
@@ -18,19 +18,19 @@ class FavorilerWidget extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () => Get.toNamed("/KayitSayfasi"),
-            child: Text('Kayıt Formu UI Test Butonu'),
+            child: const Text('Kayıt Formu UI Test Butonu'),
           ),
           ElevatedButton(
             onPressed: () => Get.toNamed("/KategoriSayfasi"),
-            child: Text('Kategori UI Test Butonu'),
+            child: const Text('Kategori UI Test Butonu'),
           ),
           ElevatedButton(
             onPressed: () => Get.toNamed("/ProfilSayfasi"),
-            child: Text('Profil Formu UI Test Butonu'),
+            child: const Text('Profil Formu UI Test Butonu'),
           ),
           ElevatedButton(
             onPressed: () => Get.toNamed("/SifreDegistirmeSayfasi"),
-            child: Text('Şifre Değiştirme UI Test Butonu'),
+            child: const Text('Şifre Değiştirme UI Test Butonu'),
           ),
         ]),
       ),

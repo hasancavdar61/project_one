@@ -9,6 +9,8 @@ class CustomForm extends StatelessWidget {
     this.inputType,
     this.isObsecure = false,
     this.isReadOnly = false,
+    this.validateUyari = 'Bu alan boş bırakılamaz',
+    this.controller,
   }) : super(key: key);
 
   final String? topLabel;
@@ -17,6 +19,8 @@ class CustomForm extends StatelessWidget {
   final TextInputType? inputType;
   final bool? isObsecure;
   final bool? isReadOnly;
+  final String validateUyari;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +37,10 @@ class CustomForm extends StatelessWidget {
             ),
           ),
           TextFormField(
+            textInputAction: TextInputAction.next,
+            controller: controller,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (validator) => validator!.isEmpty ? validateUyari : null,
             readOnly: isReadOnly!,
             obscureText: isObsecure!,
             style: const TextStyle(color: Colors.white),

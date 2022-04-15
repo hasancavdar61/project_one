@@ -52,6 +52,8 @@ dependencies:
   video_player: ^2.3.0
   shimmer: ^2.0.0
   octo_image: ^1.0.1
+  riverpod: ^1.0.3
+  liquid_pull_to_refresh: ^3.0.1
 
 dev_dependencies:
   flutter_test:

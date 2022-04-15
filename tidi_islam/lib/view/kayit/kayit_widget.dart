@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:tidi_islam/view/soru_cevap/widgets/custom_form.dart';
 
 class KayitWidget extends StatefulWidget {
-  const KayitWidget({Key? key}) : super(key: key);
+  KayitWidget({Key? key}) : super(key: key);
 
   @override
   State<KayitWidget> createState() => _KayitWidgetState();
+  final _formKey = GlobalKey<FormState>();
 }
 
 class _KayitWidgetState extends State<KayitWidget> {
@@ -28,6 +29,7 @@ class _KayitWidgetState extends State<KayitWidget> {
             Padding(
               padding: const EdgeInsets.all(24.0),
               child: Form(
+                key: widget._formKey,
                 child: Column(
                   children: const [
                     /// Custom yapıda bulunan [SoruCevap]
@@ -92,7 +94,9 @@ class _KayitWidgetState extends State<KayitWidget> {
               padding: const EdgeInsets.all(20.0),
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  widget._formKey.currentState!.validate();
+                },
                 child: const Text('ÜYELİK FORMUNU GÖNDER'),
                 style: ButtonStyle(
                     backgroundColor:

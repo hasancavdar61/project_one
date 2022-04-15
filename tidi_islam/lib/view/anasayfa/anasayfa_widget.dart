@@ -1,7 +1,7 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:octo_image/octo_image.dart';
-import 'package:tidi_islam/core/helpers/screen_size_helper.dart';
 import 'package:tidi_islam/services/video_oynatici.dart';
 import 'package:tidi_islam/view/anasayfa/widgets/video_baslik_widget.dart';
 
@@ -22,6 +22,7 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
     'http://tidislam.daynexdemo.tk/upload/ckfinder/images/slider/dini-bilgiler-ogreniyorum-slider-calasimasi1.JPG',
     'http://tidislam.daynexdemo.tk/upload/ckfinder/images/slider/islami-ogreniyorum-cocuk.JPG',
   ];
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -44,6 +45,12 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
             layout: SwiperLayout.DEFAULT,
             itemCount: urls.length,
             itemBuilder: (BuildContext context, int index) => OctoImage(
+              errorBuilder: (context, error, stackTrace) => const Center(
+                child: Text(
+                  'Yüklenirken bir sorun oluştu...',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
               image: NetworkImage(
                 urls[index],
               ),

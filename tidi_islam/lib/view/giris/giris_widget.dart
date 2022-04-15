@@ -3,7 +3,9 @@ import 'package:get/get.dart';
 import 'package:tidi_islam/view/soru_cevap/widgets/custom_form.dart';
 
 class GirisWidget extends StatelessWidget {
-  const GirisWidget({Key? key}) : super(key: key);
+  GirisWidget({Key? key}) : super(key: key);
+
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class GirisWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.all(24.0),
           child: Form(
+            key: _formKey,
             child: Column(
               children: const [
                 CustomForm(
@@ -48,7 +51,9 @@ class GirisWidget extends StatelessWidget {
           child: ElevatedButton(
             style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(Colors.teal)),
-            onPressed: () {},
+            onPressed: () {
+              _formKey.currentState!.validate();
+            },
             child: Container(
               margin: const EdgeInsets.all(20.0),
               child: const Text(
@@ -71,7 +76,7 @@ class GirisWidget extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 25.0,
         ),
         Container(
