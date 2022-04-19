@@ -44,7 +44,7 @@ class FavorilerWidget extends StatelessWidget {
           ElevatedButton(
             onPressed: () => Get.defaultDialog(
               title: 'Dialog Test',
-              content: Text('data'),
+              content: const Text('data'),
               actions: [
                 ElevatedButton(
                   onPressed: () => text.value = 'dialog',

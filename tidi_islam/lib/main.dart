@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       getPages: GetRouteService().routesGet,
-      home: Scaffold(
+      home: const Scaffold(
         body: AnasayfaView(),
       ),
       theme: ThemeData(
