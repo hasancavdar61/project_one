@@ -37,32 +37,24 @@ class _YanMenuState extends State<YanMenu> {
           /// Custom oluşturulan [ExpansionMenu] [ExpansionTile] özellilkleri
           /// barındırıp custom propertyler alarak kullanımı hafife kolaya
           /// indirilmiştir.
-          const ExpansionMenu(
-            kategoriAdi: 'DİNİ KELİMELER VE ANLAMLARI',
-          ),
-          const Divider(
-            height: 1.0,
-            thickness: 1.0,
-            endIndent: 20.0,
-            color: Colors.grey,
-          ),
-          const ExpansionMenu(
-            kategoriAdi: 'DİNİ BİLGİLER',
-          ),
-          const Divider(
-            height: 1.0,
-            thickness: 1.0,
-            endIndent: 20.0,
-            color: Colors.grey,
-          ),
-          const ExpansionMenu(
-            kategoriAdi: 'PEYGAMBERLERİN HAYATI',
-          ),
-          const Divider(
-            height: 1.0,
-            thickness: 1.0,
-            endIndent: 20.0,
-            color: Colors.grey,
+          ListView.builder(
+            shrinkWrap: true,
+            itemBuilder: ((context, index) {
+              return Column(
+                children: [
+                  ExpansionMenu(
+                    kategoriAdi: KategoriListesi().kategoriAdi[index],
+                  ),
+                  const Divider(
+                    height: 1.0,
+                    thickness: 1.0,
+                    endIndent: 20.0,
+                    color: Colors.grey,
+                  ),
+                ],
+              );
+            }),
+            itemCount: KategoriListesi().kategoriAdi.length,
           ),
 
           /// Tek dokunma ve açılmayan menü yapısı
@@ -78,3 +70,19 @@ class _YanMenuState extends State<YanMenu> {
     );
   }
 }
+
+class KategoriListesi {
+  List<String> kategoriAdi = [
+    "DİNİ KELİMELER VE ANLAMLARI",
+    "DİNİ BİLGİLER",
+    "PEYGAMBERLERİN HAYATI",
+  ];
+  List<String> altKategoriler = [
+    "KADIN",
+    "ERKEK",
+    "ÇOCUK",
+  ];
+  
+}
+
+

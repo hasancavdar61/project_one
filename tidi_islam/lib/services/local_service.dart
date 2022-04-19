@@ -10,7 +10,7 @@ import 'package:tidi_islam/view/sifre_degistirme/sifre_degistirme_view.dart';
 ///[GetX] named route [GetRouteService] with [gettingRoutes] method.
 class GetRouteService {
   get routesGet => [
-        gettingRoutes('/', const AnasayfaView()),
+        gettingRoutes('/',  AnasayfaView()),
         gettingRoutes('/KategoriSayfasi', const KategoriView()),
         gettingRoutes('/KayitSayfasi', const KayitView()),
         gettingRoutes('/GirisSayfasi', const GirisView()),
@@ -23,4 +23,5 @@ class GetRouteService {
 GetPage<dynamic> gettingRoutes(String name, Widget pageGetter) => GetPage(
       name: name,
       page: () => pageGetter,
+      //transition: transition,
     );

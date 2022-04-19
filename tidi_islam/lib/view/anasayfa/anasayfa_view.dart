@@ -16,7 +16,7 @@ class AnasayfaView extends StatefulWidget {
 }
 
 class _AnasayfaViewState extends State<AnasayfaView> {
-  int currentIndex = 0;
+  var currentIndex = 0.obs;
   List<Widget> screens = [
     //1
     const AnasayfaWidget(),
@@ -35,10 +35,15 @@ class _AnasayfaViewState extends State<AnasayfaView> {
         appBar: AppBar(
           automaticallyImplyLeading: true,
           title: GestureDetector(
-            onTap: () => setState(() {
-              currentIndex = 0;
-            }),
-            child: const Text('TİDİSLAM'),
+            onTap: () => currentIndex.value = 0,
+            child: Container(
+              alignment: Alignment.center,
+              height: 50,
+              child: Image.asset(
+                'assets/tid_logo.png',
+                fit: BoxFit.contain,
+              ),
+            ),
           ),
           actions: [
             TextButton(
@@ -56,42 +61,44 @@ class _AnasayfaViewState extends State<AnasayfaView> {
         drawer: const YanMenu(),
 
         /// [BottomNavigationBar] onTap metodu [currentIndex] durumuna bağlıdır.
-        //! [setState] metodu değişecektir state management ile yapılacaktır.
-        bottomNavigationBar: BottomNavigationBar(
-          onTap: (value) {
-            setState(() {
-              currentIndex = value;
-            });
-          },
-          currentIndex: currentIndex,
-          type: BottomNavigationBarType.fixed,
-          selectedFontSize: 12.0,
-          unselectedItemColor: Colors.black,
-          selectedItemColor: Colors.teal,
-          items: const [
-            BottomNavigationBarItem(
-              label: 'Anasayfa',
-              icon: FaIcon(
-                FontAwesomeIcons.houseChimney,
-              ),
-            ),
-            BottomNavigationBarItem(
-              label: 'Favoriler',
-              icon: FaIcon(FontAwesomeIcons.heart),
-            ),
-            BottomNavigationBarItem(
-              label: 'Soru-Cevap',
-              icon: FaIcon(FontAwesomeIcons.question),
-            ),
-            BottomNavigationBarItem(
-              label: 'İletişim',
-              icon: FaIcon(FontAwesomeIcons.commentDots),
-            ),
-            BottomNavigationBarItem(
-              label: 'Hakkımızda',
-              icon: FaIcon(FontAwesomeIcons.circleInfo),
-            ),
-          ],
+        /// [BottomNavigationBar] içerisinde [BottomNavigationBarItem] kullanılmıştır.
+        /// [BottomNavigationBarItem] içerisinde [Icon] ve [Text] kullanılmıştır.
+        /// [Icon] içerisinde [FontAwesomeIcons] kullanılmıştır.
+        bottomNavigationBar: Obx(
+          (() => BottomNavigationBar(
+                onTap: (value) {
+                  currentIndex.value = value;
+                },
+                currentIndex: currentIndex.value,
+                type: BottomNavigationBarType.fixed,
+                selectedFontSize: 12.0,
+                unselectedItemColor: Colors.black,
+                selectedItemColor: Colors.teal,
+                items: const [
+                  BottomNavigationBarItem(
+                    label: 'Anasayfa',
+                    icon: FaIcon(
+                      FontAwesomeIcons.houseChimney,
+                    ),
+                  ),
+                  BottomNavigationBarItem(
+                    label: 'Favoriler',
+                    icon: FaIcon(FontAwesomeIcons.heart),
+                  ),
+                  BottomNavigationBarItem(
+                    label: 'Soru-Cevap',
+                    icon: FaIcon(FontAwesomeIcons.question),
+                  ),
+                  BottomNavigationBarItem(
+                    label: 'İletişim',
+                    icon: FaIcon(FontAwesomeIcons.commentDots),
+                  ),
+                  BottomNavigationBarItem(
+                    label: 'Hakkımızda',
+                    icon: FaIcon(FontAwesomeIcons.circleInfo),
+                  ),
+                ],
+              )),
         ),
 
         /// [Scaffold] yapısının [body] parametresi burada bulunur.
@@ -100,7 +107,13 @@ class _AnasayfaViewState extends State<AnasayfaView> {
         /// [onTap] metoduyla set edilip kullanıcının [BottomNavigationBar]
         /// üzerindeki butonlara dokunma/tıklamasıyla tetiklenir ve gerekli
         /// sayfa ekrana gelir.
+        /// [Scaffold] içerisinde [Drawer] yapısı kullanılmıştır.
+        /// [Drawer] içerisinde [YanMenu] yapısı kullanılmıştır.
+        /// [YanMenu] içerisinde [ListView] yapısı kullanılmıştır.
+        /// [ListView] içerisinde [ListTile] yapısı kullanılmıştır.
 
-        body: screens[currentIndex]);
+        body: Obx(
+          () => screens[currentIndex.value],
+        ));
   }
 }

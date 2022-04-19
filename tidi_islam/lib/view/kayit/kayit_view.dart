@@ -7,7 +7,16 @@ class KayitView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Container(
+          alignment: Alignment.center,
+          height: 50,
+          child: Image.asset(
+            'assets/tid_logo.png',
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
       body: SafeArea(child: KayitWidget()),
     );
   }

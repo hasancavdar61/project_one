@@ -28,6 +28,7 @@ class _KategoriWidgetState extends State<KategoriWidget> {
             ),
           ],
         ),
+
         /// Kategori listeden gelen embed codeları kullanır.
         body: ListView.builder(
           itemCount: videoEmbedList.length,

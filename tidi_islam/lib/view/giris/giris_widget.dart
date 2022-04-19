@@ -11,17 +11,13 @@ class GirisWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        const FlutterLogo(
-          size: 50.0,
-        ),
-        const Divider(
-          height: 3,
-          color: Colors.grey,
-        ),
-        Text(
-          'HOŞGELDİNİZ',
-          textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headline4,
+        Padding(
+          padding: const EdgeInsets.only(top: 20.0),
+          child: Text(
+            'HOŞGELDİNİZ',
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headline4,
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(24.0),

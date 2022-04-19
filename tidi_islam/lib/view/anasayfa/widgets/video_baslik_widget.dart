@@ -18,23 +18,26 @@ class VideoBaslikWidget extends StatelessWidget {
       child: Container(
         color: Colors.teal,
         padding: const EdgeInsets.all(12.0),
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-          Container(
-            padding: const EdgeInsets.only(left: 5.0, right: 5.0),
-            decoration: const BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.all(Radius.circular(3))),
-            child: const Icon(
-              Icons.play_arrow,
-              color: Colors.white,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Container(
+              padding: const EdgeInsets.only(left: 5.0, right: 5.0),
+              decoration: const BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.all(Radius.circular(3))),
+              child: const Icon(
+                Icons.play_arrow,
+                color: Colors.white,
+              ),
             ),
-          ),
-          Text(
-            baslikAdi!,
-            style: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.bold),
-          ),
-        ]),
+            Text(
+              baslikAdi!,
+              style: const TextStyle(
+                  color: Colors.white, fontWeight: FontWeight.bold),
+            ),
+          ],
+        ),
       ),
     );
   }

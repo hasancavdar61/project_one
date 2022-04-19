@@ -6,8 +6,9 @@ class GirisView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  SafeArea(
+    return SafeArea(
       child: Scaffold(
+        appBar: AppBar(),
         body: GirisWidget(),
       ),
     );

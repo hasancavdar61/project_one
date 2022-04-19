@@ -11,16 +11,13 @@
 //! HASAN ÇAVDAR 08.04.2022
 
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:tidi_islam/services/local_service.dart';
 import 'package:tidi_islam/view/anasayfa/anasayfa_view.dart';
 
 void main() {
   runApp(
-    const ProviderScope(
-      child: MyApp(),
-    ),
+    const MyApp(),
   );
 }
 
@@ -33,7 +30,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       getPages: GetRouteService().routesGet,
-      home: const Scaffold(
+      home: Scaffold(
         body: AnasayfaView(),
       ),
       theme: ThemeData(

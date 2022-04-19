@@ -1,6 +1,6 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'package:get/get.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:tidi_islam/services/video_oynatici.dart';
 import 'package:tidi_islam/view/anasayfa/widgets/video_baslik_widget.dart';
@@ -36,7 +36,7 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
 
         SizedBox(
           width: double.infinity,
-          height: MediaQuery.of(context).size.height / 4,
+          height: Get.height / 4,
           child: Swiper(
             onIndexChanged: (value) => debugPrint(value.toString()),
             autoplayDelay: 10000,
@@ -94,9 +94,8 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
         const VideoBaslikWidget(
           baslikAdi: 'DİNİ KELİMELER VE ANLAMLARI ERKEK',
         ),
-
         const VideoOynatici(
-          embedCode: '9ZzkegO1pg4',
+          embedCode: 'vRKYrcmqZEk',
         ),
         Divider(
           thickness: 1,
@@ -104,7 +103,7 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
           color: Colors.grey.shade700,
         ),
         const VideoOynatici(
-          embedCode: 'm1a2MLLQntY',
+          embedCode: 'c6X3kyQJwVs',
         ),
         Divider(
           thickness: 1,
@@ -112,9 +111,23 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
           color: Colors.grey.shade700,
         ),
         const VideoOynatici(
-          embedCode: 'lQvGtdUbF8I',
+          embedCode: 'nX8-oEvKvx0',
         ),
       ],
     );
   }
 }
+
+/*
+ GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+            ),
+            itemCount: 4,
+            itemBuilder: (BuildContext context, int index) {
+              return const VideoGrid(
+                embedCode: 'nX8-oEvKvx0',
+              );
+            }),
+*/

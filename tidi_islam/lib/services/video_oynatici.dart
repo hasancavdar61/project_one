@@ -3,9 +3,13 @@ import 'package:octo_image/octo_image.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class VideoOynatici extends StatelessWidget {
-  const VideoOynatici({Key? key, this.embedCode}) : super(key: key);
+  const VideoOynatici({
+    Key? key,
+    this.embedCode,
+  }) : super(key: key);
 
   final String? embedCode;
+
   @override
   Widget build(BuildContext context) {
     YoutubePlayerController _controller = YoutubePlayerController(
@@ -103,7 +107,7 @@ class VideoOynatici extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
                       Text(
-                        'Video Adı',
+                        'videoAdi!',
                         style: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold),
                       ),
@@ -111,7 +115,7 @@ class VideoOynatici extends StatelessWidget {
                         height: 10,
                       ),
                       Text(
-                        'Video kategorisi adı',
+                        ' kategoriAdi!,',
                         maxLines: 4,
                         style: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.normal),
@@ -127,6 +131,7 @@ class VideoOynatici extends StatelessWidget {
     );
   }
 }
+//---------------------------------------------------------------
 
 /// Video dialog çalışmasını sağlayan metod.
 showVideoDialog(BuildContext context, YoutubePlayerController _controller) {
@@ -142,4 +147,90 @@ showVideoDialog(BuildContext context, YoutubePlayerController _controller) {
       ),
     ),
   );
+}
+
+class VideoGrid extends StatelessWidget {
+  const VideoGrid({Key? key, this.embedCode}) : super(key: key);
+
+  final String? embedCode;
+
+  @override
+  Widget build(BuildContext context) {
+    YoutubePlayerController _controller = YoutubePlayerController(
+      initialVideoId: embedCode!,
+      params: const YoutubePlayerParams(
+        startAt: Duration(seconds: 0),
+        showControls: true,
+        showFullscreenButton: true,
+      ),
+    );
+
+    return AspectRatio(
+      aspectRatio: 16 / 9,
+      child: Stack(
+        children: [
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 8.0),
+                child: OctoImage(
+                  errorBuilder: (context, error, stackTrace) => const Text(
+                    'Bir sorun oluştu.',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  image: NetworkImage(
+                    'https://i3.ytimg.com/vi/$embedCode/maxresdefault.jpg',
+                  ),
+                  placeholderBuilder: (context) => const Center(
+                    child: CircularProgressIndicator(
+                      color: Colors.red,
+                      backgroundColor: Colors.teal,
+                    ),
+                  ),
+                  fit: BoxFit.fill,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Container(
+                padding: const EdgeInsets.only(left: 14.0),
+                alignment: Alignment.centerLeft,
+                child: const Text(
+                  'Video Adı',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              const SizedBox(height: 5.0),
+              Container(
+                padding: const EdgeInsets.only(left: 14.0),
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Video Kategorisi Adı',
+                  style: TextStyle(color: Colors.grey.shade400),
+                ),
+              ),
+            ],
+          ),
+          const Positioned(
+            left: 10,
+            top: 10,
+            child: Icon(Icons.favorite),
+          ),
+          Positioned(
+            left: 1,
+            top: 42,
+            right: 1,
+            child: Container(
+              padding: const EdgeInsets.all(8.0),
+              child: const Icon(
+                Icons.play_arrow,
+                color: Colors.white,
+              ),
+              decoration: BoxDecoration(
+                  color: Colors.red.withOpacity(0.7), shape: BoxShape.circle),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }

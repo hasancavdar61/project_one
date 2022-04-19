@@ -74,7 +74,7 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
 
             ///Form yapısını tutan parent widget.
             Padding(
-              padding: const EdgeInsets.all(24.0),
+              padding: const EdgeInsets.all(28.0),
               child: Form(
                 key: widget._formKey,
                 child: Column(
