@@ -36,3 +36,23 @@ final List<String> videoEmbedListesiKadin = [
   'c6X3kyQJwVs',
   'nX8-oEvKvx0',
 ];
+
+  final List<String> diniKelimelerVeAnlamlariKadin = [
+    'vRKYrcmqZEk',
+    'c6X3kyQJwVs',
+    'nX8-oEvKvx0',
+  ];
+
+  final List<String> diniKelimelerVeAnlamlariErkek = [
+    'vRKYrcmqZEk',
+    'c6X3kyQJwVs',
+    'nX8-oEvKvx0',
+  ];
+  final List<String> diniKelimelerVeAnlamlariCocuk = [
+    'vRKYrcmqZEk',
+    'c6X3kyQJwVs',
+    'nX8-oEvKvx0',
+  ];
+
+
+

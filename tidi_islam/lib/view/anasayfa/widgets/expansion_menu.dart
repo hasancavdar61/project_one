@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:tidi_islam/view/anasayfa/widgets/yan_menu_widget.dart';
 import 'dart:math';
 
@@ -80,7 +81,9 @@ class ExpansionMenu extends StatelessWidget {
                   itemCount: KategoriListesi().altKategoriler.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed('/KategoriSayfasi', arguments: []);
+                      },
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border(

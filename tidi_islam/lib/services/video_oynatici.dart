@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
@@ -15,7 +16,6 @@ class VideoOynatici extends StatelessWidget {
     YoutubePlayerController _controller = YoutubePlayerController(
       initialVideoId: embedCode!,
       params: const YoutubePlayerParams(
-        startAt: Duration(seconds: 0),
         showControls: true,
         showFullscreenButton: true,
       ),
@@ -61,12 +61,10 @@ class VideoOynatici extends StatelessWidget {
                       image: NetworkImage(
                         'https://i3.ytimg.com/vi/$embedCode/maxresdefault.jpg',
                       ),
-                      placeholderBuilder: (context) => const Center(
-                        child: CircularProgressIndicator(
-                          color: Colors.red,
-                          backgroundColor: Colors.teal,
-                        ),
-                      ),
+                      placeholderBuilder: (context) => Center(
+                          child: SpinKitCubeGrid(
+                        color: Colors.red,
+                      )),
                       fit: BoxFit.fill,
                     ),
                   ),

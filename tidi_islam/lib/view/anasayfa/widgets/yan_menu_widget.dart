@@ -39,6 +39,7 @@ class _YanMenuState extends State<YanMenu> {
           /// indirilmiştir.
           ListView.builder(
             shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
             itemBuilder: ((context, index) {
               return Column(
                 children: [
@@ -82,7 +83,4 @@ class KategoriListesi {
     "ERKEK",
     "ÇOCUK",
   ];
-  
 }
-
-

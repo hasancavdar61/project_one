@@ -1,5 +1,6 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:tidi_islam/services/video_oynatici.dart';
@@ -55,9 +56,8 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
                 urls[index],
               ),
               placeholderBuilder: (context) => const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.red,
-                  backgroundColor: Colors.teal,
+                child: SpinKitFadingCircle(
+                  color: Colors.teal,
                 ),
               ),
               fit: BoxFit.fill,
