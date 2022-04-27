@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class CustomForm extends StatelessWidget {
   const CustomForm({
@@ -10,7 +11,7 @@ class CustomForm extends StatelessWidget {
     this.isObsecure = false,
     this.isReadOnly = false,
     this.validateUyari = 'Bu alan boş bırakılamaz',
-    this.controller,
+    this.controller, this.mask, this.filter,
   }) : super(key: key);
 
   final String? topLabel;
@@ -21,6 +22,8 @@ class CustomForm extends StatelessWidget {
   final bool? isReadOnly;
   final String validateUyari;
   final TextEditingController? controller;
+  final String? mask;
+  final Map<String, RegExp>? filter;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +40,13 @@ class CustomForm extends StatelessWidget {
             ),
           ),
           TextFormField(
+            inputFormatters: [
+              MaskTextInputFormatter(
+                  mask: mask, //'# (###) ###-##-##',
+                  filter: filter, //{"#": RegExp(r'[0-9]')},
+                  type: MaskAutoCompletionType.lazy),
+            ],
+            cursorColor: Colors.teal,
             textInputAction: TextInputAction.next,
             controller: controller,
             autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -47,6 +57,9 @@ class CustomForm extends StatelessWidget {
             maxLines: maxAlan,
             keyboardType: inputType,
             decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.teal),
+              ),
               enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.white),
                   borderRadius: BorderRadius.zero),

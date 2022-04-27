@@ -1,9 +1,12 @@
+import 'dart:developer';
+
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
-class VideoOynatici extends StatelessWidget {
+class VideoOynatici extends StatefulWidget {
   const VideoOynatici({
     Key? key,
     this.embedCode,
@@ -12,9 +15,16 @@ class VideoOynatici extends StatelessWidget {
   final String? embedCode;
 
   @override
+  State<VideoOynatici> createState() => _VideoOynaticiState();
+}
+
+class _VideoOynaticiState extends State<VideoOynatici> {
+  Color color = Colors.black;
+  String favoriTitle = 'İşlem başarılı';
+  @override
   Widget build(BuildContext context) {
     YoutubePlayerController _controller = YoutubePlayerController(
-      initialVideoId: embedCode!,
+      initialVideoId: widget.embedCode!,
       params: const YoutubePlayerParams(
         showControls: true,
         showFullscreenButton: true,
@@ -25,30 +35,13 @@ class VideoOynatici extends StatelessWidget {
       padding: const EdgeInsets.all(14.0),
       child: Stack(
         children: [
-          /// Favori ikonu
-          Positioned(
-            right: 1,
-            child: GestureDetector(
-              onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('Favorilere başarıyla kaydedildi.'),
-                  ),
-                );
-              },
-              child: const Icon(
-                Icons.favorite_border_outlined,
-                color: Colors.red,
-              ),
-            ),
-          ),
-
           /// Video thumbnnail ve play butonu
           GestureDetector(
             onTap: () {
               showVideoDialog(context, _controller);
             },
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Stack(children: [
                   SizedBox(
@@ -59,7 +52,7 @@ class VideoOynatici extends StatelessWidget {
                         style: TextStyle(color: Colors.white),
                       ),
                       image: NetworkImage(
-                        'https://i3.ytimg.com/vi/$embedCode/maxresdefault.jpg',
+                        'https://i3.ytimg.com/vi/${widget.embedCode}/maxresdefault.jpg',
                       ),
                       placeholderBuilder: (context) => Center(
                           child: SpinKitCubeGrid(
@@ -102,26 +95,52 @@ class VideoOynatici extends StatelessWidget {
                 /// !Video adı ve Kategori adı
                 Expanded(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: const [
-                      Text(
-                        'videoAdi!',
+                      AutoSizeText.rich(
+                        TextSpan(text: 'İMANIN ŞARTLARI KADIN ÇEVİRMEN'),
                         style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        minFontSize: 5,
                       ),
                       SizedBox(
                         height: 10,
                       ),
-                      Text(
-                        ' kategoriAdi!,',
-                        maxLines: 4,
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.normal),
-                      ),
+                      AutoSizeText.rich(
+                        TextSpan(text: 'TÜRK İŞARET DİLİNDE DİNİ BİLGİLER'),
+                        style: TextStyle(color: Colors.white),
+                        maxFontSize: 10,
+                        minFontSize: 5,
+                      )
                     ],
                   ),
                 ),
               ],
+            ),
+          ),
+
+          /// Favori ikonu
+          Positioned(
+            left: 3,
+            top: 3,
+            child: GestureDetector(
+              onTap: () {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(favoriTitle),
+                  ),
+                );
+                setState(() {
+                  color == Colors.black
+                      ? color = Colors.red
+                      : color = Colors.black;
+                });
+              },
+              child: Icon(
+                Icons.favorite,
+                color: color,
+              ),
             ),
           ),
         ],

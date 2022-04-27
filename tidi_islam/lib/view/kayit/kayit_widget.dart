@@ -33,7 +33,7 @@ class _KayitWidgetState extends State<KayitWidget> {
                 child: Form(
                   key: widget._formKey,
                   child: Column(
-                    children: const [
+                    children: [
                       /// Custom yapıda bulunan [SoruCevap]
                       CustomForm(
                         inputType: TextInputType.name,
@@ -60,6 +60,8 @@ class _KayitWidgetState extends State<KayitWidget> {
                         maxAlan: 1,
                       ),
                       CustomForm(
+                        mask: '# (###) ###-##-##',
+                        filter: {"#": RegExp(r'[0-9]')},
                         inputType: TextInputType.phone,
                         topLabel: 'TELEFON*',
                         formFieldLabel: '0 (---) --- -- --',

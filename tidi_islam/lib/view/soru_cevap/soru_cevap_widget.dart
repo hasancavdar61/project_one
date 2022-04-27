@@ -18,7 +18,7 @@ class SoruCevapWidget extends StatefulWidget {
 
 class _SoruCevapWidgetState extends State<SoruCevapWidget> {
   ///Video dosyasını cihazdan almak ya da video çekmek için bu metod kullanılır.
-  //! try - catch bloğuna almayı unutma!!!!!!!!!--------
+
   late bool _isVisible = false;
   File? video;
   File? videoKamera;
@@ -67,6 +67,13 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: Divider(
+                color: Colors.grey,
+                thickness: 1,
+              ),
+            ),
             Text(
               'SORULARINIZI VİDEO \n İLE BİZE ULAŞTIRIN',
               style: Theme.of(context).textTheme.headline4,
@@ -78,7 +85,7 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
               child: Form(
                 key: widget._formKey,
                 child: Column(
-                  children: const [
+                  children: [
                     /// Custom yapıda bulunan [SoruCevap]
                     CustomForm(
                       inputType: TextInputType.name,
@@ -99,6 +106,8 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
                       maxAlan: 1,
                     ),
                     CustomForm(
+                      mask: '# (###) ###-##-##',
+                      filter: {"#": RegExp(r'[0-9]')},
                       inputType: TextInputType.phone,
                       topLabel: 'TELEFON*',
                       formFieldLabel: '0 (---) --- -- --',

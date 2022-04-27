@@ -62,9 +62,11 @@ class _AnasayfaViewState extends State<AnasayfaView> {
                 items: const [
                   BottomNavigationBarItem(
                     label: 'Anasayfa',
-                    icon: FaIcon(
-                      FontAwesomeIcons.houseChimney,
-                    ),
+                    icon: FaIcon(FontAwesomeIcons.houseChimney),
+                  ),
+                  BottomNavigationBarItem(
+                    label: 'Hakkımızda',
+                    icon: FaIcon(FontAwesomeIcons.circleInfo),
                   ),
                   BottomNavigationBarItem(
                     label: 'Favoriler',
@@ -77,10 +79,6 @@ class _AnasayfaViewState extends State<AnasayfaView> {
                   BottomNavigationBarItem(
                     label: 'İletişim',
                     icon: FaIcon(FontAwesomeIcons.commentDots),
-                  ),
-                  BottomNavigationBarItem(
-                    label: 'Hakkımızda',
-                    icon: FaIcon(FontAwesomeIcons.circleInfo),
                   ),
                 ],
               )),
