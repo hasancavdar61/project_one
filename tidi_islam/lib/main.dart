@@ -12,17 +12,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tidi_islam/constants/theme.dart';
 import 'package:tidi_islam/services/local_service.dart';
 import 'package:tidi_islam/view/anasayfa/anasayfa_view.dart';
 
 void main() {
   runApp(
-    const MyApp(),
+    const TidApp(),
   );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({
+class TidApp extends StatelessWidget {
+  const TidApp({
     Key? key,
   }) : super(key: key);
 
@@ -33,19 +34,7 @@ class MyApp extends StatelessWidget {
       home: const Scaffold(
         body: AnasayfaView(),
       ),
-      theme: ThemeData(
-        appBarTheme: const AppBarTheme(backgroundColor: Colors.black),
-        scaffoldBackgroundColor: Colors.black,
-        primaryColor: Colors.black,
-        colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Colors.teal),
-        textTheme: const TextTheme(
-          headline3: TextStyle(color: Colors.white),
-          headline4:
-              TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-          headline5: TextStyle(color: Colors.white),
-          headline6: TextStyle(color: Colors.white),
-        ),
-      ),
+      theme: AppTheme().themeData,
     );
   }
 }
