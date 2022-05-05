@@ -31,17 +31,12 @@ class _IletisimWidgetState extends State<IletisimWidget> {
               ),
             );
           } else {
-            return ListView.builder(
-              itemCount: snapshot.data.length,
-              itemBuilder: (context, index) => ListTile(
-                title: Text(
-                  snapshot.data[index].title.toString().toUpperCase(),
-                  style: const TextStyle(color: Colors.red),
-                ),
-                subtitle: Text(snapshot.data[index].body,
-                    style: TextStyle(color: Colors.blue.shade700)),
-                contentPadding: const EdgeInsets.only(bottom: 20.0),
-              ),
+            return Text(
+              'İletişim',
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 40.0,
+                  fontWeight: FontWeight.bold),
             );
           }
         },

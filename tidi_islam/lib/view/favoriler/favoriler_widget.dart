@@ -8,7 +8,21 @@ class FavorilerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     RxString text = 'text'.obs;
-    return SingleChildScrollView(
+    return Center(
+      child: Text(
+        'Favori Video Yok',
+        style: TextStyle(
+            color: Colors.grey, fontSize: 40.0, fontWeight: FontWeight.bold),
+      ),
+    );
+  }
+}
+
+
+
+
+          /*
+          SingleChildScrollView(
       child: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           const Text(
@@ -68,3 +82,4 @@ class FavorilerWidget extends StatelessWidget {
     );
   }
 }
+          */

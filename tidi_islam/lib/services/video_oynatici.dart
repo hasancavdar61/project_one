@@ -20,7 +20,7 @@ class VideoOynatici extends StatefulWidget {
 
 class _VideoOynaticiState extends State<VideoOynatici> {
   Color color = Colors.black;
-  String favoriTitle = 'İşlem başarılı';
+  String favoriTitle = 'Favori işlemi başarılı';
   @override
   Widget build(BuildContext context) {
     YoutubePlayerController _controller = YoutubePlayerController(
