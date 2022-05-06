@@ -57,8 +57,8 @@ class CustomForm extends StatelessWidget {
             maxLines: maxAlan,
             keyboardType: inputType,
             decoration: InputDecoration(
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.teal),
+              focusedBorder: const OutlineInputBorder(
+                borderSide:  BorderSide(color: Colors.teal),
               ),
               enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.white),

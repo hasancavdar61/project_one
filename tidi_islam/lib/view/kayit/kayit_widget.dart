@@ -35,25 +35,25 @@ class _KayitWidgetState extends State<KayitWidget> {
                   child: Column(
                     children: [
                       /// Custom yapıda bulunan [SoruCevap]
-                      CustomForm(
+                      const CustomForm(
                         inputType: TextInputType.name,
                         topLabel: 'İSİM*',
                         formFieldLabel: 'İsminizi Giriniz',
                         maxAlan: 1,
                       ),
-                      CustomForm(
+                      const CustomForm(
                         inputType: TextInputType.name,
                         topLabel: 'SOYİSİM*',
                         formFieldLabel: 'Soyisminizi Giriniz',
                         maxAlan: 1,
                       ),
-                      CustomForm(
+                      const CustomForm(
                         inputType: TextInputType.name,
                         topLabel: 'İL*',
                         formFieldLabel: 'İl Giriniz',
                         maxAlan: 1,
                       ),
-                      CustomForm(
+                      const CustomForm(
                         inputType: TextInputType.name,
                         topLabel: 'İLÇE*',
                         formFieldLabel: 'İlçe Giriniz',
@@ -67,21 +67,21 @@ class _KayitWidgetState extends State<KayitWidget> {
                         formFieldLabel: '0 (---) --- -- --',
                         maxAlan: 1,
                       ),
-                      CustomForm(
+                      const CustomForm(
                         inputType: TextInputType.emailAddress,
                         topLabel: 'E-POSTA*',
                         formFieldLabel: 'eposta@epostagiriniz.com',
                         maxAlan: 1,
                       ),
 
-                      CustomForm(
+                      const CustomForm(
                         isObsecure: true,
                         inputType: TextInputType.visiblePassword,
                         topLabel: 'ŞİFRE*',
                         formFieldLabel: 'Şifre Giriniz',
                         maxAlan: 1,
                       ),
-                      CustomForm(
+                      const CustomForm(
                         isObsecure: true,
                         inputType: TextInputType.visiblePassword,
                         topLabel: 'ŞİFRE TEKRAR*',

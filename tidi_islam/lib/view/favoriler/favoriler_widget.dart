@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:tidi_islam/view/anasayfa/widgets/yan_menu_widget.dart';
 
 class FavorilerWidget extends StatelessWidget {
   const FavorilerWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    RxString text = 'text'.obs;
-    return Center(
+    return const Center(
       child: Text(
         'Favori Video Yok',
         style: TextStyle(

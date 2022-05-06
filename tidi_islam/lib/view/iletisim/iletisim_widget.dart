@@ -31,9 +31,9 @@ class _IletisimWidgetState extends State<IletisimWidget> {
               ),
             );
           } else {
-            return Text(
+            return const Text(
               'İletişim',
-              style: TextStyle(
+              style:  TextStyle(
                   color: Colors.grey,
                   fontSize: 40.0,
                   fontWeight: FontWeight.bold),

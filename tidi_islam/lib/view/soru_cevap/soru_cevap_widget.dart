@@ -67,8 +67,8 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(18.0),
+            const Padding(
+              padding: EdgeInsets.all(18.0),
               child: Divider(
                 color: Colors.grey,
                 thickness: 1,
@@ -87,19 +87,19 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
                 child: Column(
                   children: [
                     /// Custom yapıda bulunan [SoruCevap]
-                    CustomForm(
+                    const CustomForm(
                       inputType: TextInputType.name,
                       topLabel: 'İSİM*',
                       formFieldLabel: 'İsminizi Giriniz',
                       maxAlan: 1,
                     ),
-                    CustomForm(
+                    const CustomForm(
                       inputType: TextInputType.name,
                       topLabel: 'SOYİSİM*',
                       formFieldLabel: 'Soyisminizi Giriniz',
                       maxAlan: 1,
                     ),
-                    CustomForm(
+                    const CustomForm(
                       inputType: TextInputType.emailAddress,
                       topLabel: 'E-POSTA*',
                       formFieldLabel: 'eposta@epostagiriniz.com',
@@ -113,13 +113,13 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
                       formFieldLabel: '0 (---) --- -- --',
                       maxAlan: 1,
                     ),
-                    CustomForm(
+                    const CustomForm(
                       inputType: TextInputType.text,
                       topLabel: 'KONU BAŞLIĞI*',
                       formFieldLabel: 'Konu Başlığı Giriniz',
                       maxAlan: 1,
                     ),
-                    CustomForm(
+                    const CustomForm(
                       inputType: TextInputType.text,
                       topLabel: 'KONU*',
                       formFieldLabel: 'Sorunuzu Giriniz',

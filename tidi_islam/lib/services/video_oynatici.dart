@@ -52,8 +52,8 @@ class _VideoOynaticiState extends State<VideoOynatici> {
                       image: NetworkImage(
                         'https://i3.ytimg.com/vi/${widget.embedCode}/maxresdefault.jpg',
                       ),
-                      placeholderBuilder: (context) => Center(
-                          child: SpinKitCubeGrid(
+                      placeholderBuilder: (context) => const Center(
+                          child:  SpinKitCubeGrid(
                         color: Colors.red,
                       )),
                       fit: BoxFit.fill,
