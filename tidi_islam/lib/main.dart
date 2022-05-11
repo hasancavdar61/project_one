@@ -30,6 +30,7 @@ class TidApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       getPages: GetRouteService().routesGet,
       home: const Scaffold(
         body: AnasayfaView(),

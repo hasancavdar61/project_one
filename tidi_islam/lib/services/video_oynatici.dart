@@ -53,7 +53,7 @@ class _VideoOynaticiState extends State<VideoOynatici> {
                         'https://i3.ytimg.com/vi/${widget.embedCode}/maxresdefault.jpg',
                       ),
                       placeholderBuilder: (context) => const Center(
-                          child:  SpinKitCubeGrid(
+                          child: SpinKitCubeGrid(
                         color: Colors.red,
                       )),
                       fit: BoxFit.fill,
@@ -164,7 +164,10 @@ showVideoDialog(BuildContext context, YoutubePlayerController _controller) {
   );
 }
 
-class VideoGrid extends StatelessWidget {
+
+
+/**
+ * class VideoGrid extends StatelessWidget {
   const VideoGrid({Key? key, this.embedCode}) : super(key: key);
 
   final String? embedCode;
@@ -249,3 +252,5 @@ class VideoGrid extends StatelessWidget {
     );
   }
 }
+
+ */

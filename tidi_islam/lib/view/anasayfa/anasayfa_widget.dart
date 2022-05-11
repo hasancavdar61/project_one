@@ -23,6 +23,11 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
     'http://tidislam.daynexdemo.tk/upload/ckfinder/images/slider/dini-bilgiler-ogreniyorum-slider-calasimasi1.JPG',
     'http://tidislam.daynexdemo.tk/upload/ckfinder/images/slider/islami-ogreniyorum-cocuk.JPG',
   ];
+  @override
+  void initState() {
+    super.initState();
+    photoSlider();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,36 +40,7 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
         /// Atomic yapıda olan [VideoBaslikWidget] video başlığını tutar static.
         /// [baslikAdi] parametresi [String] yapıdadır.
 
-        SizedBox(
-          width: double.infinity,
-          height: Get.height / 4,
-          child: Swiper(
-            onIndexChanged: (value) => debugPrint(value.toString()),
-            autoplayDelay: 10000,
-            duration: 1000,
-            indicatorLayout: PageIndicatorLayout.NONE,
-            layout: SwiperLayout.DEFAULT,
-            itemCount: urls.length,
-            itemBuilder: (BuildContext context, int index) => OctoImage(
-              errorBuilder: (context, error, stackTrace) => const Center(
-                child: Text(
-                  'Yüklenirken bir sorun oluştu...',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-              image: NetworkImage(
-                urls[index],
-              ),
-              placeholderBuilder: (context) => const Center(
-                child: SpinKitFadingCircle(
-                  color: Colors.teal,
-                ),
-              ),
-              fit: BoxFit.fill,
-            ),
-            autoplay: true,
-          ),
-        ),
+        photoSlider(),
 
         const VideoBaslikWidget(
           baslikAdi: 'DİNİ KELİMELER VE ANLAMLARI KADIN',
@@ -114,6 +90,39 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
           embedCode: 'nX8-oEvKvx0',
         ),
       ],
+    );
+  }
+
+  SizedBox photoSlider() {
+    return SizedBox(
+      width: double.infinity,
+      height: Get.height / 4,
+      child: Swiper(
+        onIndexChanged: (value) => debugPrint(value.toString()),
+        autoplayDelay: 10000,
+        duration: 1000,
+        indicatorLayout: PageIndicatorLayout.NONE,
+        layout: SwiperLayout.DEFAULT,
+        itemCount: urls.length,
+        itemBuilder: (BuildContext context, int index) => OctoImage(
+          errorBuilder: (context, error, stackTrace) => const Center(
+            child: Text(
+              'Yüklenirken bir sorun oluştu...',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          image: NetworkImage(
+            urls[index],
+          ),
+          placeholderBuilder: (context) => const Center(
+            child: SpinKitFadingCircle(
+              color: Colors.teal,
+            ),
+          ),
+          fit: BoxFit.fill,
+        ),
+        autoplay: true,
+      ),
     );
   }
 }
