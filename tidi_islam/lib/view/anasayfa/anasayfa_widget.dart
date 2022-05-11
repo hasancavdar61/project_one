@@ -17,16 +17,21 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
   final String url =
       'https://images.unsplash.com/photo-1512632578888-169bbbc64f33?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80';
   final List<String> urls = [
-    'http://tidislam.daynexdemo.tk/upload/ckfinder/images/slider/turk-isaret-dilinde-islam-slider-calismasi.JPG',
-    'http://tidislam.daynexdemo.tk/upload/ckfinder/images/slider/dini-kelimeler-ve-anlamlarini-ogreniyorum-slider-calismasi.jpg',
-    'http://tidislam.daynexdemo.tk/upload/ckfinder/images/slider/peygamber-efendimizin-hayati.JPG',
-    'http://tidislam.daynexdemo.tk/upload/ckfinder/images/slider/dini-bilgiler-ogreniyorum-slider-calasimasi1.JPG',
-    'http://tidislam.daynexdemo.tk/upload/ckfinder/images/slider/islami-ogreniyorum-cocuk.JPG',
+    'http://tidislam.com/upload/ckfinder/images/slider/turk-isaret-dilinde-islam-slider-calismasi.JPG',
+    'http://tidislam.com/upload/ckfinder/images/slider/dini-kelimeler-ve-anlamlarini-ogreniyorum-slider-calismasi.jpg',
+    'http://tidislam.com/upload/ckfinder/images/slider/peygamber-efendimizin-hayati.JPG',
+    'http://tidislam.com/upload/ckfinder/images/slider/dini-bilgiler-ogreniyorum-slider-calasimasi1.JPG',
+    'http://tidislam.com/upload/ckfinder/images/slider/islami-ogreniyorum-cocuk.JPG',
   ];
+  bool _isLoading = true;
   @override
   void initState() {
     super.initState();
-    photoSlider();
+    Future.delayed(const Duration(milliseconds: 100), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
   }
 
   @override
@@ -40,7 +45,13 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
         /// Atomic yapıda olan [VideoBaslikWidget] video başlığını tutar static.
         /// [baslikAdi] parametresi [String] yapıdadır.
 
-        photoSlider(),
+        _isLoading == true
+            ? const Center(
+                child: SpinKitFadingCircle(
+                  color: Colors.teal,
+                ),
+              )
+            : photoSlider(),
 
         const VideoBaslikWidget(
           baslikAdi: 'DİNİ KELİMELER VE ANLAMLARI KADIN',
@@ -48,7 +59,9 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
 
         /// Anasayfa üzerindeki üç adet video staic yapıda kuruldu.
         const VideoOynatici(
-          embedCode: 'vRKYrcmqZEk',
+          embedCode: '3R1txw-QWDU',
+          topTitle: 'DİRİLİŞ',
+          bottomTitle: 'DİNİ KELİMELER VE ANLAMLARI KADIN',
         ),
         Divider(
           thickness: 1,
@@ -56,7 +69,9 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
           color: Colors.grey.shade700,
         ),
         const VideoOynatici(
-          embedCode: 'c6X3kyQJwVs',
+          embedCode: 'xRpbDXaZ0LU',
+          topTitle: 'DİRAR MECLİSİ',
+          bottomTitle: 'DİNİ KELİMELER VE ANLAMLARI KADIN',
         ),
         Divider(
           thickness: 1,
@@ -64,14 +79,18 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
           color: Colors.grey.shade700,
         ),
         const VideoOynatici(
-          embedCode: 'nX8-oEvKvx0',
+          embedCode: '5Sz77baduIA',
+          topTitle: 'DİYANET İŞLERİ BAŞKANLIĞI',
+          bottomTitle: 'DİNİ KELİMELER VE ANLAMLARI KADIN',
         ),
 
         const VideoBaslikWidget(
           baslikAdi: 'DİNİ KELİMELER VE ANLAMLARI ERKEK',
         ),
         const VideoOynatici(
-          embedCode: 'vRKYrcmqZEk',
+          embedCode: 'Q4IdOFw6QYY',
+          topTitle: 'ŞÜPHE',
+          bottomTitle: 'DİNİ KELİMELER VE ANLAMLARI ERKEK',
         ),
         Divider(
           thickness: 1,
@@ -79,7 +98,9 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
           color: Colors.grey.shade700,
         ),
         const VideoOynatici(
-          embedCode: 'c6X3kyQJwVs',
+          embedCode: 'NwSRzzKGHIE',
+          topTitle: 'TABİAT',
+          bottomTitle: 'DİNİ KELİMELER VE ANLAMLARI ERKEK',
         ),
         Divider(
           thickness: 1,
@@ -87,7 +108,9 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
           color: Colors.grey.shade700,
         ),
         const VideoOynatici(
-          embedCode: 'nX8-oEvKvx0',
+          embedCode: '8H2myKLQ6U4',
+          topTitle: 'TASDİK',
+          bottomTitle: 'DİNİ KELİMELER VE ANLAMLARI ERKEK',
         ),
       ],
     );

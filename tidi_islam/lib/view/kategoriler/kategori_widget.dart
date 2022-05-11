@@ -31,9 +31,11 @@ class _KategoriWidgetState extends State<KategoriWidget> {
 
         /// Kategori listeden gelen embed codeları kullanır.
         body: ListView.builder(
-          itemCount: videoEmbedList.length,
+          itemCount: videoEmbedListesiKadin.length,
           itemBuilder: ((context, index) => VideoOynatici(
-                embedCode: videoEmbedList[index],
+                embedCode: videoEmbedListesiKadin[index],
+                topTitle: topTitlesW[index],
+                bottomTitle: bottomTitlesW[index],
               )),
         ),
       ),

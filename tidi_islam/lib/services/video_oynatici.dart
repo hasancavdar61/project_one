@@ -8,9 +8,13 @@ class VideoOynatici extends StatefulWidget {
   const VideoOynatici({
     Key? key,
     this.embedCode,
+    this.topTitle,
+    this.bottomTitle,
   }) : super(key: key);
 
   final String? embedCode;
+  final String? topTitle;
+  final String? bottomTitle;
 
   @override
   State<VideoOynatici> createState() => _VideoOynaticiState();
@@ -19,6 +23,7 @@ class VideoOynatici extends StatefulWidget {
 class _VideoOynaticiState extends State<VideoOynatici> {
   Color color = Colors.black;
   String favoriTitle = 'Favori işlemi başarılı';
+ 
   @override
   Widget build(BuildContext context) {
     YoutubePlayerController _controller = YoutubePlayerController(
@@ -93,21 +98,25 @@ class _VideoOynaticiState extends State<VideoOynatici> {
                 /// !Video adı ve Kategori adı
                 Expanded(
                   child: Column(
-                    children: const [
+                    children: [
                       AutoSizeText.rich(
-                        TextSpan(text: 'İMANIN ŞARTLARI KADIN ÇEVİRMEN'),
-                        style: TextStyle(
+                        TextSpan(text: widget.topTitle!),
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
                         ),
                         minFontSize: 5,
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10,
                       ),
                       AutoSizeText.rich(
-                        TextSpan(text: 'TÜRK İŞARET DİLİNDE DİNİ BİLGİLER'),
-                        style: TextStyle(color: Colors.white),
+                        TextSpan(text: widget.bottomTitle!),
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
                         maxFontSize: 10,
                         minFontSize: 5,
                       )
