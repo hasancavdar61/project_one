@@ -2,6 +2,7 @@ import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:tidi_islam/services/video_oynatici.dart';
 import 'package:tidi_islam/view/anasayfa/widgets/video_baslik_widget.dart';
@@ -24,9 +25,12 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
     'http://tidislam.com/upload/ckfinder/images/slider/islami-ogreniyorum-cocuk.JPG',
   ];
   bool _isLoading = true;
+
+  final box = GetStorage();
   @override
   void initState() {
     super.initState();
+
     Future.delayed(const Duration(milliseconds: 100), () {
       setState(() {
         _isLoading = false;

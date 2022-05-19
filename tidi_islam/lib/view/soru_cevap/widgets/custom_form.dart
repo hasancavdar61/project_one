@@ -11,7 +11,9 @@ class CustomForm extends StatelessWidget {
     this.isObsecure = false,
     this.isReadOnly = false,
     this.validateUyari = 'Bu alan boş bırakılamaz',
-    this.controller, this.mask, this.filter,
+    this.controller,
+    this.mask,
+    this.filter,
   }) : super(key: key);
 
   final String? topLabel;
@@ -49,7 +51,6 @@ class CustomForm extends StatelessWidget {
             cursorColor: Colors.teal,
             textInputAction: TextInputAction.next,
             controller: controller,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (validator) => validator!.isEmpty ? validateUyari : null,
             readOnly: isReadOnly!,
             obscureText: isObsecure!,
@@ -58,7 +59,7 @@ class CustomForm extends StatelessWidget {
             keyboardType: inputType,
             decoration: InputDecoration(
               focusedBorder: const OutlineInputBorder(
-                borderSide:  BorderSide(color: Colors.teal),
+                borderSide: BorderSide(color: Colors.teal),
               ),
               enabledBorder: const OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.white),

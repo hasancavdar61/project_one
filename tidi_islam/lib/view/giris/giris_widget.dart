@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:tidi_islam/riverpod/riverpod_management.dart';
 import 'package:tidi_islam/view/soru_cevap/widgets/custom_form.dart';
 
-class GirisWidget extends StatelessWidget {
-  GirisWidget({Key? key}) : super(key: key);
+class GirisWidget extends ConsumerStatefulWidget {
+  const GirisWidget({Key? key}) : super(key: key);
 
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _GirisWidgetState();
+}
+
+class _GirisWidgetState extends ConsumerState<GirisWidget> {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -24,15 +31,17 @@ class GirisWidget extends StatelessWidget {
           child: Form(
             key: _formKey,
             child: Column(
-              children: const [
+              children: [
                 CustomForm(
+                  controller: ref.read(loginRiverpod).email,
                   inputType: TextInputType.emailAddress,
                   topLabel: 'E-Posta Adresiniz*',
                   formFieldLabel: 'E-posta Giriniz',
                   maxAlan: 1,
                 ),
                 CustomForm(
-                  inputType: TextInputType.visiblePassword,
+                  controller: ref.read(loginRiverpod).password,
+                  isObsecure: false,
                   topLabel: 'Şifreniz*',
                   formFieldLabel: 'Şifre Giriniz',
                   maxAlan: 1,
@@ -48,7 +57,16 @@ class GirisWidget extends StatelessWidget {
             style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all<Color>(Colors.teal)),
             onPressed: () {
-              _formKey.currentState!.validate();
+              if (_formKey.currentState!.validate()) {
+                ref.read(loginRiverpod).fetch();
+              } else {
+                Get.snackbar(
+                  'Hata Oluştu',
+                  'Lütfen formu doğru şekilde doldurunuz',
+                  backgroundColor: Colors.teal,
+                  colorText: Colors.white,
+                );
+              }
             },
             child: Container(
               margin: const EdgeInsets.all(20.0),

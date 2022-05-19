@@ -9,7 +9,7 @@ class GirisView extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(),
-        body: GirisWidget(),
+        body: const GirisWidget(),
       ),
     );
   }

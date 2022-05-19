@@ -11,14 +11,18 @@
 //! HASAN ÇAVDAR 08.04.2022
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:tidi_islam/constants/theme.dart';
 import 'package:tidi_islam/services/local_service.dart';
 import 'package:tidi_islam/view/anasayfa/anasayfa_view.dart';
+import 'package:tidi_islam/view/giris/giris_view.dart';
 
-void main() {
+void main() async {
+  await GetStorage.init();
   runApp(
-    const TidApp(),
+    const ProviderScope(child: TidApp()),
   );
 }
 
@@ -29,11 +33,12 @@ class TidApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    GetStorage box = GetStorage();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       getPages: GetRouteService().routesGet,
-      home: const Scaffold(
-        body: AnasayfaView(),
+      home: Scaffold(
+        body: box.read('id') != null ? const AnasayfaView() : const GirisView(),
       ),
       theme: AppTheme().themeData,
     );
