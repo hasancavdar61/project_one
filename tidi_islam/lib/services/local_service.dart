@@ -2,7 +2,6 @@ import 'package:get/route_manager.dart';
 import 'package:flutter/material.dart';
 import 'package:tidi_islam/view/anasayfa/anasayfa_view.dart';
 import 'package:tidi_islam/view/giris/giris_view.dart';
-import 'package:tidi_islam/view/giris/login_test.dart';
 import 'package:tidi_islam/view/kategoriler/kategori_view.dart';
 import 'package:tidi_islam/view/kayit/kayit_view.dart';
 import 'package:tidi_islam/view/profil/profil_view.dart';

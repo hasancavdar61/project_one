@@ -1,6 +1,8 @@
 library profil_view.dart;
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'dart:io';
 
 import 'package:image_picker/image_picker.dart';
@@ -16,7 +18,20 @@ class ProfilView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: <Widget>[
+          TextButton(
+            onPressed: () {
+          GetStorage().remove('id');
+          Get.offAllNamed('/GirisSayfasi');
+        },
+            child: const Text(
+              'Çıkış Yap',
+              style: TextStyle(color: Colors.white),
+            ),
+          )
+        ],
+      ),
       body: const ProfilWidget(),
     );
   }

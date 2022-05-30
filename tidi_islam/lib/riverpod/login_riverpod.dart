@@ -23,7 +23,6 @@ class LoginRiverpod extends ChangeNotifier {
           backgroundColor: Colors.teal,
           colorText: Colors.white,
         );
-        Get.offAllNamed('/');
       } else {
         Get.snackbar(
           'Hata Oluştu',

@@ -59,6 +59,9 @@ class _GirisWidgetState extends ConsumerState<GirisWidget> {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 ref.read(loginRiverpod).fetch();
+                Future.delayed(const Duration(seconds: 2), () {
+                  Get.offAllNamed('/Anasayfa');
+                });
               } else {
                 Get.snackbar(
                   'Hata Oluştu',
@@ -109,6 +112,15 @@ class _GirisWidgetState extends ConsumerState<GirisWidget> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
+            ),
+          ),
+        ),
+        const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Text(
+            'ÜYELİK OLUŞTUR sistemi için çalışmalar devam ediyor.\nKayıt için web sitemizi ziyaret ediniz.\nAnlayışınız için teşekkür ederiz.',
+            style: TextStyle(
+              color: Colors.white,
             ),
           ),
         ),

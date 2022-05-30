@@ -22,15 +22,21 @@ import 'package:tidi_islam/view/giris/giris_view.dart';
 void main() async {
   await GetStorage.init();
   runApp(
-    const ProviderScope(child: TidApp()),
+    ProviderScope(child: TidApp()),
   );
 }
 
-class TidApp extends StatelessWidget {
-  const TidApp({
+class TidApp extends StatefulWidget {
+  TidApp({
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<TidApp> createState() => _TidAppState();
+  final box = GetStorage();
+}
+
+class _TidAppState extends State<TidApp> {
   @override
   Widget build(BuildContext context) {
     GetStorage box = GetStorage();

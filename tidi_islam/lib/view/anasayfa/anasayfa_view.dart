@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:tidi_islam/constants/screen_list.dart';
 import 'package:tidi_islam/view/anasayfa/widgets/yan_menu_widget.dart';
 
@@ -13,6 +14,7 @@ class AnasayfaView extends StatefulWidget {
 
 class _AnasayfaViewState extends State<AnasayfaView> {
   var currentIndex = 0.obs;
+  final box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +34,18 @@ class _AnasayfaViewState extends State<AnasayfaView> {
           ),
           actions: [
             TextButton(
-              onPressed: () => Get.toNamed('/GirisSayfasi'),
-              child: const Text(
-                'Giriş Yap',
-                style: TextStyle(color: Colors.white),
-              ),
+              onPressed: box.read('id') == null
+                  ? () => Get.offAndToNamed('/GirisSayfasi')
+                  : () => Get.toNamed('/ProfilSayfasi'),
+              child: box.read('id') != null
+                  ? const CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      child: Icon(
+                        Icons.person,
+                        color: Colors.white,
+                      ),
+                    )
+                  : const Text('Giriş Yap'),
             ),
           ],
         ),
