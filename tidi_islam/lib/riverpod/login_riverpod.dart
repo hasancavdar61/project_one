@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:tidi_islam/services/login_service.dart';
+import 'package:tidi_islam/services/services.dart';
 
 class LoginRiverpod extends ChangeNotifier {
-  final service = LoginService();
+  final service = Service();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   final box = GetStorage();
 
-  void fetch() {
-    service.loginCall(email: email.text, password: password.text).then((value) {
+  void fetch() async {
+    await service
+        .loginCall(email: email.text, password: password.text)
+        .then((value) {
       if (value != null && value.status == true) {
         box.write("id", value.detail!.id);
 
@@ -23,6 +25,7 @@ class LoginRiverpod extends ChangeNotifier {
           backgroundColor: Colors.teal,
           colorText: Colors.white,
         );
+        Get.offAllNamed('/');
       } else {
         Get.snackbar(
           'Hata Oluştu',

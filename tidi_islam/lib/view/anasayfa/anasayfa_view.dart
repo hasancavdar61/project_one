@@ -35,7 +35,7 @@ class _AnasayfaViewState extends State<AnasayfaView> {
           actions: [
             TextButton(
               onPressed: box.read('id') == null
-                  ? () => Get.offAndToNamed('/GirisSayfasi')
+                  ? () => Get.toNamed('/GirisSayfasi')
                   : () => Get.toNamed('/ProfilSayfasi'),
               child: box.read('id') != null
                   ? const CircleAvatar(
@@ -45,7 +45,10 @@ class _AnasayfaViewState extends State<AnasayfaView> {
                         color: Colors.white,
                       ),
                     )
-                  : const Text('Giriş Yap'),
+                  : const Text(
+                      'Giriş Yap',
+                      style: TextStyle(color: Colors.white),
+                    ),
             ),
           ],
         ),

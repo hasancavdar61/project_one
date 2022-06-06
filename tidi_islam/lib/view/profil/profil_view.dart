@@ -22,9 +22,9 @@ class ProfilView extends StatelessWidget {
         actions: <Widget>[
           TextButton(
             onPressed: () {
-          GetStorage().remove('id');
-          Get.offAllNamed('/GirisSayfasi');
-        },
+              GetStorage().remove('id');
+              Get.offAllNamed('/');
+            },
             child: const Text(
               'Çıkış Yap',
               style: TextStyle(color: Colors.white),

@@ -17,7 +17,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:tidi_islam/constants/theme.dart';
 import 'package:tidi_islam/services/local_service.dart';
 import 'package:tidi_islam/view/anasayfa/anasayfa_view.dart';
-import 'package:tidi_islam/view/giris/giris_view.dart';
+
 
 void main() async {
   await GetStorage.init();
@@ -39,12 +39,11 @@ class TidApp extends StatefulWidget {
 class _TidAppState extends State<TidApp> {
   @override
   Widget build(BuildContext context) {
-    GetStorage box = GetStorage();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       getPages: GetRouteService().routesGet,
-      home: Scaffold(
-        body: box.read('id') != null ? const AnasayfaView() : const GirisView(),
+      home: const Scaffold(
+        body: AnasayfaView(),
       ),
       theme: AppTheme().themeData,
     );

@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:riverpod/riverpod.dart';
 import 'package:tidi_islam/riverpod/riverpod_management.dart';
+import 'package:tidi_islam/view/anasayfa/anasayfa_view.dart';
 import 'package:tidi_islam/view/soru_cevap/widgets/custom_form.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class GirisWidget extends ConsumerStatefulWidget {
   const GirisWidget({Key? key}) : super(key: key);
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _GirisWidgetState();
+}
+
+final Uri _url = Uri.parse('https://www.tidislam.com/tr/user/register');
+void _launchUrl() async {
+  if (!await launchUrl(_url)) throw 'Could not launch $_url';
 }
 
 class _GirisWidgetState extends ConsumerState<GirisWidget> {
@@ -59,9 +67,6 @@ class _GirisWidgetState extends ConsumerState<GirisWidget> {
             onPressed: () {
               if (_formKey.currentState!.validate()) {
                 ref.read(loginRiverpod).fetch();
-                Future.delayed(const Duration(seconds: 2), () {
-                  Get.offAllNamed('/Anasayfa');
-                });
               } else {
                 Get.snackbar(
                   'Hata Oluştu',
@@ -103,7 +108,7 @@ class _GirisWidgetState extends ConsumerState<GirisWidget> {
             style: ButtonStyle(
                 backgroundColor:
                     MaterialStateProperty.all<Color>(Colors.teal.shade300)),
-            onPressed: () => Get.toNamed("/KayitSayfasi"),
+            onPressed: () => _launchUrl(),
             child: Container(
               margin: const EdgeInsets.all(20.0),
               child: const Text(
@@ -112,15 +117,6 @@ class _GirisWidgetState extends ConsumerState<GirisWidget> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-            ),
-          ),
-        ),
-        const Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Text(
-            'ÜYELİK OLUŞTUR sistemi için çalışmalar devam ediyor.\nKayıt için web sitemizi ziyaret ediniz.\nAnlayışınız için teşekkür ederiz.',
-            style: TextStyle(
-              color: Colors.white,
             ),
           ),
         ),

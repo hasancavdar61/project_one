@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tidi_islam/services/services.dart';
 
 import '../../services/test_service.dart';
 
@@ -19,27 +20,11 @@ class _IletisimWidgetState extends State<IletisimWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: FutureBuilder(
-        future: getRequest(),
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          if (snapshot.data == null) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: Colors.blue,
-                backgroundColor: Colors.red,
-              ),
-            );
-          } else {
-            return const Text(
-              'İletişim',
-              style:  TextStyle(
-                  color: Colors.grey,
-                  fontSize: 40.0,
-                  fontWeight: FontWeight.bold),
-            );
-          }
-        },
+    return const Center(
+      child: Text(
+        'İletişim',
+        style: TextStyle(
+            color: Colors.grey, fontSize: 40.0, fontWeight: FontWeight.bold),
       ),
     );
   }
