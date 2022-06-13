@@ -7,9 +7,15 @@ class ExpansionMenu extends StatelessWidget {
   const ExpansionMenu({
     Key? key,
     this.kategoriAdi,
+    this.routeNameKadin,
+    this.routeNameErkek,
+    this.routeNameCocuk,
   }) : super(key: key);
 
   final String? kategoriAdi;
+  final String? routeNameKadin;
+  final String? routeNameErkek;
+  final String? routeNameCocuk;
 
   @override
   Widget build(BuildContext context) {
@@ -76,13 +82,67 @@ class ExpansionMenu extends StatelessWidget {
                   ],
                 ),
               ),
-              ListView.builder(
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed('/$routeNameKadin');
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    border:
+                        Border(bottom: BorderSide(color: Colors.grey.shade400)),
+                    color: Colors.white,
+                  ),
+                  padding: const EdgeInsets.all(14.0),
+                  width: double.infinity,
+                  child: Text(KategoriListesi().altKategoriler[0]),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed('/$routeNameErkek');
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    border:
+                        Border(bottom: BorderSide(color: Colors.grey.shade400)),
+                    color: Colors.white,
+                  ),
+                  padding: const EdgeInsets.all(14.0),
+                  width: double.infinity,
+                  child: Text(KategoriListesi().altKategoriler[1]),
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Get.toNamed('/$routeNameCocuk');
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                    border:
+                        Border(bottom: BorderSide(color: Colors.grey.shade400)),
+                    color: Colors.white,
+                  ),
+                  padding: const EdgeInsets.all(14.0),
+                  width: double.infinity,
+                  child: Text(KategoriListesi().altKategoriler[2]),
+                ),
+              ),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+}
+
+/*
+ListView.builder(
                   shrinkWrap: true,
                   itemCount: KategoriListesi().altKategoriler.length,
                   itemBuilder: (context, index) {
                     return GestureDetector(
                       onTap: () {
-                        Get.toNamed('/KategoriSayfasi', arguments: []);
+                        Get.toNamed('/$routeName');
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -96,10 +156,4 @@ class ExpansionMenu extends StatelessWidget {
                       ),
                     );
                   })
-            ],
-          ),
-        )
-      ],
-    );
-  }
-}
+ */

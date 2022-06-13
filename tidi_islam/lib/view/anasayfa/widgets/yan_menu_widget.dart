@@ -37,7 +37,54 @@ class _YanMenuState extends State<YanMenu> {
           /// Custom oluşturulan [ExpansionMenu] [ExpansionTile] özellilkleri
           /// barındırıp custom propertyler alarak kullanımı hafife kolaya
           /// indirilmiştir.
-          ListView.builder(
+          ExpansionMenu(
+            kategoriAdi: 'DİNİ KELİMELER VE ANLAMLARI',
+            routeNameKadin: '',
+            routeNameErkek: '',
+            routeNameCocuk: '',
+          ),
+          ExpansionMenu(
+            kategoriAdi: 'DİNİ BİLGİLER',
+            routeNameKadin: '',
+            routeNameErkek: '',
+            routeNameCocuk: '',
+          ),
+          ExpansionMenu(
+            kategoriAdi: 'HZ. MUHAMMED ',
+            routeNameKadin: '',
+            routeNameErkek: '',
+            routeNameCocuk: '',
+          ),
+          ExpansionMenu(
+            kategoriAdi: 'DİNİ KELİMELER VE ANLAMLARI',
+            routeNameKadin: '',
+            routeNameErkek: '',
+            routeNameCocuk: '',
+          ),
+
+          /// Tek dokunma ve açılmayan menü yapısı
+        ],
+      ),
+    );
+  }
+}
+
+class KategoriListesi {
+  List<String> kategoriAdi = [
+    "DİNİ KELİMELER VE ANLAMLARI",
+    "DİNİ BİLGİLER",
+    "HZ. MUHAMMED (S.A.S.)",
+    "TİD KUR'AN-I KERİM MEALİ"
+  ];
+  List<String> altKategoriler = [
+    "KADIN",
+    "ERKEK",
+    "ÇOCUK",
+  ];
+}
+
+/**
+ ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: ((context, index) {
@@ -45,6 +92,7 @@ class _YanMenuState extends State<YanMenu> {
                 children: [
                   ExpansionMenu(
                     kategoriAdi: KategoriListesi().kategoriAdi[index],
+                    routeName: 'GirisSayfasi',
                   ),
                   const Divider(
                     height: 1.0,
@@ -57,30 +105,4 @@ class _YanMenuState extends State<YanMenu> {
             }),
             itemCount: KategoriListesi().kategoriAdi.length,
           ),
-
-          /// Tek dokunma ve açılmayan menü yapısı
-          const ListTile(
-            title: Text(
-              "TİD KUR'AN-I KERİM MEALİ",
-              style:
-                  TextStyle(fontWeight: FontWeight.w400, color: Colors.white),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class KategoriListesi {
-  List<String> kategoriAdi = [
-    "DİNİ KELİMELER VE ANLAMLARI",
-    "DİNİ BİLGİLER",
-    "PEYGAMBERLERİN HAYATI",
-  ];
-  List<String> altKategoriler = [
-    "KADIN",
-    "ERKEK",
-    "ÇOCUK",
-  ];
-}
+ */

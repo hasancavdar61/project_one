@@ -1,8 +1,8 @@
 part of 'profil_view.dart';
 
 class ProfilWidget extends StatefulWidget {
-  const ProfilWidget({Key? key}) : super(key: key);
-
+  const ProfilWidget({Key? key, required this.userModel}) : super(key: key);
+  final UserModel userModel;
   @override
   State<ProfilWidget> createState() => _ProfilWidgetState();
 }
@@ -14,7 +14,6 @@ class _ProfilWidgetState extends State<ProfilWidget> {
   late bool _isReadOnly = true;
   File? fotograf;
   File? fotografKamera;
-
   final _picker = ImagePicker();
 
   Future<void> openPhotoPicker() async {
@@ -60,6 +59,21 @@ class _ProfilWidgetState extends State<ProfilWidget> {
               style: Theme.of(context).textTheme.headline4,
             ),
 
+            Padding(
+              padding: const EdgeInsets.only(top: 25.0),
+              child: Container(
+                decoration: const BoxDecoration(
+                    color: Colors.teal,
+                    borderRadius: BorderRadius.all(Radius.circular(10.0))),
+                padding: const EdgeInsets.all(20.0),
+                child: Text(
+                  widget.userModel.firstname.toString()[0] +
+                      widget.userModel.lastname.toString()[0],
+                  style: const TextStyle(fontSize: 30.0, color: Colors.white),
+                ),
+              ),
+            ),
+
             ///Form yapısını tutan parent widget.
             Padding(
               padding: const EdgeInsets.all(24.0),
@@ -71,59 +85,29 @@ class _ProfilWidgetState extends State<ProfilWidget> {
                       isReadOnly: _isReadOnly,
                       inputType: TextInputType.name,
                       topLabel: 'İSİM*',
-                      formFieldLabel: 'DAYNEX',
+                      formFieldLabel: widget.userModel.firstname!.toUpperCase(),
                       maxAlan: 1,
                     ),
                     CustomForm(
                       isReadOnly: _isReadOnly,
                       inputType: TextInputType.name,
                       topLabel: 'SOYİSİM*',
-                      formFieldLabel: 'EDİTÖR KULLANICISI',
+                      formFieldLabel: widget.userModel.lastname!.toUpperCase(),
                       maxAlan: 1,
                     ),
-                    CustomForm(
-                      isReadOnly: _isReadOnly,
-                      inputType: TextInputType.name,
-                      topLabel: 'İL*',
-                      formFieldLabel: 'TRABZON',
-                      maxAlan: 1,
-                    ),
-                    CustomForm(
-                      isReadOnly: _isReadOnly,
-                      inputType: TextInputType.name,
-                      topLabel: 'İLÇE*',
-                      formFieldLabel: 'ORTAHİSAR',
-                      maxAlan: 1,
-                    ),
+
                     CustomForm(
                       isReadOnly: _isReadOnly,
                       inputType: TextInputType.phone,
                       topLabel: 'TELEFON*',
-                      formFieldLabel: '0 (---) --- -- --',
+                      formFieldLabel: widget.userModel.telephone,
                       maxAlan: 1,
                     ),
                     CustomForm(
                       isReadOnly: _isReadOnly,
                       inputType: TextInputType.emailAddress,
                       topLabel: 'E-POSTA*',
-                      formFieldLabel: 'eposta@epostagiriniz.com',
-                      maxAlan: 1,
-                    ),
-
-                    CustomForm(
-                      isReadOnly: _isReadOnly,
-                      isObsecure: true,
-                      inputType: TextInputType.visiblePassword,
-                      topLabel: 'ŞİFRE*',
-                      formFieldLabel: 'Şifre Giriniz',
-                      maxAlan: 1,
-                    ),
-                    CustomForm(
-                      isReadOnly: _isReadOnly,
-                      isObsecure: true,
-                      inputType: TextInputType.visiblePassword,
-                      topLabel: 'ŞİFRE TEKRAR*',
-                      formFieldLabel: 'Şifreyi Tekrar Giriniz',
+                      formFieldLabel: widget.userModel.email,
                       maxAlan: 1,
                     ),
                   ],
@@ -144,7 +128,15 @@ class _ProfilWidgetState extends State<ProfilWidget> {
                       ),
               ),
             ),
-            ElevatedButton(
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/**
+  ElevatedButton(
               onPressed: () {
                 showMaterialModalBottomSheet(
                   context: context,
@@ -161,32 +153,4 @@ class _ProfilWidgetState extends State<ProfilWidget> {
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.teal)),
             ),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  _isReadOnly == true
-                      ? _isReadOnly = false
-                      : _isReadOnly = true;
-                });
-              },
-              child: const Text('Düzenle'),
-            ),
-
-            /// Submit butonu [ElevatedButton]
-            Container(
-              padding: const EdgeInsets.all(20.0),
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: () {},
-                child: const Text('ÜYELİK FORMUNU GÖNDER'),
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.teal)),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
+ */

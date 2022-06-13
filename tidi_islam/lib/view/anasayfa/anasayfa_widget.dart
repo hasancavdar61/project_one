@@ -4,6 +4,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:octo_image/octo_image.dart';
+import 'package:tidi_islam/model/home_model.dart';
+import 'package:tidi_islam/services/test_service.dart';
 import 'package:tidi_islam/services/video_oynatici.dart';
 import 'package:tidi_islam/view/anasayfa/widgets/video_baslik_widget.dart';
 
@@ -15,8 +17,6 @@ class AnasayfaWidget extends StatefulWidget {
 }
 
 class _AnasayfaWidgetState extends State<AnasayfaWidget> {
-  final String url =
-      'https://images.unsplash.com/photo-1512632578888-169bbbc64f33?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2340&q=80';
   final List<String> urls = [
     'http://tidislam.com/upload/ckfinder/images/slider/turk-isaret-dilinde-islam-slider-calismasi.JPG',
     'http://tidislam.com/upload/ckfinder/images/slider/dini-kelimeler-ve-anlamlarini-ogreniyorum-slider-calismasi.jpg',
@@ -27,9 +27,11 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
   bool _isLoading = true;
 
   final box = GetStorage();
+
   @override
   void initState() {
     super.initState();
+    fetchAlbum();
 
     Future.delayed(const Duration(milliseconds: 100), () {
       setState(() {
@@ -40,85 +42,122 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      children: [
-        /// Fotoğraf geçişleri [ImageSlideshow] ile yapılıyor.
-        /// Fotoğraflar
-
-        /// Atomic yapıda olan [VideoBaslikWidget] video başlığını tutar static.
-        /// [baslikAdi] parametresi [String] yapıdadır.
-
-        _isLoading == true
-            ? const Center(
-                child: SpinKitFadingCircle(
-                  color: Colors.teal,
-                ),
-              )
-            : photoSlider(),
-
-        const VideoBaslikWidget(
-          baslikAdi: 'DİNİ KELİMELER VE ANLAMLARI KADIN',
-        ),
-
-        /// Anasayfa üzerindeki üç adet video staic yapıda kuruldu.
-        const VideoOynatici(
-          embedCode: '3R1txw-QWDU',
-          topTitle: 'DİRİLİŞ',
-          bottomTitle: 'DİNİ KELİMELER VE ANLAMLARI KADIN',
-        ),
-        Divider(
-          thickness: 1,
-          height: 1,
-          color: Colors.grey.shade700,
-        ),
-        const VideoOynatici(
-          embedCode: 'xRpbDXaZ0LU',
-          topTitle: 'DİRAR MECLİSİ',
-          bottomTitle: 'DİNİ KELİMELER VE ANLAMLARI KADIN',
-        ),
-        Divider(
-          thickness: 1,
-          height: 1,
-          color: Colors.grey.shade700,
-        ),
-        const VideoOynatici(
-          embedCode: '5Sz77baduIA',
-          topTitle: 'DİYANET İŞLERİ BAŞKANLIĞI',
-          bottomTitle: 'DİNİ KELİMELER VE ANLAMLARI KADIN',
-        ),
-
-        const VideoBaslikWidget(
-          baslikAdi: 'DİNİ KELİMELER VE ANLAMLARI ERKEK',
-        ),
-        const VideoOynatici(
-          embedCode: 'Q4IdOFw6QYY',
-          topTitle: 'ŞÜPHE',
-          bottomTitle: 'DİNİ KELİMELER VE ANLAMLARI ERKEK',
-        ),
-        Divider(
-          thickness: 1,
-          height: 1,
-          color: Colors.grey.shade700,
-        ),
-        const VideoOynatici(
-          embedCode: 'NwSRzzKGHIE',
-          topTitle: 'TABİAT',
-          bottomTitle: 'DİNİ KELİMELER VE ANLAMLARI ERKEK',
-        ),
-        Divider(
-          thickness: 1,
-          height: 1,
-          color: Colors.grey.shade700,
-        ),
-        const VideoOynatici(
-          embedCode: '8H2myKLQ6U4',
-          topTitle: 'TASDİK',
-          bottomTitle: 'DİNİ KELİMELER VE ANLAMLARI ERKEK',
-        ),
-      ],
-    );
+    return FutureBuilder(
+        future: fetchAlbum(),
+        builder: (context, AsyncSnapshot<HomeModel> snapshot) {
+          if (snapshot.hasData) {
+            return _body(snapshot);
+          } else {
+            return const Center(child: CircularProgressIndicator.adaptive());
+          }
+        });
   }
+
+  Widget deneme(List<CatProducts>? data) => ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemBuilder: (ctx, index) => Column(
+          children: [
+            VideoOynatici(
+              imageUrl: data?[index].image,
+              embedCode: data?[index].embed,
+              topTitle: data?[index].title,
+              bottomTitle: data![index].description! + ' KADIN',
+            ),
+            const Divider(
+              indent: 15.0,
+              endIndent: 15.0,
+              thickness: 1,
+              color: Colors.grey,
+            )
+          ],
+        ),
+        itemCount: data?.length ?? 0,
+      );
+  Widget deneme2(List<CatProducts>? data) => ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemBuilder: (ctx, index) => Column(
+          children: [
+            VideoOynatici(
+              imageUrl: data?[index].image,
+              embedCode: data?[index].embed,
+              topTitle: data?[index].title,
+              bottomTitle: data![index].description! + ' ERKEK',
+            ),
+            const Divider(
+              indent: 15.0,
+              endIndent: 15.0,
+              thickness: 1,
+              color: Colors.grey,
+            )
+          ],
+        ),
+        itemCount: data?.length ?? 0,
+      );
+  Widget deneme3(List<CatProducts>? data) => ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemBuilder: (ctx, index) => Column(
+          children: [
+            VideoOynatici(
+              imageUrl: data?[index].image,
+              embedCode: data?[index].embed,
+              topTitle: data?[index].title,
+              bottomTitle: data![index].description! + ' KADIN',
+            ),
+            const Divider(
+              indent: 15.0,
+              endIndent: 15.0,
+              thickness: 1,
+              color: Colors.grey,
+            )
+          ],
+        ),
+        itemCount: data?.length ?? 0,
+      );
+  Widget deneme4(List<CatProducts>? data) => ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemBuilder: (ctx, index) => Column(
+          children: [
+            VideoOynatici(
+              imageUrl: data?[index].image,
+              embedCode: data?[index].embed,
+              topTitle: data?[index].title,
+              bottomTitle: data![index].description! + ' ERKEK',
+            ),
+            const Divider(
+              indent: 15.0,
+              endIndent: 15.0,
+              thickness: 1,
+              color: Colors.grey,
+            )
+          ],
+        ),
+        itemCount: data?.length ?? 0,
+      );
+  Widget deneme5(List<CatProducts>? data) => ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemBuilder: (ctx, index) => Column(
+          children: [
+            VideoOynatici(
+              imageUrl: data?[index].image,
+              embedCode: data?[index].embed,
+              topTitle: data?[index].title,
+              bottomTitle: data![index].description!,
+            ),
+            const Divider(
+              indent: 15.0,
+              endIndent: 15.0,
+              thickness: 1,
+              color: Colors.grey,
+            )
+          ],
+        ),
+        itemCount: data?.length ?? 0,
+      );
 
   SizedBox photoSlider() {
     return SizedBox(
@@ -152,7 +191,60 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
       ),
     );
   }
+
+  Widget _body(AsyncSnapshot<HomeModel> snapshot) => Column(
+        children: [
+          Expanded(
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                /// Fotoğraf geçişleri [ImageSlideshow] ile yapılıyor.
+                /// Fotoğraflar
+
+                /// Atomic yapıda olan [VideoBaslikWidget] video başlığını tutar static.
+                /// [baslikAdi] parametresi [String] yapıdadır.
+
+                _isLoading == true
+                    ? const Center(
+                        child: SpinKitFadingCircle(
+                          color: Colors.teal,
+                        ),
+                      )
+                    : photoSlider(),
+
+                const VideoBaslikWidget(
+                  baslikAdi: 'DİNİ KELİMELER VE ANLAMLARI KADIN',
+                ),
+                deneme(snapshot.data!.products![0].catProducts),
+
+                const VideoBaslikWidget(
+                  baslikAdi: 'DİNİ KELİMELER VE ANLAMLARI ERKEK',
+                ),
+                deneme2(snapshot.data!.products![1].catProducts),
+                const VideoBaslikWidget(
+                  baslikAdi: 'DİNİ BİLGİLER KADIN',
+                ),
+                deneme3(snapshot.data!.products![2].catProducts),
+                const VideoBaslikWidget(
+                  baslikAdi: 'DİNİ BİLGİLER ERKEK',
+                ),
+                deneme4(snapshot.data!.products![3].catProducts),
+                const VideoBaslikWidget(
+                  baslikAdi: 'DİNİ KELİMELER VE ANLAMLARI ÇOCUK',
+                ),
+                deneme5(snapshot.data!.products![4].catProducts),
+
+                const VideoBaslikWidget(
+                  baslikAdi: 'DİNİ BİLGİLER ÇOCUK',
+                ),
+                deneme5(snapshot.data!.products![5].catProducts),
+              ],
+            ),
+          ),
+        ],
+      );
 }
+
 
 /*
  GridView.builder(

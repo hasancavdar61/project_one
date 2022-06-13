@@ -1,15 +1,21 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:tidi_islam/model/home_model.dart';
 import 'package:tidi_islam/model/login_model.dart';
 import 'package:tidi_islam/model/user_model.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
+import 'package:cookie_jar/cookie_jar.dart';
 
 class Service {
   final String baseUrl = "https://www.api.tidislam.com/auth/";
+  final String baseUrll = "https://www.api.tidislam.com/home";
 
   final dio = Dio();
+  var cookieJar = CookieJar();
+
   Future<Login?> loginCall(
-      {required String email, required String password}) async {
+      {required String email, required String password, }) async {
     FormData formData = FormData.fromMap({
       'email': email,
       'password': password,
@@ -19,10 +25,11 @@ class Service {
         options: Options(headers: {
           "DX-API-KEY": "53a25de5-f2c1-4d7a-abd6-3046a880c425",
         }));
+
     if (response.statusCode == 200) {
       var result = Login.fromJson(response.data);
-      debugPrint("Gelen Response => ${response.data}");
-
+      GetStorage().write("cookie", response.headers["set-cookie"]?.first);
+      debugPrint("Gelen Response => ${response.headers["set-cookie"]}");
       return result;
     } else {
       throw ("Bir sorun oluştu ${response.statusCode}");
@@ -30,12 +37,11 @@ class Service {
   }
 
   Future<UserModel> userCall() async {
-    String userId = await GetStorage().read("id");
+    String? session =  GetStorage().read("cookie");
     var response = await dio.get(baseUrl + "my_account",
-        queryParameters: {'user_id': userId},
         options: Options(
           headers: {
-            "Authorization": "Bearer $userId",
+            "Cookie": session,
             "DX-API-KEY": "53a25de5-f2c1-4d7a-abd6-3046a880c425",
           },
         ));

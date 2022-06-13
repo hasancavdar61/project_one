@@ -10,11 +10,13 @@ class VideoOynatici extends StatefulWidget {
     this.embedCode,
     this.topTitle,
     this.bottomTitle,
+    this.imageUrl,
   }) : super(key: key);
 
   final String? embedCode;
   final String? topTitle;
   final String? bottomTitle;
+  final String? imageUrl;
 
   @override
   State<VideoOynatici> createState() => _VideoOynaticiState();
@@ -23,7 +25,9 @@ class VideoOynatici extends StatefulWidget {
 class _VideoOynaticiState extends State<VideoOynatici> {
   Color color = Colors.black;
   String favoriTitle = 'Favori işlemi başarılı';
- 
+  String base = 'https://i3.ytimg.com/vi//maxresdefault.jpg';
+  String baseUrl = 'https://www.tidislam.com';
+
   @override
   Widget build(BuildContext context) {
     YoutubePlayerController _controller = YoutubePlayerController(
@@ -51,17 +55,17 @@ class _VideoOynaticiState extends State<VideoOynatici> {
                     width: MediaQuery.of(context).size.width / 2.3,
                     child: OctoImage(
                       errorBuilder: (context, error, stackTrace) => const Text(
-                        'Bir sorun oluştu.',
+                        'Görsel bulunamadı.',
                         style: TextStyle(color: Colors.white),
                       ),
                       image: NetworkImage(
-                        'https://i3.ytimg.com/vi/${widget.embedCode}/maxresdefault.jpg',
+                        baseUrl + widget.imageUrl!,
                       ),
                       placeholderBuilder: (context) => const Center(
                           child: SpinKitCubeGrid(
                         color: Colors.red,
                       )),
-                      fit: BoxFit.fill,
+                      fit: BoxFit.scaleDown,
                     ),
                   ),
 
@@ -112,7 +116,7 @@ class _VideoOynaticiState extends State<VideoOynatici> {
                         height: 10,
                       ),
                       AutoSizeText.rich(
-                        TextSpan(text: widget.bottomTitle!),
+                        TextSpan(text: widget.bottomTitle),
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           color: Colors.white,
@@ -137,6 +141,7 @@ class _VideoOynaticiState extends State<VideoOynatici> {
                   SnackBar(
                     content: Text(favoriTitle),
                   ),
+                  
                 );
                 setState(() {
                   color == Colors.black
@@ -163,7 +168,8 @@ showVideoDialog(BuildContext context, YoutubePlayerController _controller) {
     context: context,
     builder: (context) => AlertDialog(
       title: const Text(
-        'Video Adı',
+        'Video Oynatıcı',
+        style: TextStyle(color: Colors.black),
       ),
       content: YoutubePlayerIFrame(
         controller: _controller,
@@ -172,8 +178,6 @@ showVideoDialog(BuildContext context, YoutubePlayerController _controller) {
     ),
   );
 }
-
-
 
 /**
  * class VideoGrid extends StatelessWidget {

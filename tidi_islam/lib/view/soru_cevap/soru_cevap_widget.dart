@@ -1,10 +1,13 @@
-import 'dart:io';
 import 'dart:async';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:tidi_islam/view/soru_cevap/widgets/modal_fit.dart';
 import 'package:tidi_islam/view/soru_cevap/widgets/custom_form.dart';
+import 'package:tidi_islam/view/soru_cevap/widgets/modal_fit.dart';
 
 class SoruCevapWidget extends StatefulWidget {
   SoruCevapWidget({Key? key}) : super(key: key);
@@ -60,7 +63,44 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
   @override
   Widget build(BuildContext context) {
     ///Form yapısı ana widgeti [SingleChildScrollView]
+    GetStorage box = GetStorage();
+    return box.read('id') == null
+        ? centerElevated(box, context)
+        : singleChildSW(context);
+  }
 
+  Center centerElevated(GetStorage box, BuildContext context) {
+    return Center(
+        child: box.read('id') == null
+            ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Text(
+                    'Soru-Cevap bölümü için giriş yapmanız gerekmektedir.',
+                    style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  ElevatedButton(
+                    onPressed: () => Get.toNamed('/GirisSayfasi'),
+                    child: const Text('Giriş Yap'),
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.teal),
+                    ),
+                  )
+                ],
+              )
+            : singleChildSW(context));
+  }
+
+  SingleChildScrollView singleChildSW(BuildContext context) {
     return SingleChildScrollView(
       child: Center(
         child: Column(

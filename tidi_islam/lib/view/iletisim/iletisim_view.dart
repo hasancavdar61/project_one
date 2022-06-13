@@ -6,6 +6,6 @@ class IletisimView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  IletisimWidget();
+    return IletisimWidget();
   }
 }

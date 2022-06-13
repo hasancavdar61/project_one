@@ -5,6 +5,7 @@ import 'package:tidi_islam/services/services.dart';
 
 class LoginRiverpod extends ChangeNotifier {
   final service = Service();
+
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   final box = GetStorage();

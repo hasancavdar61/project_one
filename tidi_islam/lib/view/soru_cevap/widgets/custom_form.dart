@@ -66,7 +66,7 @@ class CustomForm extends StatelessWidget {
                   borderRadius: BorderRadius.zero),
               hintText: formFieldLabel,
               hintStyle:
-                  TextStyle(color: Colors.white.withOpacity(0.7), fontSize: 18),
+                  TextStyle(color: Colors.white.withOpacity(1), fontSize: 18),
               border: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white),
               ),

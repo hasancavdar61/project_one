@@ -46,10 +46,7 @@ class FavorilerWidget extends StatelessWidget {
   }
 }
 
-
-
-
-          /*
+/*
           SingleChildScrollView(
       child: Center(
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
