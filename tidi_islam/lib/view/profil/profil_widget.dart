@@ -11,7 +11,7 @@ class _ProfilWidgetState extends State<ProfilWidget> {
   ///Video dosyasını cihazdan almak ya da video çekmek için bu metod kullanılır.
   //! try - catch bloğuna almayı unutma!!!!!!!!!--------
   final bool _isVisible = false;
-  late bool _isReadOnly = true;
+  late final bool _isReadOnly = true;
   File? fotograf;
   File? fotografKamera;
   final _picker = ImagePicker();
@@ -67,8 +67,8 @@ class _ProfilWidgetState extends State<ProfilWidget> {
                     borderRadius: BorderRadius.all(Radius.circular(10.0))),
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
-                  widget.userModel.firstname.toString()[0] +
-                      widget.userModel.lastname.toString()[0],
+                  widget.userModel.firstname.toString()[0].toUpperCase() +
+                      widget.userModel.lastname.toString()[0].toUpperCase(),
                   style: const TextStyle(fontSize: 30.0, color: Colors.white),
                 ),
               ),
@@ -113,6 +113,29 @@ class _ProfilWidgetState extends State<ProfilWidget> {
                   ],
                 ),
               ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.teal)),
+                  onPressed: () {
+                    Get.toNamed('/ChangePassword');
+                  },
+                  child: const Text('ŞİFRE DEĞİŞTİR'),
+                ),
+                ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.teal)),
+                  onPressed: () {
+                    Get.toNamed('/ChangeUserDetail');
+                  },
+                  child: const Text('BİLGİLERİ GÜNCELLE'),
+                ),
+              ],
             ),
             Visibility(
               visible: _isVisible,

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:riverpod/riverpod.dart';
 import 'package:tidi_islam/riverpod/riverpod_management.dart';
-import 'package:tidi_islam/view/anasayfa/anasayfa_view.dart';
 import 'package:tidi_islam/view/soru_cevap/widgets/custom_form.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -49,7 +47,7 @@ class _GirisWidgetState extends ConsumerState<GirisWidget> {
                 ),
                 CustomForm(
                   controller: ref.read(loginRiverpod).password,
-                  isObsecure: false,
+                  isObsecure: true,
                   topLabel: 'Şifreniz*',
                   formFieldLabel: 'Şifre Giriniz',
                   maxAlan: 1,
@@ -91,7 +89,9 @@ class _GirisWidgetState extends ConsumerState<GirisWidget> {
           padding: const EdgeInsets.only(left: 24.0),
           alignment: Alignment.centerLeft,
           child: TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed('/ForgotPassword');
+            },
             child: const Text(
               'Şifremi Unuttum',
               style: TextStyle(color: Colors.white),

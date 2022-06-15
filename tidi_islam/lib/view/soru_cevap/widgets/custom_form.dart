@@ -14,6 +14,8 @@ class CustomForm extends StatelessWidget {
     this.controller,
     this.mask,
     this.filter,
+    this.padding = 14.0,
+    this.initalValue,
   }) : super(key: key);
 
   final String? topLabel;
@@ -26,11 +28,13 @@ class CustomForm extends StatelessWidget {
   final TextEditingController? controller;
   final String? mask;
   final Map<String, RegExp>? filter;
+  final double padding;
+  final String? initalValue;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 14.0),
+      padding: EdgeInsets.only(bottom: padding),
       child: Column(
         children: [
           Container(
@@ -42,6 +46,7 @@ class CustomForm extends StatelessWidget {
             ),
           ),
           TextFormField(
+            initialValue: initalValue,
             inputFormatters: [
               MaskTextInputFormatter(
                   mask: mask, //'# (###) ###-##-##',
