@@ -1,50 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tidi_islam/riverpod/riverpod_management.dart';
+import 'package:tidi_islam/services/video_oynatici.dart';
 
-class FavorilerWidget extends StatelessWidget {
+class FavorilerWidget extends ConsumerStatefulWidget {
   const FavorilerWidget({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    GetStorage box = GetStorage();
-    return Center(
-      child: box.read('id') == null
-          ? Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const Text(
-                  'Favori video eklemek için giriş yapmanız gerekmektedir.',
-                  style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                ElevatedButton(
-                  onPressed: () => Get.toNamed('/GirisSayfasi'),
-                  child: const Text('Giriş Yap'),
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.teal),
-                  ),
-                )
-              ],
-            )
-          : const Text(
-              'Favoriler',
-              style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 40.0,
-                  fontWeight: FontWeight.bold),
-            ),
-    );
-  }
+  ConsumerState<FavorilerWidget> createState() => _FavorilerWidgetState();
 }
+
+class _FavorilerWidgetState extends ConsumerState<FavorilerWidget> {
+  @override
+  void initState() {
+    ref.read(homeRiverpod).fetchFavoritelist() ;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var state = ref.watch(homeRiverpod);
+    return state.data!.isEmpty
+        ? const Center(
+            child: Text(
+              'Henüz favori eklemediniz',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20),
+            ),
+          )
+        : ListView.builder(
+            itemBuilder: ((context, index) {
+              return VideoOynatici(
+                embedCode: state.data?[index].embed,
+                topTitle: state.data?[index].title,
+                bottomTitle: state.data?[index].description,
+                imageUrl: state.data?[index].image,
+              );
+            }),
+            itemCount: state.data?.length);
+  }
 
 /*
           SingleChildScrollView(
@@ -108,3 +104,4 @@ class FavorilerWidget extends StatelessWidget {
   }
 }
           */
+}

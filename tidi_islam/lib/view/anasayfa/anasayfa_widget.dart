@@ -1,29 +1,25 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:tidi_islam/model/home_model.dart';
-import 'package:tidi_islam/services/test_service.dart';
+import 'package:tidi_islam/riverpod/home_riverpod.dart';
+import 'package:tidi_islam/riverpod/riverpod_management.dart';
+import 'package:tidi_islam/services/services.dart';
 import 'package:tidi_islam/services/video_oynatici.dart';
 import 'package:tidi_islam/view/anasayfa/widgets/video_baslik_widget.dart';
 
-class AnasayfaWidget extends StatefulWidget {
+class AnasayfaWidget extends ConsumerStatefulWidget {
   const AnasayfaWidget({Key? key}) : super(key: key);
 
   @override
-  State<AnasayfaWidget> createState() => _AnasayfaWidgetState();
+  ConsumerState<AnasayfaWidget> createState() => _AnasayfaWidgetState();
 }
 
-class _AnasayfaWidgetState extends State<AnasayfaWidget> {
-  final List<String> urls = [
-    'http://tidislam.com/upload/ckfinder/images/slider/turk-isaret-dilinde-islam-slider-calismasi.JPG',
-    'http://tidislam.com/upload/ckfinder/images/slider/dini-kelimeler-ve-anlamlarini-ogreniyorum-slider-calismasi.jpg',
-    'http://tidislam.com/upload/ckfinder/images/slider/peygamber-efendimizin-hayati.JPG',
-    'http://tidislam.com/upload/ckfinder/images/slider/dini-bilgiler-ogreniyorum-slider-calasimasi1.JPG',
-    'http://tidislam.com/upload/ckfinder/images/slider/islami-ogreniyorum-cocuk.JPG',
-  ];
+class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
   bool _isLoading = true;
 
   final box = GetStorage();
@@ -31,7 +27,9 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
   @override
   void initState() {
     super.initState();
-    fetchAlbum();
+    Service().fetchAlbum();
+    ref.read(homeRiverpod).fetchSlider();
+    ref.read(homeRiverpod).fetchFavoritelist();
 
     Future.delayed(const Duration(milliseconds: 100), () {
       setState(() {
@@ -42,13 +40,18 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
 
   @override
   Widget build(BuildContext context) {
+    var state = ref.watch(homeRiverpod);
     return FutureBuilder(
-        future: fetchAlbum(),
+        future: Service().fetchAlbum(),
         builder: (context, AsyncSnapshot<HomeModel> snapshot) {
           if (snapshot.hasData) {
-            return _body(snapshot);
+            return _body(snapshot, state);
           } else {
-            return const Center(child: CircularProgressIndicator.adaptive());
+            return const Center(
+                child: CircularProgressIndicator.adaptive(
+              backgroundColor: Colors.white,
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
+            ));
           }
         });
   }
@@ -59,6 +62,7 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
         itemBuilder: (ctx, index) => Column(
           children: [
             VideoOynatici(
+              id: data?[index].id,
               imageUrl: data?[index].image,
               embedCode: data?[index].embed,
               topTitle: data?[index].title,
@@ -80,6 +84,7 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
         itemBuilder: (ctx, index) => Column(
           children: [
             VideoOynatici(
+              id: data?[index].id,
               imageUrl: data?[index].image,
               embedCode: data?[index].embed,
               topTitle: data?[index].title,
@@ -101,6 +106,7 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
         itemBuilder: (ctx, index) => Column(
           children: [
             VideoOynatici(
+              id: data?[index].id,
               imageUrl: data?[index].image,
               embedCode: data?[index].embed,
               topTitle: data?[index].title,
@@ -122,6 +128,7 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
         itemBuilder: (ctx, index) => Column(
           children: [
             VideoOynatici(
+              id: data?[index].id,
               imageUrl: data?[index].image,
               embedCode: data?[index].embed,
               topTitle: data?[index].title,
@@ -143,6 +150,7 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
         itemBuilder: (ctx, index) => Column(
           children: [
             VideoOynatici(
+              id: data?[index].id,
               imageUrl: data?[index].image,
               embedCode: data?[index].embed,
               topTitle: data?[index].title,
@@ -159,7 +167,7 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
         itemCount: data?.length ?? 0,
       );
 
-  SizedBox photoSlider() {
+  photoSlider(HomeRiverpod state) {
     return SizedBox(
       width: double.infinity,
       height: Get.height / 4,
@@ -169,7 +177,7 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
         duration: 1000,
         indicatorLayout: PageIndicatorLayout.NONE,
         layout: SwiperLayout.DEFAULT,
-        itemCount: urls.length,
+        itemCount: state.dataSlider?.length ?? 0,
         itemBuilder: (BuildContext context, int index) => OctoImage(
           errorBuilder: (context, error, stackTrace) => const Center(
             child: Text(
@@ -178,7 +186,7 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
             ),
           ),
           image: NetworkImage(
-            urls[index],
+            'http://tidislam.com' + state.dataSlider![index].mobilImage!,
           ),
           placeholderBuilder: (context) => const Center(
             child: SpinKitFadingCircle(
@@ -192,7 +200,7 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
     );
   }
 
-  Widget _body(AsyncSnapshot<HomeModel> snapshot) => Column(
+  Widget _body(AsyncSnapshot<HomeModel> snapshot, HomeRiverpod state) => Column(
         children: [
           Expanded(
             child: ListView(
@@ -210,7 +218,7 @@ class _AnasayfaWidgetState extends State<AnasayfaWidget> {
                           color: Colors.teal,
                         ),
                       )
-                    : photoSlider(),
+                    : photoSlider(state),
 
                 const VideoBaslikWidget(
                   baslikAdi: 'DİNİ KELİMELER VE ANLAMLARI KADIN',

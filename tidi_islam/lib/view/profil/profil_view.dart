@@ -23,6 +23,7 @@ class ProfilView extends StatelessWidget {
           TextButton(
             onPressed: () {
               GetStorage().remove('id');
+              GetStorage().remove('session');
               Get.offAllNamed('/');
             },
             child: const Text(

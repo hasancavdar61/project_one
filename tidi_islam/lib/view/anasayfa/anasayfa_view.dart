@@ -12,9 +12,49 @@ class AnasayfaView extends StatefulWidget {
   State<AnasayfaView> createState() => _AnasayfaViewState();
 }
 
+enum Menu { profilSayfasi, changePassword, itemThree }
+enum Options { profile, password, detail, exit }
+
 class _AnasayfaViewState extends State<AnasayfaView> {
   var currentIndex = 0.obs;
   final box = GetStorage();
+  var popupMenuItemIndex = 0;
+
+  PopupMenuItem _buildPopupMenuItem(
+      String title, IconData iconData, int position) {
+    return PopupMenuItem(
+      value: position,
+      child: Row(
+        children: [
+          Icon(
+            iconData,
+            size: 20.0,
+            color: Colors.black,
+          ),
+          Text(title),
+        ],
+      ),
+    );
+  }
+
+  _onMenuItemSelected(int value) {
+    setState(() {
+      popupMenuItemIndex = value;
+    });
+
+    if (value == Options.profile.index) {
+      Get.toNamed('/ProfilSayfasi');
+    } else if (value == Options.password.index) {
+      Get.toNamed('/ChangePassword');
+    } else if (value == Options.detail.index) {
+      Get.toNamed('/ChangeUserDetail');
+    } else {
+      
+      GetStorage().remove('id');
+      GetStorage().remove('session');
+      Get.offAllNamed('/');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,23 +73,44 @@ class _AnasayfaViewState extends State<AnasayfaView> {
             ),
           ),
           actions: [
-            TextButton(
-              onPressed: box.read('id') == null
-                  ? () => Get.toNamed('/GirisSayfasi')
-                  : () => Get.toNamed('/ProfilSayfasi'),
-              child: box.read('id') != null
-                  ? const CircleAvatar(
-                      backgroundColor: Colors.transparent,
-                      child: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
-                    )
-                  : const Text(
+            box.read('id') == null
+                ? TextButton(
+                    onPressed: (() {
+                      Get.toNamed('/GirisSayfasi');
+                      
+                    }),
+                    child: const Text(
                       'Giriş Yap',
                       style: TextStyle(color: Colors.white),
-                    ),
-            ),
+                    ))
+                : PopupMenuButton(
+                    icon: const Icon(Icons.person),
+                    onSelected: (value) {
+                      _onMenuItemSelected(value as int);
+                    },
+                    itemBuilder: (ctx) => [
+                      _buildPopupMenuItem(
+                        'Kullanıcı Bilgileri',
+                        Icons.person_outline,
+                        Options.profile.index,
+                      ),
+                      _buildPopupMenuItem(
+                        'Bilgileri Güncelle',
+                        Icons.update,
+                        Options.detail.index,
+                      ),
+                      _buildPopupMenuItem(
+                        'Şifre Değiştir',
+                        Icons.change_circle_outlined,
+                        Options.password.index,
+                      ),
+                      _buildPopupMenuItem(
+                        'Çıkış Yap',
+                        Icons.exit_to_app,
+                        Options.exit.index,
+                      ),
+                    ],
+                  )
           ],
         ),
 
@@ -112,3 +173,23 @@ class _AnasayfaViewState extends State<AnasayfaView> {
         ));
   }
 }
+/*
+ TextButton(
+              onPressed: box.read('id') == null
+                  ? () => Get.toNamed('/GirisSayfasi')
+                  : () => Get.toNamed('/ProfilSayfasi'),
+              child: box.read('id') != null
+                  ? const CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      child: Icon(
+                        Icons.person,
+                        color: Colors.white,
+                      ),
+                    )
+                  : const Text(
+                      'Giriş Yap',
+                      style: TextStyle(color: Colors.white),
+                    ),
+            ),
+ */
+

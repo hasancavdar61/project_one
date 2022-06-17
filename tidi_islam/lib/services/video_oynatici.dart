@@ -11,19 +11,22 @@ class VideoOynatici extends StatefulWidget {
     this.topTitle,
     this.bottomTitle,
     this.imageUrl,
+    this.id,
+    this.color,
   }) : super(key: key);
 
   final String? embedCode;
   final String? topTitle;
   final String? bottomTitle;
   final String? imageUrl;
+  final String? id;
+  final Color? color;
 
   @override
   State<VideoOynatici> createState() => _VideoOynaticiState();
 }
 
 class _VideoOynaticiState extends State<VideoOynatici> {
-  Color color = Colors.black;
   String favoriTitle = 'Favori işlemi başarılı';
   String base = 'https://i3.ytimg.com/vi//maxresdefault.jpg';
   String baseUrl = 'https://www.tidislam.com';
@@ -141,17 +144,11 @@ class _VideoOynaticiState extends State<VideoOynatici> {
                   SnackBar(
                     content: Text(favoriTitle),
                   ),
-                  
                 );
-                setState(() {
-                  color == Colors.black
-                      ? color = Colors.red
-                      : color = Colors.black;
-                });
               },
               child: Icon(
                 Icons.favorite,
-                color: color,
+                color: widget.color,
               ),
             ),
           ),
@@ -167,10 +164,7 @@ showVideoDialog(BuildContext context, YoutubePlayerController _controller) {
   showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      title: const Text(
-        'Video Oynatıcı',
-        style: TextStyle(color: Colors.black),
-      ),
+      contentPadding: const EdgeInsets.all(5),
       content: YoutubePlayerIFrame(
         controller: _controller,
         aspectRatio: 16 / 9,
@@ -180,6 +174,11 @@ showVideoDialog(BuildContext context, YoutubePlayerController _controller) {
 }
 
 /**
+ * 
+ * YoutubePlayerIFrame(
+        controller: _controller,
+        aspectRatio: 16 / 9,
+      )
  * class VideoGrid extends StatelessWidget {
   const VideoGrid({Key? key, this.embedCode}) : super(key: key);
 

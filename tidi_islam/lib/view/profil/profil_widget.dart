@@ -114,29 +114,7 @@ class _ProfilWidgetState extends State<ProfilWidget> {
                 ),
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.teal)),
-                  onPressed: () {
-                    Get.toNamed('/ChangePassword');
-                  },
-                  child: const Text('ŞİFRE DEĞİŞTİR'),
-                ),
-                ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.teal)),
-                  onPressed: () {
-                    Get.toNamed('/ChangeUserDetail');
-                  },
-                  child: const Text('BİLGİLERİ GÜNCELLE'),
-                ),
-              ],
-            ),
+
             Visibility(
               visible: _isVisible,
               child: SizedBox(
@@ -159,6 +137,32 @@ class _ProfilWidgetState extends State<ProfilWidget> {
 }
 
 /**
+ * 
+ * Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.teal)),
+                  onPressed: () {
+                    Get.toNamed('/ChangePassword');
+                  },
+                  child: const Text('ŞİFRE DEĞİŞTİR'),
+                ),
+                ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.teal)),
+                  onPressed: () {
+                    Get.toNamed('/ChangeUserDetail');
+                  },
+                  child: const Text('BİLGİLERİ GÜNCELLE'),
+                ),
+              ],
+            ),
+ * 
+ * 
   ElevatedButton(
               onPressed: () {
                 showMaterialModalBottomSheet(

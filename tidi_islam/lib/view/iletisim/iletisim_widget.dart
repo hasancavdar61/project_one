@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:tidi_islam/model/home_model.dart';
-import 'package:tidi_islam/services/test_service.dart';
 
 class IletisimWidget extends ConsumerStatefulWidget {
   const IletisimWidget({Key? key}) : super(key: key);
@@ -13,8 +12,6 @@ class IletisimWidget extends ConsumerStatefulWidget {
 class _IletisimWidget extends ConsumerState<IletisimWidget> {
   @override
   void initState() {
-    fetchAlbum();
-
     super.initState();
   }
 
