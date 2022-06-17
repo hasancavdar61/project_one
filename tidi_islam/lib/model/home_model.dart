@@ -106,18 +106,18 @@ class CatProducts {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['image'] = this.image;
-    data['image_vitrin'] = this.imageVitrin;
-    data['embed'] = this.embed;
-    data['date_add'] = this.dateAdd;
-    data['hits'] = this.hits;
-    data['title'] = this.title;
-    data['description'] = this.description;
-    data['slug'] = this.slug;
-    data['category_id'] = this.categoryId;
-    data['cattitle'] = this.cattitle;
+    final Map<String, dynamic> data =  <String, dynamic>{};
+    data['id'] = id;
+    data['image'] = image;
+    data['image_vitrin'] = imageVitrin;
+    data['embed'] = embed;
+    data['date_add'] = dateAdd;
+    data['hits'] = hits;
+    data['title'] = title;
+    data['description'] = description;
+    data['slug'] = slug;
+    data['category_id'] = categoryId;
+    data['cattitle'] = cattitle;
     return data;
   }
 }

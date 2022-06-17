@@ -48,7 +48,7 @@ class Menu {
   List<Menu>? parentTwo;
 
   factory Menu.fromJson(Map<String, dynamic> json) => Menu(
-        id: json["id"] ?? null,
+        id: json["id"],
         image: json["image"],
         title: json["title"],
         slug: json["slug"],
@@ -64,7 +64,7 @@ class Menu {
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id ?? null,
+        "id": id,
         "image": image,
         "title": title,
         "slug": slug,

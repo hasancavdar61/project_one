@@ -37,25 +37,25 @@ class _YanMenuState extends State<YanMenu> {
           /// Custom oluşturulan [ExpansionMenu] [ExpansionTile] özellilkleri
           /// barındırıp custom propertyler alarak kullanımı hafife kolaya
           /// indirilmiştir.
-          ExpansionMenu(
+          const ExpansionMenu(
             kategoriAdi: 'DİNİ KELİMELER VE ANLAMLARI',
             routeNameKadin: '',
             routeNameErkek: '',
             routeNameCocuk: '',
           ),
-          ExpansionMenu(
+          const ExpansionMenu(
             kategoriAdi: 'DİNİ BİLGİLER',
             routeNameKadin: '',
             routeNameErkek: '',
             routeNameCocuk: '',
           ),
-          ExpansionMenu(
+          const ExpansionMenu(
             kategoriAdi: 'HZ. MUHAMMED ',
             routeNameKadin: '',
             routeNameErkek: '',
             routeNameCocuk: '',
           ),
-          ExpansionMenu(
+          const ExpansionMenu(
             kategoriAdi: 'DİNİ KELİMELER VE ANLAMLARI',
             routeNameKadin: '',
             routeNameErkek: '',

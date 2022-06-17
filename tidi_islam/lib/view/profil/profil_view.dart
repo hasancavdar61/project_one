@@ -12,9 +12,16 @@ import 'package:tidi_islam/view/soru_cevap/widgets/custom_form.dart';
 
 part '../profil/profil_widget.dart';
 
-class ProfilView extends StatelessWidget {
-  ProfilView({Key? key}) : super(key: key);
+class ProfilView extends StatefulWidget {
+  const ProfilView({Key? key}) : super(key: key);
+
+  @override
+  State<ProfilView> createState() => _ProfilViewState();
+}
+
+class _ProfilViewState extends State<ProfilView> {
   Service service = Service();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

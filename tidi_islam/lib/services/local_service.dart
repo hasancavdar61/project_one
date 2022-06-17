@@ -17,11 +17,11 @@ class GetRouteService {
         gettingRoutes('/KategoriSayfasi', const KategoriView()),
         gettingRoutes('/KayitSayfasi', const KayitView()),
         gettingRoutes('/GirisSayfasi', const GirisView()),
-        gettingRoutes('/ProfilSayfasi', ProfilView()),
+        gettingRoutes('/ProfilSayfasi', const ProfilView()),
         gettingRoutes('/SifreDegistirmeSayfasi', const SifreDegistirmeView()),
         gettingRoutes('/ForgotPassword', const ForgotPassword()),
         gettingRoutes('/ChangePassword', const ChangePassword()),
-        gettingRoutes('/ChangeUserDetail', ChangeUserView()),
+        gettingRoutes('/ChangeUserDetail', const ChangeUserView()),
         // gettingRoutes('/test', const TestApp()),
       ];
 }
