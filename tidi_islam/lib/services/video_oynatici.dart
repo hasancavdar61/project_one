@@ -71,32 +71,6 @@ class _VideoOynaticiState extends State<VideoOynatici> {
                       fit: BoxFit.scaleDown,
                     ),
                   ),
-
-                  Positioned(
-                    left: 60,
-                    right: 60,
-                    top: 30,
-                    bottom: 30,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.red.withOpacity(0.7),
-                          shape: BoxShape.circle),
-                    ),
-                  ),
-                  // play butonu
-                  Positioned(
-                    left: 1,
-                    right: 1,
-                    top: 1,
-                    bottom: 1,
-                    child: IconButton(
-                      icon: const Icon(
-                        Icons.play_arrow,
-                        color: Colors.white,
-                      ),
-                      onPressed: () => showVideoDialog(context, _controller),
-                    ),
-                  ),
                 ]),
                 const SizedBox(
                   width: 10.0,

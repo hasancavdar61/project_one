@@ -1,24 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tidi_islam/riverpod/riverpod_management.dart';
 import 'package:tidi_islam/view/anasayfa/widgets/expansion_menu.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class YanMenu extends StatefulWidget {
+class YanMenu extends ConsumerStatefulWidget {
   const YanMenu({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<YanMenu> createState() => _YanMenuState();
+  ConsumerState<YanMenu> createState() => _YanMenuState();
 }
 
-class _YanMenuState extends State<YanMenu> {
+final Uri _url = Uri.parse('https://www.tidislam.com/');
+String urrl = 'https://www.tidislam.com/';
+void _launchUrl(String url) async {
+  if (!await launchUrl(Uri.parse(urrl + url))) throw 'Could not launch $_url';
+}
+
+class _YanMenuState extends ConsumerState<YanMenu> {
+  @override
+  void initState() {
+    ref.read(homeRiverpod).fetchMenu();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    //! [Drawer] şimdilik static veriler ile dolduruldu veritabanı bağlantısı
-    //! yapılcak ve dinamik yapıya kavuşacak.
-
+    var state = ref.watch(homeRiverpod);
     return Drawer(
       backgroundColor: Colors.teal,
       child: ListView(
+        shrinkWrap: true,
         children: [
           Container(
             padding: const EdgeInsets.all(14.0),
@@ -33,76 +47,41 @@ class _YanMenuState extends State<YanMenu> {
               ),
             ),
           ),
-
-          /// Custom oluşturulan [ExpansionMenu] [ExpansionTile] özellilkleri
-          /// barındırıp custom propertyler alarak kullanımı hafife kolaya
-          /// indirilmiştir.
-          const ExpansionMenu(
-            kategoriAdi: 'DİNİ KELİMELER VE ANLAMLARI',
-            routeNameKadin: '',
-            routeNameErkek: '',
-            routeNameCocuk: '',
-          ),
-          const ExpansionMenu(
-            kategoriAdi: 'DİNİ BİLGİLER',
-            routeNameKadin: '',
-            routeNameErkek: '',
-            routeNameCocuk: '',
-          ),
-          const ExpansionMenu(
-            kategoriAdi: 'HZ. MUHAMMED ',
-            routeNameKadin: '',
-            routeNameErkek: '',
-            routeNameCocuk: '',
-          ),
-          const ExpansionMenu(
-            kategoriAdi: 'DİNİ KELİMELER VE ANLAMLARI',
-            routeNameKadin: '',
-            routeNameErkek: '',
-            routeNameCocuk: '',
-          ),
-
-          /// Tek dokunma ve açılmayan menü yapısı
+          ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemBuilder: ((context, index) {
+                return ExpansionMenu(
+                  kategoriAdi: state.dataModel?[index].title!.toUpperCase(),
+                  otherChild: Expanded(
+                    child: ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: ((context, index) => Container(
+                              decoration: BoxDecoration(
+                                border: Border(
+                                    bottom: BorderSide(
+                                        color: Colors.grey.shade400)),
+                                color: Colors.white,
+                              ),
+                              padding: const EdgeInsets.all(14.0),
+                              width: double.infinity,
+                              child: ListView.builder(
+                                shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemBuilder: ((context, index) => Text(
+                                    state.dataModel![index].parent![0].title!)),
+                                itemCount:
+                                    state.dataModel![index].parent!.length,
+                              ),
+                            )),
+                        itemCount: state.dataModel?[index].parent!.length),
+                  ),
+                );
+              }),
+              itemCount: state.dataModel?.length ?? 0),
         ],
       ),
     );
   }
 }
-
-class KategoriListesi {
-  List<String> kategoriAdi = [
-    "DİNİ KELİMELER VE ANLAMLARI",
-    "DİNİ BİLGİLER",
-    "HZ. MUHAMMED (S.A.S.)",
-    "TİD KUR'AN-I KERİM MEALİ"
-  ];
-  List<String> altKategoriler = [
-    "KADIN",
-    "ERKEK",
-    "ÇOCUK",
-  ];
-}
-
-/**
- ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemBuilder: ((context, index) {
-              return Column(
-                children: [
-                  ExpansionMenu(
-                    kategoriAdi: KategoriListesi().kategoriAdi[index],
-                    routeName: 'GirisSayfasi',
-                  ),
-                  const Divider(
-                    height: 1.0,
-                    thickness: 1.0,
-                    endIndent: 20.0,
-                    color: Colors.grey,
-                  ),
-                ],
-              );
-            }),
-            itemCount: KategoriListesi().kategoriAdi.length,
-          ),
- */

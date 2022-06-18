@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:tidi_islam/view/anasayfa/widgets/yan_menu_widget.dart';
 import 'dart:math';
+
+import 'package:flutter/material.dart';
 
 class ExpansionMenu extends StatelessWidget {
   const ExpansionMenu({
@@ -10,12 +9,14 @@ class ExpansionMenu extends StatelessWidget {
     this.routeNameKadin,
     this.routeNameErkek,
     this.routeNameCocuk,
+    this.otherChild,
   }) : super(key: key);
 
   final String? kategoriAdi;
   final String? routeNameKadin;
   final String? routeNameErkek;
   final String? routeNameCocuk;
+  final Widget? otherChild;
 
   @override
   Widget build(BuildContext context) {
@@ -82,51 +83,7 @@ class ExpansionMenu extends StatelessWidget {
                   ],
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  Get.toNamed('/$routeNameKadin');
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    border:
-                        Border(bottom: BorderSide(color: Colors.grey.shade400)),
-                    color: Colors.white,
-                  ),
-                  padding: const EdgeInsets.all(14.0),
-                  width: double.infinity,
-                  child: Text(KategoriListesi().altKategoriler[0]),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Get.toNamed('/$routeNameErkek');
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    border:
-                        Border(bottom: BorderSide(color: Colors.grey.shade400)),
-                    color: Colors.white,
-                  ),
-                  padding: const EdgeInsets.all(14.0),
-                  width: double.infinity,
-                  child: Text(KategoriListesi().altKategoriler[1]),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  Get.toNamed('/$routeNameCocuk');
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    border:
-                        Border(bottom: BorderSide(color: Colors.grey.shade400)),
-                    color: Colors.white,
-                  ),
-                  padding: const EdgeInsets.all(14.0),
-                  width: double.infinity,
-                  child: Text(KategoriListesi().altKategoriler[2]),
-                ),
-              ),
+              SizedBox(child: Expanded(child: otherChild!))
             ],
           ),
         )
@@ -134,26 +91,3 @@ class ExpansionMenu extends StatelessWidget {
     );
   }
 }
-
-/*
-ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: KategoriListesi().altKategoriler.length,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        Get.toNamed('/$routeName');
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(color: Colors.grey.shade400)),
-                          color: Colors.white,
-                        ),
-                        padding: const EdgeInsets.all(14.0),
-                        width: double.infinity,
-                        child: Text(KategoriListesi().altKategoriler[index]),
-                      ),
-                    );
-                  })
- */

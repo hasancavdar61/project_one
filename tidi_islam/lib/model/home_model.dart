@@ -4,7 +4,6 @@
 
 import 'dart:convert';
 
-
 HomeModel homeModelFromJson(String str) => HomeModel.fromJson(json.decode(str));
 
 String homeModelToJson(HomeModel data) => json.encode(data.toJson());
@@ -52,7 +51,11 @@ class Product {
         catHref: json["cat_href"],
         catAsistanVideo: json["cat_asistan_video"],
         // amk andaval backendcisi listeye false bvool gönderiyor.
-        catProducts: json["cat_products"] is bool ? null : List.from(json["cat_products"]).map((e) => CatProducts.fromJson(e)).toList(),
+        catProducts: json["cat_products"] is bool
+            ? null
+            : List.from(json["cat_products"])
+                .map((e) => CatProducts.fromJson(e))
+                .toList(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -106,7 +109,7 @@ class CatProducts {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data =  <String, dynamic>{};
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['image'] = image;
     data['image_vitrin'] = imageVitrin;

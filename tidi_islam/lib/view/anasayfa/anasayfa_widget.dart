@@ -30,6 +30,7 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
     Service().fetchAlbum();
     ref.read(homeRiverpod).fetchSlider();
     ref.read(homeRiverpod).fetchFavoritelist();
+    ref.read(homeRiverpod).fetchMenu();
 
     Future.delayed(const Duration(milliseconds: 100), () {
       setState(() {

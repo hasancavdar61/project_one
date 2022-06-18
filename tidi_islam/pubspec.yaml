@@ -54,6 +54,7 @@ dependencies:
   url_launcher: ^6.1.2
   dio_cookie_manager: ^2.0.0
   cookie_jar: 3.0.1
+  flutter_slidable: ^1.3.0
   
 
 
