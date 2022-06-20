@@ -12,6 +12,7 @@
 //!
 
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -20,11 +21,14 @@ import 'package:tidi_islam/services/local_service.dart';
 import 'package:tidi_islam/view/anasayfa/anasayfa_view.dart';
 
 void main() async {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await GetStorage.init();
   runApp(
     ProviderScope(child: TidApp()),
   );
 }
+
 
 class TidApp extends StatefulWidget {
   TidApp({
@@ -38,6 +42,11 @@ class TidApp extends StatefulWidget {
 
 class _TidAppState extends State<TidApp> {
   @override
+  void initState() {
+    FlutterNativeSplash.remove();
+    super.initState();
+  }
+  @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
@@ -49,3 +58,4 @@ class _TidAppState extends State<TidApp> {
     );
   }
 }
+

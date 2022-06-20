@@ -51,7 +51,7 @@ class _AnasayfaViewState extends State<AnasayfaView> {
     } else {
       
       GetStorage().remove('id');
-      GetStorage().remove('session');
+      GetStorage().remove('cookie');
       Get.offAllNamed('/');
     }
   }
