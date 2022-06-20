@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tidi_islam/riverpod/riverpod_management.dart';
+import 'package:tidi_islam/services/services.dart';
 import 'package:tidi_islam/services/video_oynatici.dart';
 
 class FavorilerWidget extends ConsumerStatefulWidget {
@@ -15,8 +16,8 @@ class FavorilerWidget extends ConsumerStatefulWidget {
 class _FavorilerWidgetState extends ConsumerState<FavorilerWidget> {
   @override
   void initState() {
-    ref.read(homeRiverpod).fetchFavoritelist();
     super.initState();
+    ref.read(homeRiverpod).fetchFavoritelist();
   }
 
   @override
@@ -59,35 +60,17 @@ class _FavorilerWidgetState extends ConsumerState<FavorilerWidget> {
       return ListView.builder(
           itemBuilder: ((context, index) {
             return VideoOynatici(
-              embedCode: state.data?[index].embed,
-              topTitle: state.data?[index].title,
-              bottomTitle: state.data?[index].description,
-              imageUrl: state.data?[index].image,
-            );
+                color: Colors.red,
+                embedCode: state.data?[index].embed,
+                topTitle: state.data?[index].title,
+                bottomTitle: state.data?[index].description,
+                imageUrl: state.data?[index].image,
+                onTap: () {
+                  Service()
+                      .removeFavouriteCall(id: state.data!.removeAt(index).id!);
+                });
           }),
           itemCount: state.data?.length);
     }
   }
 }
-/**
- * state.data!.isEmpty
-        ? const Center(
-            child: Text(
-              'Henüz favori eklemediniz',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20),
-            ),
-          )
-        : ListView.builder(
-            itemBuilder: ((context, index) {
-              return VideoOynatici(
-                embedCode: state.data?[index].embed,
-                topTitle: state.data?[index].title,
-                bottomTitle: state.data?[index].description,
-                imageUrl: state.data?[index].image,
-              );
-            }),
-            itemCount: state.data?.length);
- */

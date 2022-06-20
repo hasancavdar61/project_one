@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:tidi_islam/model/user_model.dart';
 import 'package:tidi_islam/riverpod/riverpod_management.dart';
 import 'package:tidi_islam/services/services.dart';
 import 'package:tidi_islam/view/soru_cevap/widgets/custom_form.dart';
@@ -37,7 +38,20 @@ class _ChangeUserViewState extends State<ChangeUserView> {
           )
         ],
       ),
-      body: const ChangeUserDetail(),
+      body: FutureBuilder(
+        future: service.userCall(),
+        builder: (context, AsyncSnapshot<UserModel> snapshot) {
+          if (snapshot.hasData) {
+            return ChangeUserDetail(userModel: snapshot.data!);
+          } else {
+            return const Center(
+                child: CircularProgressIndicator.adaptive(
+              backgroundColor: Colors.white,
+              strokeWidth: 5.0,
+            ));
+          }
+        },
+      ),
     );
   }
 }

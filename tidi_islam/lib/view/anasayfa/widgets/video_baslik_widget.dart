@@ -8,12 +8,16 @@ class VideoBaslikWidget extends StatelessWidget {
     this.embedCode,
     this.topTitle,
     this.bottomTitle,
+    this.id,
+    this.imageUrl,
   }) : super(key: key);
 
   final String? baslikAdi;
   final String? embedCode;
   final String? topTitle;
   final String? bottomTitle;
+  final String? id;
+  final String? imageUrl;
 
   /// [Padding] widgeti içinde bulunan [Container] sadece anasayfada kategori
   /// aralarını bölmek ve hangş kategori hangi isimi alıyor göstermek için

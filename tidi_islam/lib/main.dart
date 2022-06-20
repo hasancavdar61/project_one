@@ -1,16 +1,3 @@
-/// Bu uygulama [Hasan Çavdar] tarafından yazılmaktadır, yazılan kodlar private
-/// şekilde GitHub üzerinde tutulup kesinlikle üçüncü parti kişiler tarafından
-/// erişimine izin verilmemektedir. Herhangi bir aksi durum dahilinde kodlara
-/// izinsiz erişim yasaktır. Kod sahibi kodlarının izni dışında paylaşılması,
-/// kopyalanıp şahsi veya kurumsal projelede kullanılması, izinsiz değişiklik
-/// yapılması vb. durumlarda hukuki yollara başvurma hakkını saklı tutar.
-/// Proje fikri ve mülkiyeti Daynex Yazılım E-ticaret firmasına aittir.
-/// Aynı şekilde uygulamayı yazan kişi proje sahibi firmadan izinsiz şekilde
-/// uygulamayı şahsi kar amacı elde etmek için kullanamaz. Kendi projesi gibi
-/// sosyal medya vb. platformlarda yayınlayamaz.
-//! HASAN ÇAVDAR 08.04.2022
-//!
-
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,7 +16,6 @@ void main() async {
   );
 }
 
-
 class TidApp extends StatefulWidget {
   TidApp({
     Key? key,
@@ -46,6 +32,7 @@ class _TidAppState extends State<TidApp> {
     FlutterNativeSplash.remove();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -58,4 +45,3 @@ class _TidAppState extends State<TidApp> {
     );
   }
 }
-

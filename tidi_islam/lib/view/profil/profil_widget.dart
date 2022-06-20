@@ -109,6 +109,7 @@ class _ProfilWidgetState extends State<ProfilWidget> {
                       topLabel: 'E-POSTA*',
                       formFieldLabel: widget.userModel.email,
                       maxAlan: 1,
+                  
                     ),
                   ],
                 ),

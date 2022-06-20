@@ -30,7 +30,7 @@ class _ProfilViewState extends State<ProfilView> {
           TextButton(
             onPressed: () {
               GetStorage().remove('id');
-              GetStorage().remove('session');
+              GetStorage().remove('cookie');
               Get.offAllNamed('/');
             },
             child: const Text(

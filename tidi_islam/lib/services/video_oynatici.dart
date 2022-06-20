@@ -1,10 +1,13 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:octo_image/octo_image.dart';
+import 'package:tidi_islam/riverpod/riverpod_management.dart';
+import 'package:tidi_islam/services/services.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
-class VideoOynatici extends StatefulWidget {
+class VideoOynatici extends ConsumerStatefulWidget {
   const VideoOynatici({
     Key? key,
     this.embedCode,
@@ -13,6 +16,7 @@ class VideoOynatici extends StatefulWidget {
     this.imageUrl,
     this.id,
     this.color,
+    this.onTap,
   }) : super(key: key);
 
   final String? embedCode;
@@ -21,18 +25,21 @@ class VideoOynatici extends StatefulWidget {
   final String? imageUrl;
   final String? id;
   final Color? color;
+  final VoidCallback? onTap;
 
   @override
-  State<VideoOynatici> createState() => _VideoOynaticiState();
+  ConsumerState<VideoOynatici> createState() => _VideoOynaticiState();
 }
 
-class _VideoOynaticiState extends State<VideoOynatici> {
+class _VideoOynaticiState extends ConsumerState<VideoOynatici> {
   String favoriTitle = 'Favori işlemi başarılı';
   String base = 'https://i3.ytimg.com/vi//maxresdefault.jpg';
   String baseUrl = 'https://www.tidislam.com';
+  Service service = Service();
 
   @override
   Widget build(BuildContext context) {
+   
     YoutubePlayerController _controller = YoutubePlayerController(
       initialVideoId: widget.embedCode!,
       params: const YoutubePlayerParams(
@@ -113,13 +120,7 @@ class _VideoOynaticiState extends State<VideoOynatici> {
             left: 3,
             top: 3,
             child: GestureDetector(
-              onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(favoriTitle),
-                  ),
-                );
-              },
+              onTap: widget.onTap,
               child: Icon(
                 Icons.favorite,
                 color: widget.color,

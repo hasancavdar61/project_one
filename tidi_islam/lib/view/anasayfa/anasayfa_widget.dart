@@ -1,3 +1,5 @@
+// ignore_for_file: unrelated_type_equality_checks
+
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -57,7 +59,8 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
         });
   }
 
-  Widget deneme(List<CatProducts>? data) => ListView.builder(
+  Widget deneme(List<CatProducts>? data, HomeRiverpod state) =>
+      ListView.builder(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (ctx, index) => Column(
@@ -68,6 +71,9 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
               embedCode: data?[index].embed,
               topTitle: data?[index].title,
               bottomTitle: data![index].description! + ' KADIN',
+              onTap: () {
+                Service().addFavouriteCall(id: data[index].id!);
+              },
             ),
             const Divider(
               indent: 15.0,
@@ -224,7 +230,7 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
                 const VideoBaslikWidget(
                   baslikAdi: 'DİNİ KELİMELER VE ANLAMLARI KADIN',
                 ),
-                deneme(snapshot.data!.products![0].catProducts),
+                deneme(snapshot.data!.products![0].catProducts, state),
 
                 const VideoBaslikWidget(
                   baslikAdi: 'DİNİ KELİMELER VE ANLAMLARI ERKEK',
@@ -267,4 +273,39 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
                 embedCode: 'nX8-oEvKvx0',
               );
             }),
+
+            ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: ((context, index) {
+                      return Column(
+                        children: [
+                          VideoBaslikWidget(
+                            baslikAdi: snapshot.data!.products![index].catTitle,
+                          ),
+                          ListView.builder(
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (context, indexx) {
+                              return VideoOynatici(
+                                id: snapshot.data?.products![index]
+                                    .catProducts![indexx].id,
+                                imageUrl: snapshot.data?.products![index]
+                                    .catProducts![indexx].image,
+                                embedCode: snapshot.data?.products![index]
+                                    .catProducts![indexx].embed,
+                                topTitle: snapshot.data?.products![index]
+                                    .catProducts![indexx].title,
+                                bottomTitle: snapshot.data?.products![index]
+                                    .catProducts![indexx].description,
+                              );
+                            },
+                            itemCount: snapshot.data?.products![index]
+                                    .catProducts!.length ??
+                                0,
+                          ),
+                        ],
+                      );
+                    }),
+                    itemCount: snapshot.data?.products!.length ?? 0),
 */

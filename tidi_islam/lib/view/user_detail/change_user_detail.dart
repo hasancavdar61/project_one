@@ -1,7 +1,12 @@
 part of 'change_user_detail_view.dart';
 
 class ChangeUserDetail extends ConsumerStatefulWidget {
-  const ChangeUserDetail({Key? key}) : super(key: key);
+  const ChangeUserDetail({
+    Key? key,
+    required this.userModel,
+  }) : super(key: key);
+
+  final UserModel userModel;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -21,6 +26,17 @@ class _ChangeUserDetailState extends ConsumerState<ChangeUserDetail> {
           key: _formKey,
           child: Column(
             children: [
+              const Text(
+                'Kişisel Bilgilerinizi Değiştirin',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
               CustomForm(
                 controller: ref.read(changeUserRiverpod).firstname,
                 isReadOnly: _isReadOnly,
@@ -39,10 +55,11 @@ class _ChangeUserDetailState extends ConsumerState<ChangeUserDetail> {
               ),
               CustomForm(
                 controller: ref.read(changeUserRiverpod).telephone,
-                isReadOnly: _isReadOnly,
+                mask: '###########',
+                filter: {"#": RegExp(r'[0-9]')},
                 inputType: TextInputType.phone,
                 topLabel: 'TELEFON*',
-                formFieldLabel: '',
+                formFieldLabel: '0 (---) --- -- --',
                 maxAlan: 1,
               ),
               CustomForm(

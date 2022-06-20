@@ -25,6 +25,14 @@ class _ChangePasswordState extends ConsumerState<ChangePassword> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                const Text(
+                  'Şifrenizi Değiştirin',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20.0,
+                      fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
+                ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25.0),
                   child: CustomForm(

@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+
 HomeModel homeModelFromJson(String str) => HomeModel.fromJson(json.decode(str));
 
 String homeModelToJson(HomeModel data) => json.encode(data.toJson());
@@ -33,7 +35,7 @@ class Product {
       this.catContent,
       this.catHref,
       this.catAsistanVideo,
-      this.catProducts});
+       this.catProducts});
 
   final String? catTitle;
   final String? catTitleBaslik;
