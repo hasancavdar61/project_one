@@ -2,8 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 import 'package:tidi_islam/riverpod/riverpod_management.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 
 class YanMenu extends ConsumerStatefulWidget {
   const YanMenu({
@@ -14,11 +15,7 @@ class YanMenu extends ConsumerStatefulWidget {
   ConsumerState<YanMenu> createState() => _YanMenuState();
 }
 
-final Uri _url = Uri.parse('https://www.tidislam.com/');
-String urrl = 'https://www.tidislam.com/';
-void _launchUrl(String url) async {
-  if (!await launchUrl(Uri.parse(urrl + url))) throw 'Could not launch $_url';
-}
+
 
 class _YanMenuState extends ConsumerState<YanMenu> {
   @override
@@ -114,8 +111,17 @@ class _YanMenuState extends ConsumerState<YanMenu> {
                             physics: const NeverScrollableScrollPhysics(),
                             itemBuilder: ((context, indexx) {
                               return GestureDetector(
-                                onTap: () => _launchUrl(state
-                                    .dataModel![index].parent![indexx].href!),
+                                onTap: () {
+                                  Get.toNamed(
+                                    '/KategoriSayfasi',
+                                    arguments: [
+                                      state
+                                        .dataModel![index].parent![indexx].href,
+                                      state
+                                          .dataModel![index].title
+                                    ]
+                                  );
+                                },
                                 child: Container(
                                   width: double.infinity,
                                   decoration: BoxDecoration(

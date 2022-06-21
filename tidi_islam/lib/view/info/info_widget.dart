@@ -8,14 +8,18 @@ class InfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SingleChildScrollView(
-        child: Container(
-          margin: const EdgeInsets.all(10.0),
-          child: AutoSizeText(
-            text,
-            style: const TextStyle(
-              color: Colors.white,
+        child: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.all(10.0),
+              child: AutoSizeText(
+                text,
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );

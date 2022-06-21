@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:tidi_islam/model/category_model.dart';
 import 'package:tidi_islam/model/favorite_model.dart';
 import 'package:tidi_islam/model/menu_model.dart';
 import 'package:tidi_islam/model/slider_model.dart';
@@ -13,6 +14,8 @@ class HomeRiverpod extends ChangeNotifier {
   List<Video>? data = [];
   List<Sliders>? dataSlider = [];
   List<Menu>? dataModel = [];
+  String slug = '';
+  List<Videox>? dataCatVideo = [];
 
   void fetchForgot() {
     service.forgotPassword(email: email.text).then((value) {
@@ -61,6 +64,16 @@ class HomeRiverpod extends ChangeNotifier {
       if (value != null) {
         debugPrint(value.toString());
         dataModel = value.menus;
+      } else {
+        throw ('Bir sorun oluştu');
+      }
+    });
+  }
+
+  void categoryCall() {
+    service.categoryCall(slug: slug).then((value) {
+      if (value != null) {
+        dataCatVideo = value.videosx;
       } else {
         throw ('Bir sorun oluştu');
       }

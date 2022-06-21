@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:tidi_islam/model/category_model.dart';
 import 'package:tidi_islam/model/changepass_model.dart';
 import 'package:tidi_islam/model/favorite_model.dart';
 import 'package:tidi_islam/model/forgot_model.dart';
@@ -241,6 +242,25 @@ class Service {
         ));
     if (response.statusCode == 200) {
       var result = MenuModel.fromJson(response.data);
+      debugPrint("Gelen Response => ${response.data}");
+      return result;
+    } else {
+      throw ("Bir sorun oluştu ${response.statusCode}");
+    }
+  }
+
+  Future<CategoryModel?> categoryCall({required String slug}) async {
+    var response = await dio.get(baseUrlHome + '/slug',
+        queryParameters: ({
+          'slug': slug,
+        }),
+        options: Options(
+          headers: {
+            "DX-API-KEY": "53a25de5-f2c1-4d7a-abd6-3046a880c425",
+          },
+        ));
+    if (response.statusCode == 200) {
+      var result = CategoryModel.fromJson(response.data);
       debugPrint("Gelen Response => ${response.data}");
       return result;
     } else {

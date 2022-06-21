@@ -61,17 +61,35 @@ class _ProfilWidgetState extends State<ProfilWidget> {
 
             Padding(
               padding: const EdgeInsets.only(top: 25.0),
-              child: Container(
-                decoration: const BoxDecoration(
-                    color: Colors.teal,
-                    borderRadius: BorderRadius.all(Radius.circular(10.0))),
-                padding: const EdgeInsets.all(20.0),
-                child: Text(
-                  widget.userModel.firstname.toString()[0].toUpperCase() +
-                      widget.userModel.lastname.toString()[0].toUpperCase(),
-                  style: const TextStyle(fontSize: 30.0, color: Colors.white),
-                ),
-              ),
+              child: widget.userModel.image == ""
+                  ? Container(
+                      decoration: const BoxDecoration(
+                          color: Colors.teal,
+                          borderRadius:
+                              BorderRadius.all(Radius.circular(10.0))),
+                      padding: const EdgeInsets.all(20.0),
+                      child: Text(
+                        widget.userModel.firstname.toString()[0].toUpperCase() +
+                            widget.userModel.lastname
+                                .toString()[0]
+                                .toUpperCase(),
+                        style: const TextStyle(
+                            fontSize: 30.0, color: Colors.white),
+                      ),
+                    )
+                  : SizedBox(
+                      height: MediaQuery.of(context).size.height / 4.8,
+                      width: MediaQuery.of(context).size.width / 1.2,
+                      child: CircleAvatar(
+                        child: ClipOval(
+                          child: Image.network(
+                            'https://www.tidislam.com/upload/users/' +
+                                widget.userModel.image!,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
+                    ),
             ),
 
             ///Form yapısını tutan parent widget.
@@ -109,7 +127,6 @@ class _ProfilWidgetState extends State<ProfilWidget> {
                       topLabel: 'E-POSTA*',
                       formFieldLabel: widget.userModel.email,
                       maxAlan: 1,
-                  
                     ),
                   ],
                 ),

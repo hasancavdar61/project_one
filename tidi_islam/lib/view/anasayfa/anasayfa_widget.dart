@@ -1,4 +1,4 @@
-// ignore_for_file: unrelated_type_equality_checks
+// ignore_for_file: unrelated_type_equality_checks, iterable_contains_unrelated_type
 
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
@@ -59,120 +59,7 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
         });
   }
 
-  Widget deneme(List<CatProducts>? data, HomeRiverpod state) =>
-      ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemBuilder: (ctx, index) => Column(
-          children: [
-            VideoOynatici(
-              id: data?[index].id,
-              imageUrl: data?[index].image,
-              embedCode: data?[index].embed,
-              topTitle: data?[index].title,
-              bottomTitle: data![index].description! + ' KADIN',
-              onTap: () {
-                Service().addFavouriteCall(id: data[index].id!);
-              },
-            ),
-            const Divider(
-              indent: 15.0,
-              endIndent: 15.0,
-              thickness: 1,
-              color: Colors.grey,
-            )
-          ],
-        ),
-        itemCount: data?.length ?? 0,
-      );
-  Widget deneme2(List<CatProducts>? data) => ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemBuilder: (ctx, index) => Column(
-          children: [
-            VideoOynatici(
-              id: data?[index].id,
-              imageUrl: data?[index].image,
-              embedCode: data?[index].embed,
-              topTitle: data?[index].title,
-              bottomTitle: data![index].description! + ' ERKEK',
-            ),
-            const Divider(
-              indent: 15.0,
-              endIndent: 15.0,
-              thickness: 1,
-              color: Colors.grey,
-            )
-          ],
-        ),
-        itemCount: data?.length ?? 0,
-      );
-  Widget deneme3(List<CatProducts>? data) => ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemBuilder: (ctx, index) => Column(
-          children: [
-            VideoOynatici(
-              id: data?[index].id,
-              imageUrl: data?[index].image,
-              embedCode: data?[index].embed,
-              topTitle: data?[index].title,
-              bottomTitle: data![index].description! + ' KADIN',
-            ),
-            const Divider(
-              indent: 15.0,
-              endIndent: 15.0,
-              thickness: 1,
-              color: Colors.grey,
-            )
-          ],
-        ),
-        itemCount: data?.length ?? 0,
-      );
-  Widget deneme4(List<CatProducts>? data) => ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemBuilder: (ctx, index) => Column(
-          children: [
-            VideoOynatici(
-              id: data?[index].id,
-              imageUrl: data?[index].image,
-              embedCode: data?[index].embed,
-              topTitle: data?[index].title,
-              bottomTitle: data![index].description! + ' ERKEK',
-            ),
-            const Divider(
-              indent: 15.0,
-              endIndent: 15.0,
-              thickness: 1,
-              color: Colors.grey,
-            )
-          ],
-        ),
-        itemCount: data?.length ?? 0,
-      );
-  Widget deneme5(List<CatProducts>? data) => ListView.builder(
-        physics: const NeverScrollableScrollPhysics(),
-        shrinkWrap: true,
-        itemBuilder: (ctx, index) => Column(
-          children: [
-            VideoOynatici(
-              id: data?[index].id,
-              imageUrl: data?[index].image,
-              embedCode: data?[index].embed,
-              topTitle: data?[index].title,
-              bottomTitle: data![index].description!,
-            ),
-            const Divider(
-              indent: 15.0,
-              endIndent: 15.0,
-              thickness: 1,
-              color: Colors.grey,
-            )
-          ],
-        ),
-        itemCount: data?.length ?? 0,
-      );
+  
 
   photoSlider(HomeRiverpod state) {
     return SizedBox(
@@ -227,32 +114,49 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
                       )
                     : photoSlider(state),
 
-                const VideoBaslikWidget(
-                  baslikAdi: 'DİNİ KELİMELER VE ANLAMLARI KADIN',
-                ),
-                deneme(snapshot.data!.products![0].catProducts, state),
+                ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: ((context, index) {
+                      return Column(
+                        children: [
+                          VideoBaslikWidget(
+                            baslikAdi: snapshot.data!.products![index].catTitle,
+                          ),
+                          ListView.separated(
+                            separatorBuilder: (context, index) {
+                              return const Divider(
+                                color: Colors.grey,
+                              );
+                            },
+                            physics: const NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemBuilder: (context, indexx) {
+                              Color? color;
 
-                const VideoBaslikWidget(
-                  baslikAdi: 'DİNİ KELİMELER VE ANLAMLARI ERKEK',
-                ),
-                deneme2(snapshot.data!.products![1].catProducts),
-                const VideoBaslikWidget(
-                  baslikAdi: 'DİNİ BİLGİLER KADIN',
-                ),
-                deneme3(snapshot.data!.products![2].catProducts),
-                const VideoBaslikWidget(
-                  baslikAdi: 'DİNİ BİLGİLER ERKEK',
-                ),
-                deneme4(snapshot.data!.products![3].catProducts),
-                const VideoBaslikWidget(
-                  baslikAdi: 'DİNİ KELİMELER VE ANLAMLARI ÇOCUK',
-                ),
-                deneme5(snapshot.data!.products![4].catProducts),
-
-                const VideoBaslikWidget(
-                  baslikAdi: 'DİNİ BİLGİLER ÇOCUK',
-                ),
-                deneme5(snapshot.data!.products![5].catProducts),
+                              return VideoOynatici(
+                                color: color,
+                                id: snapshot.data?.products![index]
+                                    .catProducts![indexx].id,
+                                imageUrl: snapshot.data?.products![index]
+                                    .catProducts![indexx].image,
+                                embedCode: snapshot.data?.products![index]
+                                    .catProducts![indexx].embed,
+                                topTitle: snapshot.data?.products![index]
+                                    .catProducts![indexx].title,
+                                bottomTitle: snapshot.data?.products![index]
+                                    .catProducts![indexx].description,
+                                onTap: () {},
+                              );
+                            },
+                            itemCount: snapshot.data?.products![index]
+                                    .catProducts!.length ??
+                                0,
+                          ),
+                        ],
+                      );
+                    }),
+                    itemCount: snapshot.data?.products!.length ?? 0),
               ],
             ),
           ),

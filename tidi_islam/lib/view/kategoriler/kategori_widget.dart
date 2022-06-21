@@ -1,42 +1,87 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
-import 'package:tidi_islam/constants/video_embed_list.dart';
+import 'package:tidi_islam/model/category_model.dart';
+import 'package:tidi_islam/services/services.dart';
 import 'package:tidi_islam/services/video_oynatici.dart';
 
-class KategoriWidget extends StatefulWidget {
+class KategoriWidget extends ConsumerStatefulWidget {
   const KategoriWidget({Key? key}) : super(key: key);
 
   @override
-  State<KategoriWidget> createState() => _KategoriWidgetState();
+  ConsumerState<KategoriWidget> createState() => _KategoriWidgetState();
 }
 
-class _KategoriWidgetState extends State<KategoriWidget> {
+class _KategoriWidgetState extends ConsumerState<KategoriWidget> {
+  var catData = Get.arguments[0];
+  var catDataTitle = Get.arguments[1];
+  List<Videox>? dataCatVideo = [];
+  @override
+  void initState() {
+    Service().categoryCall(slug: catData.toString()).then((value) {
+      if (value != null) {
+        setState(() {
+          dataCatVideo = value.videosx;
+        });
+      } else {
+        throw ('Bir sorun oluştu');
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       child: Scaffold(
         appBar: AppBar(
+          title: catDataTitle != null
+              ? AutoSizeText(
+                  catDataTitle.toString(),
+                  maxFontSize: 18,
+                  minFontSize: 12,
+                )
+              : const Text('TİDİSLAM'),
           automaticallyImplyLeading: true,
-          title: const Text('TİDİSLAM'),
-          actions: [
-            TextButton(
-              onPressed: () => Get.toNamed('/KategoriSayfasi'),
-              child: const Text(
-                'Giriş Yap',
-                style: TextStyle(color: Colors.white),
-              ),
-            ),
-          ],
         ),
 
         /// Kategori listeden gelen embed codeları kullanır.
-        body: ListView.builder(
-          itemCount: videoEmbedListesiKadin.length,
-          itemBuilder: ((context, index) => VideoOynatici(
-                embedCode: videoEmbedListesiKadin[index],
-                topTitle: topTitlesW[index],
-                bottomTitle: bottomTitlesW[index],
-              )),
+        body: FutureBuilder(
+          builder: ((context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView.separated(
+                separatorBuilder: (context, index) {
+                  return const Divider(
+                    color: Colors.grey,
+                  );
+                },
+                itemBuilder: ((context, index) {
+                  return VideoOynatici(
+                    id: dataCatVideo![index].id,
+                    embedCode: dataCatVideo![index].embed,
+                    topTitle: dataCatVideo![index].title,
+                    bottomTitle: dataCatVideo![index].description,
+                    imageUrl: dataCatVideo![index].image,
+                  );
+                }),
+                itemCount: dataCatVideo!.length,
+              );
+            } else if (snapshot.hasError) {
+              return const Center(
+                child: Text(
+                  'Aradığınız kriterlere uygun video bulunamadı.',
+                  style: TextStyle(color: Colors.white),
+                ),
+              );
+            } else {
+              return const Center(
+                  child: CircularProgressIndicator.adaptive(
+                backgroundColor: Colors.white,
+              ));
+            }
+          }),
+          future: Service().categoryCall(slug: catData.toString()),
         ),
       ),
     );
