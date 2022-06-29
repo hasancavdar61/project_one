@@ -10,12 +10,17 @@ class HomeRiverpod extends ChangeNotifier {
   final service = Service();
   TextEditingController email = TextEditingController();
   String page = '0';
+  String? id;
   String perPage = '12';
   List<Video>? data = [];
   List<Sliders>? dataSlider = [];
   List<Menu>? dataModel = [];
   String slug = '';
   List<Videox>? dataCatVideo = [];
+  List<Videox>? dataId = [];
+  String path = '';
+
+  List videoPath = [];
 
   void fetchForgot() {
     service.forgotPassword(email: email.text).then((value) {
@@ -78,5 +83,19 @@ class HomeRiverpod extends ChangeNotifier {
         throw ('Bir sorun oluştu');
       }
     });
+  }
+
+  void favoriteCheck() async {
+    try {
+      await service.favoriCheck(videoId: id!).then((value) async {
+        if (value.status == true) {
+          await service.removeFavouriteCall(id: id!);
+        } else {
+          await service.addFavouriteCall(id: id!);
+        }
+      });
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 }

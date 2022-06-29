@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_video_info/flutter_video_info.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -9,22 +11,24 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:tidi_islam/view/soru_cevap/widgets/custom_form.dart';
 import 'package:tidi_islam/view/soru_cevap/widgets/modal_fit.dart';
 
-class SoruCevapWidget extends StatefulWidget {
+class SoruCevapWidget extends ConsumerStatefulWidget {
   SoruCevapWidget({Key? key}) : super(key: key);
 
   @override
-  State<SoruCevapWidget> createState() => _SoruCevapWidgetState();
+  ConsumerState<SoruCevapWidget> createState() => _SoruCevapWidgetState();
 
   final controller = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 }
 
-class _SoruCevapWidgetState extends State<SoruCevapWidget> {
+class _SoruCevapWidgetState extends ConsumerState<SoruCevapWidget> {
   ///Video dosyasını cihazdan almak ya da video çekmek için bu metod kullanılır.
 
   late bool _isVisible = false;
   File? video;
   File? videoKamera;
+  final videoInfo = FlutterVideoInfo();
+  List liss = [];
 
   final _picker = ImagePicker();
 
@@ -37,6 +41,28 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
           video = File(secilenVideo.path);
           _isVisible = true;
         });
+
+        var info = await videoInfo.getVideoInfo(secilenVideo.path);
+        var sec = info!.duration!;
+
+
+        debugPrint(secilenVideo.path);
+        debugPrint(secilenVideo.name);
+        debugPrint(info.filesize.toString());
+        debugPrint('---------------------------------------------------------');
+        debugPrint('author: ' + info.author.toString());
+        debugPrint('date: ' + info.date.toString());
+        debugPrint('location: ' + info.location.toString());
+        debugPrint('mimetype: ' + info.mimetype.toString());
+        debugPrint('path: ' + info.path.toString());
+        debugPrint('title: ' + info.title.toString());
+        debugPrint('duration: ' + sec.round().toString());
+        debugPrint('fileSize: ' + info.filesize.toString());
+        debugPrint('framerate: ' + info.framerate.toString());
+        debugPrint('height: ' + info.height.toString());
+        debugPrint('width: ' + info.width.toString());
+        debugPrint('orientation: ' + info.orientation.toString());
+
         Navigator.pop(context);
       }
     } catch (e) {
@@ -53,6 +79,9 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
           videoKamera = File(cekilenVideo.path);
           _isVisible = true;
         });
+
+        debugPrint(cekilenVideo.path);
+
         Navigator.pop(context);
       }
     } catch (e) {
@@ -61,12 +90,23 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     ///Form yapısı ana widgeti [SingleChildScrollView]
     GetStorage box = GetStorage();
-    return box.read('id') == null
-        ? centerElevated(box, context)
-        : singleChildSW(context);
+    return RefreshIndicator(
+      child: box.read('id') == null
+          ? centerElevated(box, context)
+          : singleChildSW(context),
+      onRefresh: () async {
+        await Future.delayed(const Duration(seconds: 1));
+        setState(() {});
+      },
+    );
   }
 
   Center centerElevated(GetStorage box, BuildContext context) {
@@ -195,10 +235,10 @@ class _SoruCevapWidgetState extends State<SoruCevapWidget> {
             Visibility(
               visible: _isVisible,
               child: SizedBox(
-                child: videoKamera != null
-                    ? const Text('Video Kaydedildi',
+                child: video != null
+                    ? Text(video!.path.toString(),
                         textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.amber))
+                        style: const TextStyle(color: Colors.amber))
                     : const Text(
                         'Dosya Seçilmedi',
                         textAlign: TextAlign.center,

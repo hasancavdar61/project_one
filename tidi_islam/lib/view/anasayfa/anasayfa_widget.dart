@@ -25,13 +25,13 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
   bool _isLoading = true;
 
   final box = GetStorage();
+  Service service = Service();
 
   @override
   void initState() {
     super.initState();
     Service().fetchAlbum();
     ref.read(homeRiverpod).fetchSlider();
-    ref.read(homeRiverpod).fetchFavoritelist();
     ref.read(homeRiverpod).fetchMenu();
 
     Future.delayed(const Duration(milliseconds: 100), () {
@@ -48,7 +48,12 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
         future: Service().fetchAlbum(),
         builder: (context, AsyncSnapshot<HomeModel> snapshot) {
           if (snapshot.hasData) {
-            return _body(snapshot, state);
+            return RefreshIndicator(
+                onRefresh: () async {
+                  await Service().fetchAlbum();
+                  setState(() {});
+                },
+                child: _body(snapshot, state));
           } else {
             return const Center(
                 child: CircularProgressIndicator.adaptive(
@@ -59,17 +64,26 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
         });
   }
 
-  
-
   photoSlider(HomeRiverpod state) {
     return SizedBox(
       width: double.infinity,
       height: Get.height / 4,
       child: Swiper(
+        controller: SwiperController(),
+        plugins: [
+          const SwiperControl(
+            color: Colors.white,
+          ),
+          SwiperPagination(
+            margin: const EdgeInsets.all(5.0),
+            builder: DotSwiperPaginationBuilder(
+                color: Colors.black.withOpacity(0.5), activeColor: Colors.teal),
+          ),
+        ],
         onIndexChanged: (value) => debugPrint(value.toString()),
         autoplayDelay: 10000,
         duration: 1000,
-        indicatorLayout: PageIndicatorLayout.NONE,
+        indicatorLayout: PageIndicatorLayout.COLOR,
         layout: SwiperLayout.DEFAULT,
         itemCount: state.dataSlider?.length ?? 0,
         itemBuilder: (BuildContext context, int index) => OctoImage(
@@ -132,10 +146,7 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
                             physics: const NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemBuilder: (context, indexx) {
-                              Color? color;
-
                               return VideoOynatici(
-                                color: color,
                                 id: snapshot.data?.products![index]
                                     .catProducts![indexx].id,
                                 imageUrl: snapshot.data?.products![index]
@@ -146,7 +157,6 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
                                     .catProducts![indexx].title,
                                 bottomTitle: snapshot.data?.products![index]
                                     .catProducts![indexx].description,
-                                onTap: () {},
                               );
                             },
                             itemCount: snapshot.data?.products![index]

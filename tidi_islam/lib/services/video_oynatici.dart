@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:octo_image/octo_image.dart';
-
 import 'package:tidi_islam/services/services.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
@@ -15,8 +14,7 @@ class VideoOynatici extends ConsumerStatefulWidget {
     this.bottomTitle,
     this.imageUrl,
     this.id,
-    this.color,
-    this.onTap,
+    this.function,
   }) : super(key: key);
 
   final String? embedCode;
@@ -24,8 +22,7 @@ class VideoOynatici extends ConsumerStatefulWidget {
   final String? bottomTitle;
   final String? imageUrl;
   final String? id;
-  final Color? color;
-  final VoidCallback? onTap;
+  final Function? function;
 
   @override
   ConsumerState<VideoOynatici> createState() => _VideoOynaticiState();
@@ -36,10 +33,11 @@ class _VideoOynaticiState extends ConsumerState<VideoOynatici> {
   String base = 'https://i3.ytimg.com/vi//maxresdefault.jpg';
   String baseUrl = 'https://www.tidislam.com';
   Service service = Service();
+  bool? isFavorite;
+  Color color = Colors.black;
 
   @override
   Widget build(BuildContext context) {
-   
     YoutubePlayerController _controller = YoutubePlayerController(
       initialVideoId: widget.embedCode!,
       params: const YoutubePlayerParams(
@@ -120,10 +118,31 @@ class _VideoOynaticiState extends ConsumerState<VideoOynatici> {
             left: 3,
             top: 3,
             child: GestureDetector(
-              onTap: widget.onTap,
+              onTap: () async {
+                try {
+                  await service
+                      .favoriCheck(videoId: widget.id!)
+                      .then((value) async {
+                    if (value.status == true) {
+                      await service.removeFavouriteCall(id: widget.id!);
+                      widget.function!();
+                      setState(() {
+                        color = Colors.black;
+                      });
+                    } else {
+                      await service.addFavouriteCall(id: widget.id!);
+                      setState(() {
+                        color = Colors.red;
+                      });
+                    }
+                  });
+                } catch (e) {
+                  debugPrint(e.toString());
+                }
+              },
               child: Icon(
                 Icons.favorite,
-                color: widget.color,
+                color: color,
               ),
             ),
           ),

@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:tidi_islam/riverpod/riverpod_management.dart';
 import 'package:tidi_islam/view/soru_cevap/widgets/custom_form.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class GirisWidget extends ConsumerStatefulWidget {
   const GirisWidget({Key? key}) : super(key: key);
@@ -12,10 +11,6 @@ class GirisWidget extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _GirisWidgetState();
 }
 
-final Uri _url = Uri.parse('https://www.tidislam.com/tr/user/register');
-void _launchUrl() async {
-  if (!await launchUrl(_url)) throw 'Could not launch $_url';
-}
 
 class _GirisWidgetState extends ConsumerState<GirisWidget> {
   final _formKey = GlobalKey<FormState>();
@@ -108,7 +103,7 @@ class _GirisWidgetState extends ConsumerState<GirisWidget> {
             style: ButtonStyle(
                 backgroundColor:
                     MaterialStateProperty.all<Color>(Colors.teal.shade300)),
-            onPressed: () => _launchUrl(),
+            onPressed: () => Get.toNamed('/KayitSayfasi'),
             child: Container(
               margin: const EdgeInsets.all(20.0),
               child: const Text(
@@ -120,6 +115,7 @@ class _GirisWidgetState extends ConsumerState<GirisWidget> {
             ),
           ),
         ),
+        
       ],
     );
   }

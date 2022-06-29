@@ -4,8 +4,6 @@
 
 import 'dart:convert';
 
-
-
 HomeModel homeModelFromJson(String str) => HomeModel.fromJson(json.decode(str));
 
 String homeModelToJson(HomeModel data) => json.encode(data.toJson());
@@ -13,9 +11,11 @@ String homeModelToJson(HomeModel data) => json.encode(data.toJson());
 class HomeModel {
   HomeModel({
     this.products,
+    this.isFavorite
   });
 
   final List<Product>? products;
+  final bool? isFavorite;
 
   factory HomeModel.fromJson(Map<String, dynamic> json) => HomeModel(
         products: List<Product>.from(
@@ -35,7 +35,7 @@ class Product {
       this.catContent,
       this.catHref,
       this.catAsistanVideo,
-       this.catProducts});
+      this.catProducts});
 
   final String? catTitle;
   final String? catTitleBaslik;
@@ -82,6 +82,7 @@ class CatProducts {
   String? slug;
   String? categoryId;
   String? cattitle;
+  bool? isFavorite;
 
   CatProducts(
       {this.id,
@@ -94,6 +95,7 @@ class CatProducts {
       this.description,
       this.slug,
       this.categoryId,
+      this.isFavorite,
       this.cattitle});
 
   CatProducts.fromJson(Map<String, dynamic> json) {

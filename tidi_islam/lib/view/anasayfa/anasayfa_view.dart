@@ -49,7 +49,6 @@ class _AnasayfaViewState extends State<AnasayfaView> {
     } else if (value == Options.detail.index) {
       Get.toNamed('/ChangeUserDetail');
     } else {
-      
       GetStorage().remove('id');
       GetStorage().remove('cookie');
       Get.offAllNamed('/');
@@ -77,7 +76,6 @@ class _AnasayfaViewState extends State<AnasayfaView> {
                 ? TextButton(
                     onPressed: (() {
                       Get.toNamed('/GirisSayfasi');
-                      
                     }),
                     child: const Text(
                       'Giriş Yap',

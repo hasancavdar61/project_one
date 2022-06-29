@@ -1,8 +1,10 @@
 part of 'profil_view.dart';
 
 class ProfilWidget extends StatefulWidget {
-  const ProfilWidget({Key? key, required this.userModel}) : super(key: key);
+  const ProfilWidget({Key? key, required this.userModel, })
+      : super(key: key);
   final UserModel userModel;
+
   @override
   State<ProfilWidget> createState() => _ProfilWidgetState();
 }
@@ -132,6 +134,8 @@ class _ProfilWidgetState extends State<ProfilWidget> {
                 ),
               ),
             ),
+
+          
 
             Visibility(
               visible: _isVisible,

@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tidi_islam/riverpod/riverpod_management.dart';
-import 'package:tidi_islam/services/services.dart';
 import 'package:tidi_islam/services/video_oynatici.dart';
 
 class FavorilerWidget extends ConsumerStatefulWidget {
@@ -16,8 +15,11 @@ class FavorilerWidget extends ConsumerStatefulWidget {
 class _FavorilerWidgetState extends ConsumerState<FavorilerWidget> {
   @override
   void initState() {
-    super.initState();
     ref.read(homeRiverpod).fetchFavoritelist();
+    Future.delayed(const Duration(seconds: 1), () {
+      setState(() {});
+    });
+    super.initState();
   }
 
   @override
@@ -28,13 +30,15 @@ class _FavorilerWidgetState extends ConsumerState<FavorilerWidget> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text(
-            'Favori eklemek için giriş yapmanız gerekmektedir.',
-            style: TextStyle(
-                color: Colors.grey,
-                fontSize: 20.0,
-                fontWeight: FontWeight.bold),
-            textAlign: TextAlign.center,
+          const Center(
+            child: Text(
+              'Favori eklemek için giriş yapmanız gerekmektedir.',
+              style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+            ),
           ),
           const SizedBox(
             height: 10.0,
@@ -57,20 +61,23 @@ class _FavorilerWidgetState extends ConsumerState<FavorilerWidget> {
         ),
       );
     } else {
-      return ListView.builder(
-          itemBuilder: ((context, index) {
-            return VideoOynatici(
-                color: Colors.red,
+      return RefreshIndicator(
+        onRefresh: () async {
+          ref.read(homeRiverpod).fetchFavoritelist();
+          setState(() {});
+        },
+        child: ListView.builder(
+            itemBuilder: ((context, index) {
+              return VideoOynatici(
+                id: state.data![index].id,
                 embedCode: state.data?[index].embed,
                 topTitle: state.data?[index].title,
                 bottomTitle: state.data?[index].description,
                 imageUrl: state.data?[index].image,
-                onTap: () {
-                  Service()
-                      .removeFavouriteCall(id: state.data!.removeAt(index).id!);
-                });
-          }),
-          itemCount: state.data?.length);
+              );
+            }),
+            itemCount: state.data?.length),
+      );
     }
   }
 }
