@@ -7,8 +7,8 @@ import 'package:octo_image/octo_image.dart';
 import 'package:tidi_islam/services/services.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
-class VideoOynatici extends ConsumerStatefulWidget {
-  VideoOynatici(
+class TabletOynatici extends ConsumerStatefulWidget {
+  TabletOynatici(
       {Key? key,
       this.embedCode,
       this.topTitle,
@@ -26,10 +26,10 @@ class VideoOynatici extends ConsumerStatefulWidget {
   late Color? iconColor;
 
   @override
-  ConsumerState<VideoOynatici> createState() => _VideoOynaticiState();
+  ConsumerState<ConsumerStatefulWidget> createState() => _TabletOynaticiState();
 }
 
-class _VideoOynaticiState extends ConsumerState<VideoOynatici> {
+class _TabletOynaticiState extends ConsumerState<TabletOynatici> {
   String favoriTitle = 'Favori işlemi başarılı';
   String base = 'https://i3.ytimg.com/vi//maxresdefault.jpg';
   String baseUrl = 'https://www.tidislam.com';
@@ -57,12 +57,13 @@ class _VideoOynaticiState extends ConsumerState<VideoOynatici> {
             onTap: () {
               showVideoDialog(context, _controller);
             },
-            child: Row(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Stack(children: [
                   SizedBox(
-                    width: MediaQuery.of(context).size.width / 2.3,
+                    width: MediaQuery.of(context).size.width / 2,
                     child: OctoImage(
                       errorBuilder: (context, error, stackTrace) => const Text(
                         'Görsel bulunamadı.',
@@ -80,7 +81,7 @@ class _VideoOynaticiState extends ConsumerState<VideoOynatici> {
                   ),
                 ]),
                 const SizedBox(
-                  width: 10.0,
+                  height: 15.0,
                 ),
 
                 /// !Video adı ve Kategori adı
@@ -96,16 +97,13 @@ class _VideoOynaticiState extends ConsumerState<VideoOynatici> {
                         ),
                         minFontSize: 5,
                       ),
-                      const SizedBox(
-                        height: 10,
-                      ),
                       AutoSizeText.rich(
                         TextSpan(text: widget.bottomTitle),
                         textAlign: TextAlign.center,
                         style: const TextStyle(
                           color: Colors.white,
                         ),
-                        maxFontSize: 10,
+                        maxFontSize: 9,
                         minFontSize: 5,
                       )
                     ],
@@ -158,11 +156,6 @@ class _VideoOynaticiState extends ConsumerState<VideoOynatici> {
         ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }
 

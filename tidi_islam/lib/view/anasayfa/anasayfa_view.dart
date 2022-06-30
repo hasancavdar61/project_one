@@ -62,6 +62,16 @@ class _AnasayfaViewState extends State<AnasayfaView> {
           automaticallyImplyLeading: true,
           title: GestureDetector(
             onTap: () => currentIndex.value = 0,
+            onLongPress: () {
+              Get.bottomSheet(
+                  const Center(
+                      child: Text(
+                    'Uygulamamızı kullandığınız için teşekkür ederiz.\nFirma Daynex Yazılım\nGeliştirici Hasan Çavdar\nTrabzon-Türkiye\n2022',
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
+                  )),
+                  backgroundColor: Colors.white);
+            },
             child: Container(
               alignment: Alignment.center,
               height: 50,

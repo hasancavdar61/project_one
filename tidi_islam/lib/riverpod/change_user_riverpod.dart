@@ -3,6 +3,10 @@ import 'package:get/get.dart';
 import 'package:tidi_islam/services/services.dart';
 
 class ChangeUserRiverpod extends ChangeNotifier {
+  String? controllerEmail;
+  String? controllerFirstName;
+  String? controllerLastName;
+  String? controllerTelephone;
   final service = Service();
   TextEditingController email = TextEditingController();
   TextEditingController firstname = TextEditingController();

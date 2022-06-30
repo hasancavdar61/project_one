@@ -11,6 +11,7 @@ import 'package:tidi_islam/model/home_model.dart';
 import 'package:tidi_islam/riverpod/home_riverpod.dart';
 import 'package:tidi_islam/riverpod/riverpod_management.dart';
 import 'package:tidi_islam/services/services.dart';
+import 'package:tidi_islam/services/tablet_oynatici.dart';
 import 'package:tidi_islam/services/video_oynatici.dart';
 import 'package:tidi_islam/view/anasayfa/widgets/video_baslik_widget.dart';
 
@@ -67,7 +68,7 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
   photoSlider(HomeRiverpod state) {
     return SizedBox(
       width: double.infinity,
-      height: Get.height / 4,
+      height: context.isTablet ? Get.height / 1.5 : Get.height / 4,
       child: Swiper(
         controller: SwiperController(),
         plugins: [
@@ -132,39 +133,9 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: ((context, index) {
-                      return Column(
-                        children: [
-                          VideoBaslikWidget(
-                            baslikAdi: snapshot.data!.products![index].catTitle,
-                          ),
-                          ListView.separated(
-                            separatorBuilder: (context, index) {
-                              return const Divider(
-                                color: Colors.grey,
-                              );
-                            },
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (context, indexx) {
-                              return VideoOynatici(
-                                id: snapshot.data?.products![index]
-                                    .catProducts![indexx].id,
-                                imageUrl: snapshot.data?.products![index]
-                                    .catProducts![indexx].image,
-                                embedCode: snapshot.data?.products![index]
-                                    .catProducts![indexx].embed,
-                                topTitle: snapshot.data?.products![index]
-                                    .catProducts![indexx].title,
-                                bottomTitle: snapshot.data?.products![index]
-                                    .catProducts![indexx].description,
-                              );
-                            },
-                            itemCount: snapshot.data?.products![index]
-                                    .catProducts!.length ??
-                                0,
-                          ),
-                        ],
-                      );
+                      return context.isTablet
+                          ? videoGrid(snapshot, index)
+                          : videoList(snapshot, index);
                     }),
                     itemCount: snapshot.data?.products!.length ?? 0),
               ],
@@ -172,54 +143,84 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
           ),
         ],
       );
-}
 
-
-/*
- GridView.builder(
+  /// Videoyu [GridView.builder] ile listeleme için kullanılan method.
+  Column videoGrid(AsyncSnapshot<HomeModel> snapshot, int index) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        VideoBaslikWidget(
+          baslikAdi: snapshot.data!.products![index].catTitle,
+        ),
+        GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
+            itemCount: snapshot.data?.products![index].catProducts!.length ?? 0,
+            shrinkWrap: true,
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
+              crossAxisCount: 4,
             ),
-            itemCount: 4,
-            itemBuilder: (BuildContext context, int index) {
-              return const VideoGrid(
-                embedCode: 'nX8-oEvKvx0',
+            itemBuilder: (context, indexx) {
+              return TabletOynatici(
+                iconColor: GetStorage().read(snapshot
+                            .data!.products![index].catProducts![indexx].id
+                            .toString()) ==
+                        snapshot.data!.products![index].catProducts![indexx].id
+                    ? Colors.red
+                    : Colors.black,
+                id: snapshot.data?.products![index].catProducts![indexx].id,
+                imageUrl:
+                    snapshot.data?.products![index].catProducts![indexx].image,
+                embedCode:
+                    snapshot.data?.products![index].catProducts![indexx].embed,
+                topTitle:
+                    snapshot.data?.products![index].catProducts![indexx].title,
+                bottomTitle: snapshot
+                    .data?.products![index].catProducts![indexx].description,
               );
             }),
+      ],
+    );
+  }
+}
 
-            ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: ((context, index) {
-                      return Column(
-                        children: [
-                          VideoBaslikWidget(
-                            baslikAdi: snapshot.data!.products![index].catTitle,
-                          ),
-                          ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            shrinkWrap: true,
-                            itemBuilder: (context, indexx) {
-                              return VideoOynatici(
-                                id: snapshot.data?.products![index]
-                                    .catProducts![indexx].id,
-                                imageUrl: snapshot.data?.products![index]
-                                    .catProducts![indexx].image,
-                                embedCode: snapshot.data?.products![index]
-                                    .catProducts![indexx].embed,
-                                topTitle: snapshot.data?.products![index]
-                                    .catProducts![indexx].title,
-                                bottomTitle: snapshot.data?.products![index]
-                                    .catProducts![indexx].description,
-                              );
-                            },
-                            itemCount: snapshot.data?.products![index]
-                                    .catProducts!.length ??
-                                0,
-                          ),
-                        ],
-                      );
-                    }),
-                    itemCount: snapshot.data?.products!.length ?? 0),
-*/
+/// Videoyu [ListView.seperated] ile listeleme için kullanılan method.
+Column videoList(AsyncSnapshot<HomeModel> snapshot, int index) {
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      VideoBaslikWidget(
+        baslikAdi: snapshot.data!.products![index].catTitle,
+      ),
+      ListView.separated(
+          separatorBuilder: (context, index) {
+            return const Divider(
+              color: Colors.grey,
+            );
+          },
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: snapshot.data?.products![index].catProducts!.length ?? 0,
+          shrinkWrap: true,
+          itemBuilder: (context, indexx) {
+            return VideoOynatici(
+              iconColor: GetStorage().read(snapshot
+                          .data!.products![index].catProducts![indexx].id
+                          .toString()) ==
+                      snapshot.data!.products![index].catProducts![indexx].id
+                  ? Colors.red
+                  : Colors.black,
+              id: snapshot.data?.products![index].catProducts![indexx].id,
+              imageUrl:
+                  snapshot.data?.products![index].catProducts![indexx].image,
+              embedCode:
+                  snapshot.data?.products![index].catProducts![indexx].embed,
+              topTitle:
+                  snapshot.data?.products![index].catProducts![indexx].title,
+              bottomTitle: snapshot
+                  .data?.products![index].catProducts![indexx].description,
+            );
+          }),
+    ],
+  );
+}

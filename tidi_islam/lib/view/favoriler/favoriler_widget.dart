@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:tidi_islam/riverpod/home_riverpod.dart';
 import 'package:tidi_islam/riverpod/riverpod_management.dart';
+import 'package:tidi_islam/services/tablet_oynatici.dart';
 import 'package:tidi_islam/services/video_oynatici.dart';
 
 class FavorilerWidget extends ConsumerStatefulWidget {
@@ -64,20 +66,48 @@ class _FavorilerWidgetState extends ConsumerState<FavorilerWidget> {
       return RefreshIndicator(
         onRefresh: () async {
           ref.read(homeRiverpod).fetchFavoritelist();
-          setState(() {});
+          await Future.delayed(const Duration(seconds: 1));
         },
-        child: ListView.builder(
-            itemBuilder: ((context, index) {
-              return VideoOynatici(
-                id: state.data![index].id,
-                embedCode: state.data?[index].embed,
-                topTitle: state.data?[index].title,
-                bottomTitle: state.data?[index].description,
-                imageUrl: state.data?[index].image,
-              );
-            }),
-            itemCount: state.data?.length),
+        child: context.isTablet ? videoGridF(state) : videoListF(state),
       );
     }
+  }
+
+  ListView videoListF(HomeRiverpod state) {
+    return ListView.builder(
+        itemBuilder: ((context, index) {
+          return VideoOynatici(
+            id: state.data![index].id,
+            embedCode: state.data?[index].embed,
+            topTitle: state.data?[index].title,
+            bottomTitle: state.data?[index].description,
+            imageUrl: state.data?[index].image,
+            iconColor: GetStorage().read(state.data![index].id.toString()) ==
+                    state.data![index].id
+                ? Colors.red
+                : Colors.black,
+          );
+        }),
+        itemCount: state.data?.length);
+  }
+
+  GridView videoGridF(HomeRiverpod state) {
+    return GridView.builder(
+        gridDelegate:
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+        itemBuilder: ((context, index) {
+          return TabletOynatici(
+            id: state.data![index].id,
+            embedCode: state.data?[index].embed,
+            topTitle: state.data?[index].title,
+            bottomTitle: state.data?[index].description,
+            imageUrl: state.data?[index].image,
+            iconColor: GetStorage().read(state.data![index].id.toString()) ==
+                    state.data![index].id
+                ? Colors.red
+                : Colors.black,
+          );
+        }),
+        itemCount: state.data?.length);
   }
 }

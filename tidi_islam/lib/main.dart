@@ -12,18 +12,17 @@ void main() async {
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await GetStorage.init();
   runApp(
-    ProviderScope(child: TidApp()),
+    const ProviderScope(child: TidApp()),
   );
 }
 
 class TidApp extends StatefulWidget {
-  TidApp({
+  const TidApp({
     Key? key,
   }) : super(key: key);
 
   @override
   State<TidApp> createState() => _TidAppState();
-  final box = GetStorage();
 }
 
 class _TidAppState extends State<TidApp> {
@@ -36,6 +35,7 @@ class _TidAppState extends State<TidApp> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      enableLog: true,
       debugShowCheckedModeBanner: false,
       getPages: GetRouteService().routesGet,
       home: const Scaffold(

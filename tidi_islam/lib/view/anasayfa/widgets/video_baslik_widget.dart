@@ -32,7 +32,7 @@ class VideoBaslikWidget extends StatelessWidget {
             color: Colors.teal,
             padding: const EdgeInsets.all(12.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
                   padding: const EdgeInsets.only(left: 5.0, right: 5.0),
@@ -43,6 +43,9 @@ class VideoBaslikWidget extends StatelessWidget {
                     Icons.play_arrow,
                     color: Colors.white,
                   ),
+                ),
+                const SizedBox(
+                  width: 15.0,
                 ),
                 AutoSizeText(
                   baslikAdi!,

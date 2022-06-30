@@ -1,8 +1,10 @@
 part of 'profil_view.dart';
 
 class ProfilWidget extends StatefulWidget {
-  const ProfilWidget({Key? key, required this.userModel, })
-      : super(key: key);
+  const ProfilWidget({
+    Key? key,
+    required this.userModel,
+  }) : super(key: key);
   final UserModel userModel;
 
   @override
@@ -99,43 +101,31 @@ class _ProfilWidgetState extends State<ProfilWidget> {
               padding: const EdgeInsets.all(24.0),
               child: Form(
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     /// Custom yapıda bulunan [SoruCevap]
-                    CustomForm(
-                      isReadOnly: _isReadOnly,
-                      inputType: TextInputType.name,
+                    ShowerContainer(
                       topLabel: 'İSİM*',
                       formFieldLabel: widget.userModel.firstname!.toUpperCase(),
-                      maxAlan: 1,
-                    ),
-                    CustomForm(
-                      isReadOnly: _isReadOnly,
-                      inputType: TextInputType.name,
-                      topLabel: 'SOYİSİM*',
-                      formFieldLabel: widget.userModel.lastname!.toUpperCase(),
-                      maxAlan: 1,
                     ),
 
-                    CustomForm(
-                      isReadOnly: _isReadOnly,
-                      inputType: TextInputType.phone,
-                      topLabel: 'TELEFON*',
-                      formFieldLabel: widget.userModel.telephone,
-                      maxAlan: 1,
+                    ShowerContainer(
+                      topLabel: 'SOYİSİM*',
+                      formFieldLabel: widget.userModel.lastname!.toUpperCase(),
                     ),
-                    CustomForm(
-                      isReadOnly: _isReadOnly,
-                      inputType: TextInputType.emailAddress,
+                    ShowerContainer(
+                      topLabel: 'TELEFON*',
+                      formFieldLabel: widget.userModel.telephone!.toUpperCase(),
+                    ),
+
+                    ShowerContainer(
                       topLabel: 'E-POSTA*',
-                      formFieldLabel: widget.userModel.email,
-                      maxAlan: 1,
+                      formFieldLabel: widget.userModel.email!,
                     ),
                   ],
                 ),
               ),
             ),
-
-          
 
             Visibility(
               visible: _isVisible,
@@ -157,6 +147,8 @@ class _ProfilWidgetState extends State<ProfilWidget> {
     );
   }
 }
+
+
 
 /**
  * 
