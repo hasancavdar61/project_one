@@ -132,6 +132,7 @@ class _AnasayfaViewState extends State<AnasayfaView> {
         /// [Icon] içerisinde [FontAwesomeIcons] kullanılmıştır.
         bottomNavigationBar: Obx(
           (() => BottomNavigationBar(
+            
                 onTap: (value) {
                   currentIndex.value = value;
                 },
@@ -140,6 +141,7 @@ class _AnasayfaViewState extends State<AnasayfaView> {
                 selectedFontSize: 12.0,
                 unselectedItemColor: Colors.black,
                 selectedItemColor: Colors.teal,
+                
                 items: const [
                   BottomNavigationBarItem(
                     label: 'Anasayfa',

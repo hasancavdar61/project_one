@@ -116,7 +116,7 @@ class _VideoOynaticiState extends ConsumerState<VideoOynatici> {
           ),
 
           /// Favori ikonu
-          GetStorage().read('id') == null
+          GetStorage().read('id') != null
               ? Positioned(
                   left: 3,
                   top: 3,

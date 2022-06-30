@@ -9,7 +9,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:tidi_islam/model/user_model.dart';
 import 'package:tidi_islam/services/services.dart';
 import 'package:tidi_islam/view/profil/widgets/shower_container.dart';
-import 'package:tidi_islam/view/soru_cevap/widgets/custom_form.dart';
 
 part '../profil/profil_widget.dart';
 
