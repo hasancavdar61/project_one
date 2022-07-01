@@ -8,6 +8,7 @@ import 'package:tidi_islam/services/services.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 class TabletOynatici extends ConsumerStatefulWidget {
+  // ignore: prefer_const_constructors_in_immutables
   TabletOynatici(
       {Key? key,
       this.embedCode,
@@ -23,7 +24,7 @@ class TabletOynatici extends ConsumerStatefulWidget {
   final String? bottomTitle;
   final String? imageUrl;
   final String? id;
-  late Color? iconColor;
+  late final Color? iconColor;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _TabletOynaticiState();

@@ -7,6 +7,7 @@ import 'package:octo_image/octo_image.dart';
 import 'package:tidi_islam/services/services.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
+// ignore: must_be_immutable
 class VideoOynatici extends ConsumerStatefulWidget {
   VideoOynatici(
       {Key? key,

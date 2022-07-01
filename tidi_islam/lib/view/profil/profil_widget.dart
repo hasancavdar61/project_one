@@ -15,7 +15,6 @@ class _ProfilWidgetState extends State<ProfilWidget> {
   ///Video dosyasını cihazdan almak ya da video çekmek için bu metod kullanılır.
   //! try - catch bloğuna almayı unutma!!!!!!!!!--------
   final bool _isVisible = false;
-  late final bool _isReadOnly = true;
   File? fotograf;
   File? fotografKamera;
   final _picker = ImagePicker();

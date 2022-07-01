@@ -69,15 +69,56 @@ class _KategoriWidgetState extends ConsumerState<KategoriWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: catDataTitle != null
-            ? AutoSizeText(
-                catDataTitle.toString(),
-                maxFontSize: 18,
-                minFontSize: 12,
-              )
-            : const Text('TİDİSLAM'),
-        automaticallyImplyLeading: true,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(105.0),
+        child: Column(
+          children: [
+            AppBar(
+              centerTitle: true,
+              title: catDataTitle != null
+                  ? AutoSizeText(
+                      catDataTitle.toString(),
+                      maxFontSize: 18,
+                      minFontSize: 12,
+                    )
+                  : const Text('TİDİSLAM'),
+              automaticallyImplyLeading: true,
+            ),
+            Expanded(
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemBuilder: ((context, index) {
+                  return InkWell(
+                    onTap: () {
+                      onSelected(index);
+                    },
+                    highlightColor: Colors.teal,
+                    child: Container(
+                      padding: const EdgeInsets.all(15.0),
+                      height: double.infinity,
+                      key: key,
+                      child: AutoSizeText(
+                        alphabet[index],
+                        maxFontSize: 20,
+                        minFontSize: 8,
+                        style: const TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      ),
+                      decoration: BoxDecoration(
+                          border: Border.all(),
+                          color:
+                              _selectedIndex != null && _selectedIndex == index
+                                  ? Colors.teal
+                                  : Colors.white),
+                    ),
+                  );
+                }),
+                itemCount: alphabet.length,
+              ),
+            ),
+          ],
+        ),
       ),
 
       /// Kategori listeden gelen embed codeları kullanır.
@@ -88,41 +129,7 @@ class _KategoriWidgetState extends ConsumerState<KategoriWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Expanded(
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemBuilder: ((context, index) {
-                      return InkWell(
-                        onTap: () {
-                          onSelected(index);
-                        },
-                        highlightColor: Colors.teal,
-                        child: Container(
-                          key: key,
-                          padding: const EdgeInsets.all(18),
-                          child: Text(
-                            alphabet[index],
-                            style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          decoration: BoxDecoration(
-                              border: Border.all(),
-                              color: _selectedIndex != null &&
-                                      _selectedIndex == index
-                                  ? Colors.teal
-                                  : Colors.white),
-                        ),
-                      );
-                    }),
-                    itemCount: alphabet.length,
-                  ),
-                ),
-                Expanded(
-                    flex: 11,
-                    child: context.isTablet ? videoGridT() : videoListT()),
+                Expanded(child: context.isTablet ? videoGridT() : videoListT()),
               ],
             );
           } else if (snapshot.hasError) {

@@ -8,6 +8,7 @@ class KayitView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Container(
           alignment: Alignment.center,
           height: 50,

@@ -1,9 +1,13 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tidi_islam/constants/screen_list.dart';
 import 'package:tidi_islam/view/anasayfa/widgets/yan_menu_widget.dart';
+import 'package:tidi_islam/view/error/error_page.dart';
 
 class AnasayfaView extends StatefulWidget {
   const AnasayfaView({Key? key}) : super(key: key);
@@ -53,6 +57,36 @@ class _AnasayfaViewState extends State<AnasayfaView> {
       GetStorage().remove('cookie');
       Get.offAllNamed('/');
     }
+  }
+
+  StreamSubscription? connection;
+  bool isoffline = false;
+
+  @override
+  void initState() {
+    connection = Connectivity()
+        .onConnectivityChanged
+        .listen((ConnectivityResult result) {
+      // whenevery connection status is changed.
+      if (result == ConnectivityResult.none) {
+        //there is no any connection
+        setState(() {
+          isoffline = true;
+        });
+      } else if (result == ConnectivityResult.mobile) {
+        //connection is mobile data network
+        setState(() {
+          isoffline = false;
+        });
+      } else if (result == ConnectivityResult.wifi) {
+        //connection is from wifi
+        setState(() {
+          isoffline = false;
+        });
+      }
+    });
+
+    super.initState();
   }
 
   @override
@@ -177,9 +211,11 @@ class _AnasayfaViewState extends State<AnasayfaView> {
         /// [YanMenu] içerisinde [ListView] yapısı kullanılmıştır.
         /// [ListView] içerisinde [ListTile] yapısı kullanılmıştır.
 
-        body: Obx(
-          () => ScreenList().screens[currentIndex.value],
-        ));
+        body: isoffline
+            ? const ErrorPage()
+            : Obx(
+                () => ScreenList().screens[currentIndex.value],
+              ));
   }
 }
 /*
