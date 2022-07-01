@@ -76,7 +76,7 @@ class _AnasayfaViewState extends State<AnasayfaView> {
               alignment: Alignment.center,
               height: 50,
               child: Image.asset(
-                'assets/tid_logo.png',
+                'assets/tidislam-logo-3.png',
                 fit: BoxFit.contain,
               ),
             ),
@@ -132,7 +132,6 @@ class _AnasayfaViewState extends State<AnasayfaView> {
         /// [Icon] içerisinde [FontAwesomeIcons] kullanılmıştır.
         bottomNavigationBar: Obx(
           (() => BottomNavigationBar(
-            
                 onTap: (value) {
                   currentIndex.value = value;
                 },
@@ -141,25 +140,25 @@ class _AnasayfaViewState extends State<AnasayfaView> {
                 selectedFontSize: 12.0,
                 unselectedItemColor: Colors.black,
                 selectedItemColor: Colors.teal,
-                
-                items: const [
-                  BottomNavigationBarItem(
+                items: [
+                  const BottomNavigationBarItem(
                     label: 'Anasayfa',
                     icon: FaIcon(FontAwesomeIcons.houseChimney),
                   ),
                   BottomNavigationBarItem(
                     label: 'Hakkımızda',
-                    icon: FaIcon(FontAwesomeIcons.circleInfo),
+                    icon: Image.asset('assets/circle-info.png',
+                        width: 24, height: 24),
                   ),
-                  BottomNavigationBarItem(
+                  const BottomNavigationBarItem(
                     label: 'Favoriler',
                     icon: FaIcon(FontAwesomeIcons.heart),
                   ),
-                  BottomNavigationBarItem(
+                  const BottomNavigationBarItem(
                     label: 'Soru-Cevap',
                     icon: FaIcon(FontAwesomeIcons.question),
                   ),
-                  BottomNavigationBarItem(
+                  const BottomNavigationBarItem(
                     label: 'İletişim',
                     icon: FaIcon(FontAwesomeIcons.commentDots),
                   ),

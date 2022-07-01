@@ -336,8 +336,8 @@ class Service {
       'name': name,
       'surname': surname,
       'tel': tel,
-      'city_id': city,
-      'district_id': district,
+      'city_id': '61',
+      'district_id': '668',
       'email': email,
       'password': password,
       'passwordconf': passwordconf,
@@ -370,23 +370,6 @@ class Service {
       return CityModel.fromJson(response.data);
     } else {
       throw ("Bir sorun oluştu ${response.statusCode}");
-    }
-  }
-
-  Future<List<CityModel>> fetchOnboarding() async {
-    try {
-      Response response = await dio.get(baseUrl + "citys",
-          options: Options(
-            headers: {
-              "DX-API-KEY": "53a25de5-f2c1-4d7a-abd6-3046a880c425",
-            },
-          ));
-
-      return (response.data[0] as List)
-          .map((child) => CityModel.fromJson(child))
-          .toList();
-    } catch (error, stacktrace) {
-      throw Exception("Exception occured: $error stackTrace: $stacktrace");
     }
   }
 

@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:tidi_islam/model/city_model.dart';
 import 'package:tidi_islam/riverpod/riverpod_management.dart';
-import 'package:tidi_islam/services/services.dart';
 import 'package:tidi_islam/view/soru_cevap/widgets/custom_form.dart';
 
 class KayitWidget extends ConsumerStatefulWidget {
@@ -21,11 +20,6 @@ List<CityModel>? cities = [];
 class _KayitWidgetState extends ConsumerState<KayitWidget> {
   @override
   void initState() {
-    setState(() {
-      Service().fetchOnboarding().then((value) => cities = value);
-    });
-    debugPrint(cities.toString());
-
     super.initState();
   }
 

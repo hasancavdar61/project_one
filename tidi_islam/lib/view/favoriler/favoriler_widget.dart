@@ -18,9 +18,7 @@ class _FavorilerWidgetState extends ConsumerState<FavorilerWidget> {
   @override
   void initState() {
     ref.read(homeRiverpod).fetchFavoritelist();
-    Future.delayed(const Duration(seconds: 1), () {
-      setState(() {});
-    });
+
     super.initState();
   }
 
@@ -64,9 +62,14 @@ class _FavorilerWidgetState extends ConsumerState<FavorilerWidget> {
       );
     } else {
       return RefreshIndicator(
+        color: Colors.white,
+        backgroundColor: Colors.teal,
         onRefresh: () async {
-          ref.read(homeRiverpod).fetchFavoritelist();
-          await Future.delayed(const Duration(seconds: 1));
+          if (mounted) {
+            setState(() {
+              ref.read(homeRiverpod).fetchFavoritelist();
+            });
+          }
         },
         child: context.isTablet ? videoGridF(state) : videoListF(state),
       );
@@ -86,6 +89,7 @@ class _FavorilerWidgetState extends ConsumerState<FavorilerWidget> {
                     state.data![index].id
                 ? Colors.red
                 : Colors.black,
+                
           );
         }),
         itemCount: state.data?.length);
