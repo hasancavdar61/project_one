@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,20 +11,13 @@ class ErrorPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Text(
-            Platform.isAndroid
-                ? 'TİDİSLAM ANDROID UYGULAMASI'
-                : 'TİDİSLAM iOS UYGULAMASI',
-            style: Theme.of(context)
-                .textTheme
-                .headline6!
-                .copyWith(color: Colors.teal),
-          ),
-          const SizedBox(height: 40),
           Center(
             child: SizedBox(
-              width: Get.width / 2.5,
-              child: Image.asset('assets/no-internet.png'),
+              child: Icon(
+                Icons.wifi_off_sharp,
+                color: Colors.red,
+                size: Get.height / 8,
+              ),
             ),
           ),
           const SizedBox(
@@ -36,6 +27,15 @@ class ErrorPage extends StatelessWidget {
             'İnternet bağlantınızı kontrol ediniz.',
             style: Theme.of(context).textTheme.headline6,
           ),
+          const SizedBox(
+            height: 6.0,
+          ),
+          Text(
+              context.isTablet
+                  ? 'Tabletiniz internete tekrar bağlandığında,\n sayfa güncellenecektir.'
+                  : 'Telefonunuz internete tekrar bağlandığında,\n sayfa güncellenecektir.',
+              textAlign: TextAlign.center,
+              style: const TextStyle(color: Colors.grey)),
         ],
       ),
     );

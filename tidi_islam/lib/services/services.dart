@@ -16,6 +16,7 @@ import 'package:tidi_islam/model/menu_model.dart';
 import 'package:tidi_islam/model/slider_model.dart';
 import 'package:tidi_islam/model/user_model.dart';
 
+// Top class for all services
 class Service {
   final String baseUrl = "https://www.api.tidislam.com/auth/";
   final String baseUrlHome = "https://www.api.tidislam.com/home";
@@ -23,6 +24,9 @@ class Service {
 
   final dio = Dio();
   var cookieJar = CookieJar();
+
+  /// Login işlemi [POST] metoduyla yapılır.
+  /// [email] ve [password] parametreleri gönderilir.
 
   Future<Login?> loginCall({
     required String email,
@@ -48,6 +52,7 @@ class Service {
     }
   }
 
+  /// Anasayfa veri çekme işlemi [GET] metoduyla yapılır.
   Future<HomeModel> fetchAlbum() async {
     try {
       final response = await http
@@ -72,6 +77,8 @@ class Service {
     }
   }
 
+  /// [GET] metoduyla kullanıcı verileri çekilir.
+
   Future<UserModel> userCall() async {
     String? session = GetStorage().read("cookie");
     var response = await dio.get(baseUrl + "my_account",
@@ -90,6 +97,9 @@ class Service {
     }
   }
 
+  /// Şifre sıfırlama işlemi [POST] metoduyla yapılır.
+  /// [email] parametresi ile kullanıcının email adresi gönderilir.
+
   Future<ForgotModel?> forgotPassword({required String email}) async {
     FormData formData = FormData.fromMap({'email': email});
     var response = await dio.post(baseUrl + 'forgot_password',
@@ -105,6 +115,9 @@ class Service {
       throw (response.statusCode.toString());
     }
   }
+
+  /// Şifre değiştirme işlemi [POST] metoduyla yapılır.
+  /// [password] ve [passwordconf] parametreleri gönderilir.
 
   Future<ChangePassModel> changePassword(
       {required String password, required String passwordconf}) async {
@@ -127,6 +140,9 @@ class Service {
       throw ("Bir sorun oluştu ${response.statusCode}");
     }
   }
+
+  /// Kullanıcı bilgilerini değiştirme işlemi [POST] metoduyla yapılır.
+  /// [email] - [firstname] - [lastname] - [telephone] parametreleri gönderilir.
 
   Future<ChangePassModel> userChange(
       {required String email,
@@ -157,6 +173,9 @@ class Service {
     }
   }
 
+  /// Favori listesine ekleme işlemi [POST] metoduyla yapılır.
+  /// [id] parametresi ile favori listeye eklenen ürün id'si gönderilir.
+
   Future<ChangePassModel> addFavouriteCall({required String id}) async {
     String? session = GetStorage().read("cookie");
     FormData formData = FormData.fromMap({'video_id': id});
@@ -177,6 +196,9 @@ class Service {
     }
   }
 
+  /// Favori listesinden çıkarma işlemi [POST] metoduyla yapılır.
+  /// [id] parametresi ile favori listesinden çıkartılacak ürün idsi gönderilir.
+
   Future<ChangePassModel> removeFavouriteCall({required String id}) async {
     String? session = GetStorage().read("cookie");
     FormData formData = FormData.fromMap({'video_id': id});
@@ -196,6 +218,10 @@ class Service {
       throw ("Bir sorun oluştu ${response.statusCode}");
     }
   }
+
+  /// Favori listesini alma işlemi [GET] metoduyla yapılır.
+  /// [page] parametresi ile sayfa numarası gönderilir.
+  /// [perPage] parametresi ile sayfa başına gösterilecek sayı gönderilir.
 
   Future<FavoriteModel?> favoriteListCall(
       {required String page, required String perPage}) async {
@@ -218,6 +244,8 @@ class Service {
     }
   }
 
+  /// Slider listesini alma işlemi [GET] metoduyla yapılır.
+
   Future<SliderModel?> sliderCall() async {
     var response = await dio.get(baseUrlMain + "slider",
         options: Options(
@@ -234,6 +262,8 @@ class Service {
     }
   }
 
+  /// Menu listesini alma işlemi [GET] metoduyla yapılır.
+
   Future<MenuModel?> menuCall() async {
     var response = await dio.get(baseUrlMain + "menu",
         options: Options(
@@ -249,6 +279,9 @@ class Service {
       throw ("Bir sorun oluştu ${response.statusCode}");
     }
   }
+
+  /// Kategorileri alma işlemi [GET] metoduyla yapılır.
+  /// [slug] parametresi ile sayfa slugı gönderilir.
 
   Future<CategoryModel?> categoryCall({required String slug}) async {
     var response = await dio.get(baseUrlHome + '/slug',
@@ -322,6 +355,16 @@ class Service {
     } else {}
   }
 
+  /// Kullanıcı kayıt işlemi [POST] metoduyla yapılır.
+  /// [name] parametresi ile kullanıcı adı gönderilir.
+  /// [email] parametresi ile kullanıcı email gönderilir.
+  /// [password] parametresi ile kullanıcı şifre gönderilir.
+  /// [passwordconf] parametresi ile kullanıcı şifre tekrar gönderilir.
+  /// [tel] parametresi ile kullanıcı telefon gönderilir.
+  /// [city] parametresi ile kullanıcı şehri gönderilir.
+  /// [district] parametresi ile kullanıcı ilçesi gönderilir.
+
+
   Future<ChangePassModel?> registerCall({
     required String name,
     required String surname,
@@ -372,6 +415,9 @@ class Service {
       throw ("Bir sorun oluştu ${response.statusCode}");
     }
   }
+
+  /// Favori kontrolü [POST] metoduyla yapılır.
+  /// [id] parametresi ile video id gönderilir.
 
   Future<ChangePassModel> favoriCheck({
     required String videoId,

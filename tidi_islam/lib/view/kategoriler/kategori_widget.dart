@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:tidi_islam/constants/video_embed_list.dart';
+import 'package:tidi_islam/constants/alphabet.dart';
 import 'package:tidi_islam/model/category_model.dart';
 import 'package:tidi_islam/services/services.dart';
 import 'package:tidi_islam/services/tablet_oynatici.dart';

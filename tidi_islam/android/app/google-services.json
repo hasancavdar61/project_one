@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "837170209191",
+    "project_id": "tidislam-analyze",
+    "storage_bucket": "tidislam-analyze.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:837170209191:android:bfe5c6753e18edf4655682",
+        "android_client_info": {
+          "package_name": "com.daynex.tidi_islam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "837170209191-2caek83s4gj8rheo0ig3grrlimm64vqa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCrf42FGPn1XtAN3W7iFIvfc0yFP48BmuQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "837170209191-2caek83s4gj8rheo0ig3grrlimm64vqa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
