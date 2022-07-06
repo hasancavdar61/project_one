@@ -11,20 +11,23 @@ class ChangePassModel {
 
   bool? status;
   String? message;
+  String? userId;
 
   ChangePassModel({
     this.status,
     this.message,
+    this.userId,
   });
   ChangePassModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message']?.toString();
+    userId = json['user_id']?.toString();
   }
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
     data['status'] = status;
     data['message'] = message;
+    data['user_id'] = userId;
     return data;
   }
 }
-

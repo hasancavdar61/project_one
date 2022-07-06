@@ -9,11 +9,17 @@ class KayitView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        actions: const [
+          Text(
+            'giris yap',
+            style: TextStyle(color: Colors.black),
+          )
+        ],
         title: Container(
           alignment: Alignment.center,
           height: 50,
           child: Image.asset(
-            'assets/tid_logo.png',
+            'assets/tidislam-logo-3.png',
             fit: BoxFit.cover,
           ),
         ),

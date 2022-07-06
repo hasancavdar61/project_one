@@ -9,10 +9,7 @@ HomeModel homeModelFromJson(String str) => HomeModel.fromJson(json.decode(str));
 String homeModelToJson(HomeModel data) => json.encode(data.toJson());
 
 class HomeModel {
-  HomeModel({
-    this.products,
-    this.isFavorite
-  });
+  HomeModel({this.products, this.isFavorite});
 
   final List<Product>? products;
   final bool? isFavorite;
@@ -82,7 +79,7 @@ class CatProducts {
   String? slug;
   String? categoryId;
   String? cattitle;
-  bool? isFavorite;
+  bool? followId;
 
   CatProducts(
       {this.id,
@@ -95,7 +92,7 @@ class CatProducts {
       this.description,
       this.slug,
       this.categoryId,
-      this.isFavorite,
+      this.followId,
       this.cattitle});
 
   CatProducts.fromJson(Map<String, dynamic> json) {
@@ -110,6 +107,7 @@ class CatProducts {
     slug = json['slug'];
     categoryId = json['category_id'];
     cattitle = json['cattitle'];
+    followId = json['follow_id'];
   }
 
   Map<String, dynamic> toJson() {
@@ -125,6 +123,7 @@ class CatProducts {
     data['slug'] = slug;
     data['category_id'] = categoryId;
     data['cattitle'] = cattitle;
+    data['follow_id'] = followId;
     return data;
   }
 }

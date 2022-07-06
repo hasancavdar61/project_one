@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tidi_islam/riverpod/home_riverpod.dart';
 import 'package:tidi_islam/riverpod/riverpod_management.dart';
+import 'package:tidi_islam/services/services.dart';
 import 'package:tidi_islam/services/tablet_oynatici.dart';
 import 'package:tidi_islam/services/video_oynatici.dart';
 
@@ -25,55 +26,82 @@ class _FavorilerWidgetState extends ConsumerState<FavorilerWidget> {
   @override
   Widget build(BuildContext context) {
     var state = ref.watch(homeRiverpod);
-    if (GetStorage().read('id') == null) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Center(
-            child: Text(
-              'Favori eklemek için giriş yapmanız gerekmektedir.',
-              style: TextStyle(
-                  color: Colors.grey,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          const SizedBox(
-            height: 10.0,
-          ),
-          ElevatedButton(
-            onPressed: () => Get.toNamed('/GirisSayfasi'),
-            child: const Text('Giriş Yap'),
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(Colors.teal),
-            ),
-          )
-        ],
-      );
-    } else if (state.data!.isEmpty) {
-      return const Center(
-        child: Text(
-          'Henüz favori eklemediniz',
-          style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),
-        ),
-      );
-    } else {
-      return RefreshIndicator(
-        color: Colors.white,
-        backgroundColor: Colors.teal,
-        onRefresh: () async {
-          if (mounted) {
-            setState(() {
-              ref.read(homeRiverpod).fetchFavoritelist();
-            });
+    return FutureBuilder(
+        future: Service().favoriteListCall(page: '0', perPage: '12'),
+        builder: ((context, snapshot) {
+          if (snapshot.hasData) {
+            if (GetStorage().read('id') == null) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  const Center(
+                    child: Text(
+                      'Favori eklemek için giriş yapmanız gerekmektedir.',
+                      style: TextStyle(
+                          color: Colors.grey,
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  ElevatedButton(
+                    onPressed: () => Get.toNamed('/GirisSayfasi'),
+                    child: const Text('Giriş Yap'),
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all<Color>(Colors.teal),
+                    ),
+                  )
+                ],
+              );
+            } else if (state.data!.isEmpty) {
+              return const Center(
+                child: Text(
+                  'Henüz favori eklemediniz',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20),
+                ),
+              );
+            } else {
+              return RefreshIndicator(
+                color: Colors.white,
+                backgroundColor: Colors.teal,
+                onRefresh: () async {
+                  if (mounted) {
+                    setState(() {
+                      ref.read(homeRiverpod).fetchFavoritelist();
+                    });
+                  }
+                },
+                child: context.isTablet ? videoGridF(state) : videoListF(state),
+              );
+            }
+          } else if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator.adaptive(
+                backgroundColor: Colors.white,
+              ),
+            );
+          } else if (!snapshot.hasData) {
+            return const Center(
+              child: Text(
+                'Henüz favori eklemediniz',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
+              ),
+            );
+          } else {
+            return const Text('Hata');
           }
-        },
-        child: context.isTablet ? videoGridF(state) : videoListF(state),
-      );
-    }
+        }));
   }
 
   ListView videoListF(HomeRiverpod state) {
@@ -89,7 +117,6 @@ class _FavorilerWidgetState extends ConsumerState<FavorilerWidget> {
                     state.data![index].id
                 ? Colors.red
                 : Colors.black,
-                
           );
         }),
         itemCount: state.data?.length);

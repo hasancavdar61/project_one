@@ -20,70 +20,82 @@ class _ChangeUserDetailState extends ConsumerState<ChangeUserDetail> {
     var _isReadOnly = false;
 
     return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              const Text(
-                'Kişisel Bilgilerinizi Değiştirin',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              CustomForm(
-                controller: ref.read(changeUserRiverpod).firstname,
-                isReadOnly: _isReadOnly,
-                inputType: TextInputType.name,
-                topLabel: 'İSİM*',
-                formFieldLabel: '',
-                maxAlan: 1,
-              ),
-              CustomForm(
-                controller: ref.read(changeUserRiverpod).lastname,
-                isReadOnly: _isReadOnly,
-                inputType: TextInputType.name,
-                topLabel: 'SOYİSİM*',
-                formFieldLabel: '',
-                maxAlan: 1,
-              ),
-              CustomForm(
-                controller: ref.read(changeUserRiverpod).telephone,
-                mask: '###########',
-                filter: {"#": RegExp(r'[0-9]')},
-                inputType: TextInputType.phone,
-                topLabel: 'TELEFON*',
-                formFieldLabel: '0 (---) --- -- --',
-                maxAlan: 1,
-              ),
-              CustomForm(
-                controller: ref.read(changeUserRiverpod).email,
-                isReadOnly: _isReadOnly,
-                inputType: TextInputType.emailAddress,
-                topLabel: 'E-POSTA*',
-                formFieldLabel: '',
-                maxAlan: 1,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    ref.read(changeUserRiverpod).changeUser();
-                  } else {}
-                },
-                child: const Text('GÜNCELLE'),
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.teal)),
-              ),
-            ],
+      child: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(18.0),
+            child: Divider(
+              color: Colors.grey,
+              thickness: 1,
+            ),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.only(left: 24.0, right: 24.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                children: [
+                  const AutoSizeText(
+                    'Kişisel Bilgilerinizi Değiştirin',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    maxFontSize: 30,
+                    minFontSize: 20,
+                  ),
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                  CustomForm(
+                    controller: ref.read(changeUserRiverpod).firstname,
+                    isReadOnly: _isReadOnly,
+                    inputType: TextInputType.name,
+                    topLabel: 'İSİM*',
+                    formFieldLabel: '',
+                    maxAlan: 1,
+                  ),
+                  CustomForm(
+                    controller: ref.read(changeUserRiverpod).lastname,
+                    isReadOnly: _isReadOnly,
+                    inputType: TextInputType.name,
+                    topLabel: 'SOYİSİM*',
+                    formFieldLabel: '',
+                    maxAlan: 1,
+                  ),
+                  CustomForm(
+                    controller: ref.read(changeUserRiverpod).telephone,
+                    mask: '###########',
+                    filter: {"#": RegExp(r'[0-9]')},
+                    inputType: TextInputType.phone,
+                    topLabel: 'TELEFON*',
+                    formFieldLabel: '0 (---) --- -- --',
+                    maxAlan: 1,
+                  ),
+                  CustomForm(
+                    controller: ref.read(changeUserRiverpod).email,
+                    isReadOnly: _isReadOnly,
+                    inputType: TextInputType.emailAddress,
+                    topLabel: 'E-POSTA*',
+                    formFieldLabel: '',
+                    maxAlan: 1,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        ref.read(changeUserRiverpod).changeUser();
+                      } else {}
+                    },
+                    child: const Text('GÜNCELLE'),
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.teal)),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

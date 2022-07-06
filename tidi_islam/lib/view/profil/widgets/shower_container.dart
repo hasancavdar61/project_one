@@ -5,10 +5,12 @@ class ShowerContainer extends StatelessWidget {
     Key? key,
     this.topLabel,
     this.formFieldLabel,
+    this.icColor,
   }) : super(key: key);
 
   final String? topLabel;
   final String? formFieldLabel;
+  final Color? icColor;
 
   @override
   Widget build(BuildContext context) {
@@ -24,11 +26,25 @@ class ShowerContainer extends StatelessWidget {
         ),
         Container(
           margin: const EdgeInsets.only(bottom: 14.0),
-          padding: const EdgeInsets.only(top: 20.0, bottom: 20.0, left: 10.0),
+          padding: const EdgeInsets.only(top: 16.0, bottom: 20.0, left: 10.0),
           width: double.maxFinite,
-          child: Text(
-            formFieldLabel!,
-            style: Theme.of(context).textTheme.headline6,
+          child: Row(
+            children: [
+              Text(
+                formFieldLabel!,
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              const Spacer(
+                flex: 1,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Icon(
+                  Icons.arrow_drop_down,
+                  color: icColor,
+                ),
+              )
+            ],
           ),
           decoration: BoxDecoration(
             color: Colors.black,

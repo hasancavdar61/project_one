@@ -1,42 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:tidi_islam/services/services.dart';
 
-class RegisterRiverpod extends ChangeNotifier {
+class SoruCevapRiverpod extends ChangeNotifier {
   final service = Service();
-  String cities = '';
 
   TextEditingController name = TextEditingController();
   TextEditingController surname = TextEditingController();
-  TextEditingController tel = TextEditingController();
-  String? city;
-  String? district;
+  TextEditingController telephone = TextEditingController();
   TextEditingController email = TextEditingController();
-  TextEditingController password = TextEditingController();
-  TextEditingController paswordconf = TextEditingController();
+  TextEditingController konu = TextEditingController();
+  TextEditingController aciklama = TextEditingController();
+  String? videoname;
 
-  void fetchRegister() async {
+  void fetchSoruCevap() async {
     await service
-        .registerCall(
+        .soruCevapCall(
             name: name.text,
             surname: surname.text,
-            tel: tel.text,
-            city: city!,
-            district: district!,
+            telephone: telephone.text,
             email: email.text,
-            password: password.text,
-            passwordconf: paswordconf.text)
+            konu: konu.text,
+            aciklama: aciklama.text,
+            videoname: videoname!)
         .then((value) {
       if (value != null && value.status == true) {
-        GetStorage().write("id", value.userId);
         Get.snackbar(
-          'Kaydınız oluşturuldu.',
+          'Sorunuz gönderildi.',
           value.message!.toString(),
           backgroundColor: Colors.teal,
           colorText: Colors.white,
         );
-        Get.offAllNamed('/');
       } else {
         Get.snackbar(
           'Hata Oluştu',

@@ -5,7 +5,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
 import 'package:tidi_islam/riverpod/riverpod_management.dart';
 
-
 class YanMenu extends ConsumerStatefulWidget {
   const YanMenu({
     Key? key,
@@ -14,8 +13,6 @@ class YanMenu extends ConsumerStatefulWidget {
   @override
   ConsumerState<YanMenu> createState() => _YanMenuState();
 }
-
-
 
 class _YanMenuState extends ConsumerState<YanMenu> {
   @override
@@ -112,15 +109,11 @@ class _YanMenuState extends ConsumerState<YanMenu> {
                             itemBuilder: ((context, indexx) {
                               return GestureDetector(
                                 onTap: () {
-                                  Get.toNamed(
-                                    '/KategoriSayfasi',
-                                    arguments: [
-                                      state
+                                  Get.toNamed('/KategoriSayfasi', arguments: [
+                                    state
                                         .dataModel![index].parent![indexx].href,
-                                      state
-                                          .dataModel![index].title
-                                    ]
-                                  );
+                                    state.dataModel![index].title
+                                  ]);
                                 },
                                 child: Container(
                                   width: double.infinity,

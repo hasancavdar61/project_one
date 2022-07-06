@@ -26,6 +26,14 @@ class _ProfilViewState extends State<ProfilView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Container(
+          alignment: Alignment.center,
+          height: 50,
+          child: Image.asset(
+            'assets/tidislam-logo-3.png',
+            fit: BoxFit.contain,
+          ),
+        ),
         actions: <Widget>[
           TextButton(
             onPressed: () {

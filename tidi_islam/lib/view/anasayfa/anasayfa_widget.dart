@@ -30,7 +30,6 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
 
   @override
   void initState() {
-    super.initState();
     Service().fetchAlbum();
     ref.read(homeRiverpod).fetchSlider();
     ref.read(homeRiverpod).fetchMenu();
@@ -40,6 +39,7 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
         _isLoading = false;
       });
     });
+    super.initState();
   }
 
   @override
@@ -150,8 +150,16 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        VideoBaslikWidget(
-          baslikAdi: snapshot.data!.products![index].catTitle,
+        GestureDetector(
+          onTap: () {
+            Get.toNamed('/KategoriSayfasi', arguments: [
+              snapshot.data!.products![index].catHref,
+              snapshot.data!.products![index].catTitle
+            ]);
+          },
+          child: VideoBaslikWidget(
+            baslikAdi: snapshot.data!.products![index].catTitle,
+          ),
         ),
         GridView.builder(
             physics: const NeverScrollableScrollPhysics(),
@@ -190,8 +198,16 @@ Column videoList(AsyncSnapshot<HomeModel> snapshot, int index) {
     crossAxisAlignment: CrossAxisAlignment.center,
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      VideoBaslikWidget(
-        baslikAdi: snapshot.data!.products![index].catTitle,
+      GestureDetector(
+        onTap: () {
+          Get.toNamed('/KategoriSayfasi', arguments: [
+            snapshot.data!.products![index].catHref,
+            snapshot.data!.products![index].catTitle
+          ]);
+        },
+        child: VideoBaslikWidget(
+          baslikAdi: snapshot.data!.products![index].catTitle,
+        ),
       ),
       ListView.separated(
           separatorBuilder: (context, index) {

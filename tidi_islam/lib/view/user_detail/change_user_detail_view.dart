@@ -1,5 +1,6 @@
 library change_user_detail_view.dart;
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
@@ -25,6 +26,14 @@ class _ChangeUserViewState extends State<ChangeUserView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Container(
+          alignment: Alignment.center,
+          height: 50,
+          child: Image.asset(
+            'assets/tidislam-logo-3.png',
+            fit: BoxFit.cover,
+          ),
+        ),
         actions: <Widget>[
           TextButton(
             onPressed: () {

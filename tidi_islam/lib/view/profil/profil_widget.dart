@@ -57,6 +57,13 @@ class _ProfilWidgetState extends State<ProfilWidget> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const Padding(
+              padding: EdgeInsets.all(18.0),
+              child: Divider(
+                color: Colors.grey,
+                thickness: 1,
+              ),
+            ),
             Text(
               'KULLANICI BİLGİLERİ',
               style: Theme.of(context).textTheme.headline4,
@@ -146,51 +153,3 @@ class _ProfilWidgetState extends State<ProfilWidget> {
     );
   }
 }
-
-
-
-/**
- * 
- * Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.teal)),
-                  onPressed: () {
-                    Get.toNamed('/ChangePassword');
-                  },
-                  child: const Text('ŞİFRE DEĞİŞTİR'),
-                ),
-                ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.teal)),
-                  onPressed: () {
-                    Get.toNamed('/ChangeUserDetail');
-                  },
-                  child: const Text('BİLGİLERİ GÜNCELLE'),
-                ),
-              ],
-            ),
- * 
- * 
-  ElevatedButton(
-              onPressed: () {
-                showMaterialModalBottomSheet(
-                  context: context,
-                  builder: (context) => ModalFit(
-                    pickerLabel: 'Fotoğraf Seç',
-                    takerLabel: 'Fotoğraf Çek',
-                    videoSec: openPhotoPicker,
-                    videoCek: openPhotoTaker,
-                  ),
-                );
-              },
-              child: const Text('FOTOĞRAF SEÇİNİZ*'),
-              style: ButtonStyle(
-                  backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.teal)),
-            ),
- */

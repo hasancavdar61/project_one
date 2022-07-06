@@ -11,6 +11,7 @@ import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 class VideoOynatici extends ConsumerStatefulWidget {
   VideoOynatici(
       {Key? key,
+      this.onTap,
       this.embedCode,
       this.topTitle,
       this.bottomTitle,
@@ -24,7 +25,8 @@ class VideoOynatici extends ConsumerStatefulWidget {
   final String? bottomTitle;
   final String? imageUrl;
   final String? id;
-  late Color? iconColor;
+  Color? iconColor;
+  final VoidCallback? onTap;
 
   @override
   ConsumerState<VideoOynatici> createState() => _VideoOynaticiState();

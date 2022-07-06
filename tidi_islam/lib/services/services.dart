@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:tidi_islam/model/category_model.dart';
 import 'package:tidi_islam/model/changepass_model.dart';
 import 'package:tidi_islam/model/city_model.dart';
+import 'package:tidi_islam/model/district_model.dart';
 import 'package:tidi_islam/model/favorite_model.dart';
 import 'package:tidi_islam/model/forgot_model.dart';
 import 'package:tidi_islam/model/home_model.dart';
@@ -302,59 +303,6 @@ class Service {
     }
   }
 
-  Future<ChangePassModel> soruCevapCall(
-      {required String path, required String name, required String msg}) async {
-    String? session = GetStorage().read("cookie");
-    FormData formData = FormData.fromMap({
-      'video': MultipartFile.fromFile(path, filename: name),
-    });
-    var response =
-        await dio.post('https://www.api.tidislam.com/soru_cevap/video_upload',
-            data: formData,
-            options: Options(
-              headers: {
-                "Cookie": session,
-                "DX-API-KEY": "53a25de5-f2c1-4d7a-abd6-3046a880c425",
-              },
-            ));
-    if (response.statusCode == 200) {
-      var result = ChangePassModel.fromJson(response.data);
-      debugPrint("Gelen Response => ${response.data}");
-      return result;
-    } else {
-      throw ("Bir sorun oluştu ${response.statusCode}");
-    }
-  }
-
-  Future soru(
-      {required String path,
-      required String name,
-      required String type,
-      required int size}) async {
-    String? session = GetStorage().read("cookie");
-    FormData formData = FormData.fromMap({
-      "name": name,
-      "type": type,
-      "tmp_name": path,
-      "error": 0,
-      "size": size
-    });
-
-    var response =
-        await dio.post('https://www.api.tidislam.com/soru_cevap/video_upload',
-            data: formData,
-            options: Options(
-              headers: {
-                "Cookie": session,
-                "DX-API-KEY": "53a25de5-f2c1-4d7a-abd6-3046a880c425",
-              },
-            ));
-
-    if (response.statusCode == 200) {
-      debugPrint(response.data.toString());
-    } else {}
-  }
-
   /// Kullanıcı kayıt işlemi [POST] metoduyla yapılır.
   /// [name] parametresi ile kullanıcı adı gönderilir.
   /// [email] parametresi ile kullanıcı email gönderilir.
@@ -363,7 +311,6 @@ class Service {
   /// [tel] parametresi ile kullanıcı telefon gönderilir.
   /// [city] parametresi ile kullanıcı şehri gönderilir.
   /// [district] parametresi ile kullanıcı ilçesi gönderilir.
-
 
   Future<ChangePassModel?> registerCall({
     required String name,
@@ -379,8 +326,8 @@ class Service {
       'name': name,
       'surname': surname,
       'tel': tel,
-      'city_id': '61',
-      'district_id': '668',
+      'city_id': city,
+      'district_id': district,
       'email': email,
       'password': password,
       'passwordconf': passwordconf,
@@ -393,24 +340,9 @@ class Service {
 
     if (response.statusCode == 200) {
       var result = ChangePassModel.fromJson(response.data);
+      GetStorage().write("cookie", response.headers["set-cookie"]?.first);
       debugPrint("Gelen Response => ${response.headers["set-cookie"]}");
       return result;
-    } else {
-      throw ("Bir sorun oluştu ${response.statusCode}");
-    }
-  }
-
-  Future<CityModel?> getCitiesCall() async {
-    var response = await dio.get("https://www.api.tidislam.com/auth/citys",
-        options: Options(
-          headers: {
-            "DX-API-KEY": "53a25de5-f2c1-4d7a-abd6-3046a880c425",
-          },
-        ));
-    if (response.statusCode == 200) {
-      debugPrint("Gelen Response => ${response.data}");
-
-      return CityModel.fromJson(response.data);
     } else {
       throw ("Bir sorun oluştu ${response.statusCode}");
     }
@@ -435,6 +367,76 @@ class Service {
     if (response.statusCode == 200) {
       var result = ChangePassModel.fromJson(response.data);
       debugPrint("Gelen Response => ${response.data}");
+      return result;
+    } else {
+      throw ("Bir sorun oluştu ${response.statusCode}");
+    }
+  }
+
+  Future<City?> cityCall() async {
+    var response = await dio.get(baseUrl + 'citys',
+        options: Options(
+          headers: {
+            "DX-API-KEY": "53a25de5-f2c1-4d7a-abd6-3046a880c425",
+          },
+        ));
+    if (response.statusCode == 200) {
+      var result = City.fromJson(response.data);
+      debugPrint("Gelen Response => ${response.data}");
+      return result;
+    } else {
+      throw ("Bir sorun oluştu ${response.statusCode}");
+    }
+  }
+
+  Future<District?> districtCall({required String cityId}) async {
+    FormData formData = FormData.fromMap({'city_id': cityId});
+    var response = await dio.post(baseUrl + 'getDistricts',
+        data: formData,
+        options: Options(
+          headers: {
+            "DX-API-KEY": "53a25de5-f2c1-4d7a-abd6-3046a880c425",
+          },
+        ));
+    if (response.statusCode == 200) {
+      var result = District.fromJson(response.data);
+      debugPrint("Gelen Response => ${response.data}");
+      return result;
+    } else {
+      throw ("Bir sorun oluştu ${response.statusCode}");
+    }
+  }
+
+  Future<ChangePassModel?> soruCevapCall({
+    required String name,
+    required String surname,
+    required String telephone,
+    required String email,
+    required String konu,
+    required String aciklama,
+    required String videoname,
+  }) async {
+    String? session = GetStorage().read("cookie");
+    FormData formData = FormData.fromMap({
+      'name': name,
+      'surname': surname,
+      'telephone': telephone,
+      'email': email,
+      'konu': konu,
+      'aciklama': aciklama,
+      'videoname': videoname
+    });
+    var response = await dio.post(baseUrlMain + 'soru_cevap',
+        data: formData,
+        options: Options(headers: {
+          "Cookie": session,
+          "DX-API-KEY": "53a25de5-f2c1-4d7a-abd6-3046a880c425",
+        }));
+
+    if (response.statusCode == 200) {
+      var result = ChangePassModel.fromJson(response.data);
+
+      debugPrint("Gelen Response => ${response.headers["set-cookie"]}");
       return result;
     } else {
       throw ("Bir sorun oluştu ${response.statusCode}");

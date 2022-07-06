@@ -11,7 +11,6 @@ class GirisWidget extends ConsumerStatefulWidget {
   ConsumerState<ConsumerStatefulWidget> createState() => _GirisWidgetState();
 }
 
-
 class _GirisWidgetState extends ConsumerState<GirisWidget> {
   final _formKey = GlobalKey<FormState>();
 
@@ -115,7 +114,6 @@ class _GirisWidgetState extends ConsumerState<GirisWidget> {
             ),
           ),
         ),
-        
       ],
     );
   }

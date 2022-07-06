@@ -4,10 +4,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_video_info/flutter_video_info.dart';
+import 'package:ftpconnect/ftpconnect.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:tidi_islam/riverpod/riverpod_management.dart';
 import 'package:tidi_islam/view/soru_cevap/widgets/custom_form.dart';
 import 'package:tidi_islam/view/soru_cevap/widgets/modal_fit.dart';
 
@@ -22,48 +24,56 @@ class SoruCevapWidget extends ConsumerStatefulWidget {
 }
 
 class _SoruCevapWidgetState extends ConsumerState<SoruCevapWidget> {
-  ///Video dosyasını cihazdan almak ya da video çekmek için bu metod kullanılır.
+  ///Video dosyasını cihazdan almak ya da video çekin bu metod kullanılır.
 
-  late bool _isVisible = false;
+  bool isLoading = false;
+
+  String isSelectedText = 'VİDEONUZU SEÇİNİZ*';
+
+  newUpload() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    FTPConnect ftpConnect =
+        FTPConnect('www.tidislam.com', user: 'tidislam', pass: '_XYVnqpjnsxP');
+    File fileToUpload = File(video!.path);
+    await ftpConnect.connect();
+    await ftpConnect.changeDirectory('/public_html/upload/user_id/');
+    await ftpConnect.makeDirectory('user${GetStorage().read('id').toString()}');
+    await ftpConnect.changeDirectory(
+        '/public_html/upload/user_id/user${GetStorage().read('id').toString()}');
+
+    bool res =
+        await ftpConnect.uploadFileWithRetry(fileToUpload, pRetryCount: 2);
+    await ftpConnect.disconnect();
+    debugPrint(res.toString());
+
+    setState(() {
+      isLoading = false;
+    });
+  }
+
+  late final bool _isVisible = false;
   File? video;
   File? videoKamera;
   final videoInfo = FlutterVideoInfo();
-  List liss = [];
+  bool? isUploaded = false;
 
   final _picker = ImagePicker();
 
   Future<void> openVideoPicker() async {
     try {
-      final XFile? secilenVideo =
-          await _picker.pickVideo(source: ImageSource.gallery);
+      var secilenVideo = await _picker.pickVideo(source: ImageSource.gallery);
+
       if (secilenVideo != null) {
         setState(() {
           video = File(secilenVideo.path);
-          _isVisible = true;
+          isSelectedText = 'VİDEO SEÇİLDİ';
         });
-
-        var info = await videoInfo.getVideoInfo(secilenVideo.path);
-        var sec = info!.duration!;
-
+        Navigator.pop(context);
 
         debugPrint(secilenVideo.path);
-        debugPrint(secilenVideo.name);
-        debugPrint(info.filesize.toString());
-        debugPrint('---------------------------------------------------------');
-        debugPrint('author: ' + info.author.toString());
-        debugPrint('date: ' + info.date.toString());
-        debugPrint('location: ' + info.location.toString());
-        debugPrint('mimetype: ' + info.mimetype.toString());
-        debugPrint('path: ' + info.path.toString());
-        debugPrint('title: ' + info.title.toString());
-        debugPrint('duration: ' + sec.round().toString());
-        debugPrint('fileSize: ' + info.filesize.toString());
-        debugPrint('framerate: ' + info.framerate.toString());
-        debugPrint('height: ' + info.height.toString());
-        debugPrint('width: ' + info.width.toString());
-        debugPrint('orientation: ' + info.orientation.toString());
-
-        Navigator.pop(context);
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -76,13 +86,12 @@ class _SoruCevapWidgetState extends ConsumerState<SoruCevapWidget> {
           await _picker.pickVideo(source: ImageSource.camera);
       if (cekilenVideo != null) {
         setState(() {
-          videoKamera = File(cekilenVideo.path);
-          _isVisible = true;
+          video = File(cekilenVideo.path);
+          isSelectedText = 'VİDEO SEÇİLDİ';
         });
+        Navigator.pop(context);
 
         debugPrint(cekilenVideo.path);
-
-        Navigator.pop(context);
       }
     } catch (e) {
       debugPrint(e.toString());
@@ -167,39 +176,45 @@ class _SoruCevapWidgetState extends ConsumerState<SoruCevapWidget> {
                 child: Column(
                   children: [
                     /// Custom yapıda bulunan [SoruCevap]
-                    const CustomForm(
+                    CustomForm(
+                      controller: ref.read(sorucevapRiverpod).name,
                       inputType: TextInputType.name,
                       topLabel: 'İSİM*',
                       formFieldLabel: 'İsminizi Giriniz',
                       maxAlan: 1,
                     ),
-                    const CustomForm(
+                    CustomForm(
+                      controller: ref.read(sorucevapRiverpod).surname,
                       inputType: TextInputType.name,
                       topLabel: 'SOYİSİM*',
                       formFieldLabel: 'Soyisminizi Giriniz',
                       maxAlan: 1,
                     ),
-                    const CustomForm(
+                    CustomForm(
+                      controller: ref.read(sorucevapRiverpod).email,
                       inputType: TextInputType.emailAddress,
                       topLabel: 'E-POSTA*',
                       formFieldLabel: 'eposta@epostagiriniz.com',
                       maxAlan: 1,
                     ),
                     CustomForm(
-                      mask: '# (###) ###-##-##',
+                      controller: ref.read(sorucevapRiverpod).telephone,
+                      mask: '###########',
                       filter: {"#": RegExp(r'[0-9]')},
                       inputType: TextInputType.phone,
                       topLabel: 'TELEFON*',
                       formFieldLabel: '0 (---) --- -- --',
                       maxAlan: 1,
                     ),
-                    const CustomForm(
+                    CustomForm(
+                      controller: ref.read(sorucevapRiverpod).konu,
                       inputType: TextInputType.text,
                       topLabel: 'KONU BAŞLIĞI*',
                       formFieldLabel: 'Konu Başlığı Giriniz',
                       maxAlan: 1,
                     ),
-                    const CustomForm(
+                    CustomForm(
+                      controller: ref.read(sorucevapRiverpod).aciklama,
                       inputType: TextInputType.text,
                       topLabel: 'KONU*',
                       formFieldLabel: 'Sorunuzu Giriniz',
@@ -225,25 +240,42 @@ class _SoruCevapWidgetState extends ConsumerState<SoruCevapWidget> {
                   ),
                 );
               },
-              child: const Text('VİDEOUNUZU SEÇİNİZ*'),
+              child: Text(isSelectedText),
               style: ButtonStyle(
                   backgroundColor:
                       MaterialStateProperty.all<Color>(Colors.teal)),
             ),
+            const SizedBox(
+              width: 10,
+            ),
             // Bu yapı kullanılarak seçilen videonun ekranda gözükmesi olayı
             //seçim yapıldığında aktif olmaktadır.
+            Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: Visibility(
+                visible: isLoading,
+                child: SizedBox(
+                  child: video != null
+                      ? const Text('Video sisteme yükleniyor...',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.amber))
+                      : const Text(
+                          'Dosya Seçilmedi',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.amber),
+                        ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              width: 10.0,
+            ),
             Visibility(
-              visible: _isVisible,
-              child: SizedBox(
-                child: video != null
-                    ? Text(video!.path.toString(),
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(color: Colors.amber))
-                    : const Text(
-                        'Dosya Seçilmedi',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.amber),
-                      ),
+              visible: isLoading,
+              child: const Center(
+                child: CircularProgressIndicator.adaptive(
+                  backgroundColor: Colors.white,
+                ),
               ),
             ),
 
@@ -252,8 +284,21 @@ class _SoruCevapWidgetState extends ConsumerState<SoruCevapWidget> {
               padding: const EdgeInsets.all(20.0),
               width: double.infinity,
               child: ElevatedButton(
-                onPressed: () {
-                  widget._formKey.currentState!.validate();
+                onPressed: () async {
+                  ref.read(sorucevapRiverpod).videoname =
+                      video!.path.split('/').last;
+                  if (widget._formKey.currentState!.validate()) {
+                    debugPrint(ref.read(sorucevapRiverpod).videoname);
+
+                    setState(() {
+                      isLoading = true;
+                    });
+                    await newUpload();
+                    setState(() {
+                      isLoading = false;
+                    });
+                    ref.read(sorucevapRiverpod).fetchSoruCevap();
+                  }
                 },
                 child: const Text('SORUNUZU GÖNDERİN'),
                 style: ButtonStyle(
