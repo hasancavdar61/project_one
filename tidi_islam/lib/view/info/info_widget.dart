@@ -79,26 +79,6 @@ class InfoWidget extends StatelessWidget {
             ],
           ),
         ),
-        TextButton(
-          onPressed: () {
-            showAboutDialog(
-              context: context,
-              applicationLegalese: 'Daynex',
-              applicationName: 'TİDİSLAM',
-              applicationVersion: 'appV3',
-              applicationIcon: Center(
-                child: Image.asset(
-                  'assets/tidislam-logo-splash.png',
-                  width: Get.width / 2.3,
-                ),
-              ),
-            );
-          },
-          child: const Text(
-            'Uygulama Lisansları',
-            style: TextStyle(color: Colors.teal),
-          ),
-        ),
         const SizedBox(
           height: 20,
         ),
@@ -182,26 +162,6 @@ class InfoWidget extends StatelessWidget {
               child: Image.network(images[4]),
             )
           ],
-        ),
-        TextButton(
-          onPressed: () {
-            showAboutDialog(
-              context: context,
-              applicationLegalese: 'Daynex',
-              applicationName: 'TİDİSLAM',
-              applicationVersion: 'appV3',
-              applicationIcon: Center(
-                child: Image.asset(
-                  'assets/tidislam-logo-splash.png',
-                  width: Get.width / 2.3,
-                ),
-              ),
-            );
-          },
-          child: const Text(
-            'Uygulama Lisansları',
-            style: TextStyle(color: Colors.teal),
-          ),
         ),
         const SizedBox(
           height: 20,

@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tidi_islam/constants/alphabet.dart';
@@ -8,6 +9,7 @@ import 'package:tidi_islam/model/category_model.dart';
 import 'package:tidi_islam/services/services.dart';
 import 'package:tidi_islam/services/tablet_oynatici.dart';
 import 'package:tidi_islam/services/video_oynatici.dart';
+import 'package:tidi_islam/view/anasayfa/anasayfa_view.dart';
 
 class KategoriWidget extends ConsumerStatefulWidget {
   const KategoriWidget({Key? key}) : super(key: key);
@@ -19,10 +21,49 @@ class KategoriWidget extends ConsumerStatefulWidget {
 class _KategoriWidgetState extends ConsumerState<KategoriWidget> {
   var catData = Get.arguments[0];
   var catDataTitle = Get.arguments[1];
+  var catTitle = Get.arguments[2];
   List<Videox>? dataCatVideo = [];
   bool isSelected = true;
   Color color = Colors.white;
   Key key = const Key('id');
+  final box = GetStorage();
+  var popupMenuItemIndex = 0;
+
+  PopupMenuItem _buildPopupMenuItem(
+      String title, IconData iconData, int position) {
+    return PopupMenuItem(
+      value: position,
+      child: Row(
+        children: [
+          Icon(
+            iconData,
+            size: 20.0,
+            color: Colors.black,
+          ),
+          Text(title),
+        ],
+      ),
+    );
+  }
+
+  _onMenuItemSelected(int value) {
+    setState(() {
+      popupMenuItemIndex = value;
+    });
+
+    if (value == Options.profile.index) {
+      Get.toNamed('/ProfilSayfasi');
+    } else if (value == Options.password.index) {
+      Get.toNamed('/ChangePassword');
+    } else if (value == Options.detail.index) {
+      Get.toNamed('/ChangeUserDetail');
+    } else {
+      GetStorage().remove('id');
+      GetStorage().remove('cookie');
+      Get.offAllNamed('/');
+    }
+  }
+
   @override
   void initState() {
     Service().categoryCall(slug: catData.toString()).then((value) {
@@ -75,13 +116,56 @@ class _KategoriWidgetState extends ConsumerState<KategoriWidget> {
           children: [
             AppBar(
               centerTitle: true,
-              title: catDataTitle != null
-                  ? AutoSizeText(
-                      catDataTitle.toString(),
-                      maxFontSize: 18,
-                      minFontSize: 12,
-                    )
-                  : const Text('TİDİSLAM'),
+              title: Container(
+                alignment: Alignment.center,
+                height: 50,
+                child: Image.asset(
+                  'assets/tidislam-logo-3.png',
+                  fit: BoxFit.contain,
+                ),
+              ),
+              actions: [
+                box.read('id') == null
+                    ? TextButton(
+                        onPressed: (() {
+                          Get.toNamed('/GirisSayfasi');
+                        }),
+                        child: const Text(
+                          'Giriş Yap',
+                          style: TextStyle(color: Colors.white),
+                        ))
+                    : PopupMenuButton(
+                        icon: const Icon(
+                          FontAwesomeIcons.solidCircleUser,
+                          color: Colors.teal,
+                        ),
+                        onSelected: (value) {
+                          _onMenuItemSelected(value as int);
+                        },
+                        itemBuilder: (ctx) => [
+                          _buildPopupMenuItem(
+                            'Kullanıcı Bilgileri',
+                            Icons.person_outline,
+                            Options.profile.index,
+                          ),
+                          _buildPopupMenuItem(
+                            'Bilgileri Güncelle',
+                            Icons.update,
+                            Options.detail.index,
+                          ),
+                          _buildPopupMenuItem(
+                            'Şifre Değiştir',
+                            Icons.change_circle_outlined,
+                            Options.password.index,
+                          ),
+                          _buildPopupMenuItem(
+                            'Çıkış Yap',
+                            Icons.exit_to_app,
+                            Options.exit.index,
+                          ),
+                        ],
+                      )
+              ],
               automaticallyImplyLeading: true,
             ),
             Expanded(
@@ -129,6 +213,26 @@ class _KategoriWidgetState extends ConsumerState<KategoriWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 10.0,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Anasayfa | $catDataTitle |',
+                        style: const TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w600),
+                      ),
+                      Text(
+                        ' $catTitle',
+                        style: const TextStyle(
+                            color: Colors.teal, fontWeight: FontWeight.w600),
+                      ),
+                    ],
+                  ),
+                ),
                 Expanded(child: context.isTablet ? videoGridT() : videoListT()),
               ],
             );

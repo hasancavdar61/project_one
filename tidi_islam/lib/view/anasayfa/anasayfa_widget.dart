@@ -72,9 +72,6 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
       child: Swiper(
         controller: SwiperController(),
         plugins: [
-          const SwiperControl(
-            color: Colors.white,
-          ),
           SwiperPagination(
             margin: const EdgeInsets.all(5.0),
             builder: DotSwiperPaginationBuilder(

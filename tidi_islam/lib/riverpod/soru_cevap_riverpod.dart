@@ -5,10 +5,10 @@ import 'package:tidi_islam/services/services.dart';
 class SoruCevapRiverpod extends ChangeNotifier {
   final service = Service();
 
-  TextEditingController name = TextEditingController();
-  TextEditingController surname = TextEditingController();
-  TextEditingController telephone = TextEditingController();
-  TextEditingController email = TextEditingController();
+  String? name;
+  String? surname;
+  String? telephone;
+  String? email;
   TextEditingController konu = TextEditingController();
   TextEditingController aciklama = TextEditingController();
   String? videoname;
@@ -16,10 +16,10 @@ class SoruCevapRiverpod extends ChangeNotifier {
   void fetchSoruCevap() async {
     await service
         .soruCevapCall(
-            name: name.text,
-            surname: surname.text,
-            telephone: telephone.text,
-            email: email.text,
+            name: name!,
+            surname: surname!,
+            telephone: telephone!,
+            email: email!,
             konu: konu.text,
             aciklama: aciklama.text,
             videoname: videoname!)

@@ -23,6 +23,7 @@ class _AnasayfaViewState extends State<AnasayfaView> {
   var currentIndex = 0.obs;
   final box = GetStorage();
   var popupMenuItemIndex = 0;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   PopupMenuItem _buildPopupMenuItem(
       String title, IconData iconData, int position) {
@@ -97,7 +98,17 @@ class _AnasayfaViewState extends State<AnasayfaView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _scaffoldKey,
         appBar: AppBar(
+          leading: IconButton(
+              icon: const RotatedBox(
+                quarterTurns: 90,
+                child: Icon(
+                  FontAwesomeIcons.barsStaggered,
+                  color: Colors.teal,
+                ),
+              ),
+              onPressed: () => _scaffoldKey.currentState!.openDrawer()),
           automaticallyImplyLeading: true,
           title: GestureDetector(
             onTap: () => currentIndex.value = 0,
@@ -131,7 +142,10 @@ class _AnasayfaViewState extends State<AnasayfaView> {
                       style: TextStyle(color: Colors.white),
                     ))
                 : PopupMenuButton(
-                    icon: const Icon(Icons.person),
+                    icon: const Icon(
+                      FontAwesomeIcons.solidCircleUser,
+                      color: Colors.teal,
+                    ),
                     onSelected: (value) {
                       _onMenuItemSelected(value as int);
                     },
@@ -162,7 +176,7 @@ class _AnasayfaViewState extends State<AnasayfaView> {
         ),
 
         /// [Drawer] yapısı [YanMenu] adında toplanmış atomic yapı sağlanmıştır.
-        // ? Dinamikleştirme gerekebilir.
+
         drawer: const YanMenu(),
 
         /// [BottomNavigationBar] onTap metodu [currentIndex] durumuna bağlıdır.

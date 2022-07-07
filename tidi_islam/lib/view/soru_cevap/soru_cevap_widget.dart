@@ -10,6 +10,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:tidi_islam/riverpod/riverpod_management.dart';
+import 'package:tidi_islam/services/services.dart';
 import 'package:tidi_islam/view/soru_cevap/widgets/custom_form.dart';
 import 'package:tidi_islam/view/soru_cevap/widgets/modal_fit.dart';
 
@@ -59,6 +60,10 @@ class _SoruCevapWidgetState extends ConsumerState<SoruCevapWidget> {
   File? videoKamera;
   final videoInfo = FlutterVideoInfo();
   bool? isUploaded = false;
+  String? name;
+  String? surname;
+  String? telephone;
+  String? email;
 
   final _picker = ImagePicker();
 
@@ -100,6 +105,14 @@ class _SoruCevapWidgetState extends ConsumerState<SoruCevapWidget> {
 
   @override
   void initState() {
+    Service().userCall().then((value) {
+      setState(() {
+        name = value.firstname;
+        surname = value.lastname;
+        email = value.email;
+        telephone = value.telephone;
+      });
+    });
     super.initState();
   }
 
@@ -110,7 +123,19 @@ class _SoruCevapWidgetState extends ConsumerState<SoruCevapWidget> {
     return RefreshIndicator(
       child: box.read('id') == null
           ? centerElevated(box, context)
-          : singleChildSW(context),
+          : FutureBuilder(
+              future: Service().userCall(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return singleChildSW(context);
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator.adaptive(
+                      backgroundColor: Colors.white,
+                    ),
+                  );
+                }
+              }),
       onRefresh: () async {
         await Future.delayed(const Duration(seconds: 1));
         setState(() {});
@@ -177,33 +202,33 @@ class _SoruCevapWidgetState extends ConsumerState<SoruCevapWidget> {
                   children: [
                     /// Custom yapıda bulunan [SoruCevap]
                     CustomForm(
-                      controller: ref.read(sorucevapRiverpod).name,
+                      initalValue: name,
                       inputType: TextInputType.name,
                       topLabel: 'İSİM*',
-                      formFieldLabel: 'İsminizi Giriniz',
+                      formFieldLabel: name,
                       maxAlan: 1,
                     ),
                     CustomForm(
-                      controller: ref.read(sorucevapRiverpod).surname,
+                      initalValue: surname,
                       inputType: TextInputType.name,
                       topLabel: 'SOYİSİM*',
-                      formFieldLabel: 'Soyisminizi Giriniz',
+                      formFieldLabel: surname,
                       maxAlan: 1,
                     ),
                     CustomForm(
-                      controller: ref.read(sorucevapRiverpod).email,
+                      initalValue: email,
                       inputType: TextInputType.emailAddress,
                       topLabel: 'E-POSTA*',
-                      formFieldLabel: 'eposta@epostagiriniz.com',
+                      formFieldLabel: email,
                       maxAlan: 1,
                     ),
                     CustomForm(
-                      controller: ref.read(sorucevapRiverpod).telephone,
+                      initalValue: telephone,
                       mask: '###########',
                       filter: {"#": RegExp(r'[0-9]')},
                       inputType: TextInputType.phone,
                       topLabel: 'TELEFON*',
-                      formFieldLabel: '0 (---) --- -- --',
+                      formFieldLabel: telephone,
                       maxAlan: 1,
                     ),
                     CustomForm(
@@ -285,19 +310,15 @@ class _SoruCevapWidgetState extends ConsumerState<SoruCevapWidget> {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () async {
-                  ref.read(sorucevapRiverpod).videoname =
-                      video!.path.split('/').last;
-                  if (widget._formKey.currentState!.validate()) {
-                    debugPrint(ref.read(sorucevapRiverpod).videoname);
+                  ref.read(sorucevapRiverpod).name = name;
+                  ref.read(sorucevapRiverpod).surname = surname;
+                  ref.read(sorucevapRiverpod).email = email;
+                  ref.read(sorucevapRiverpod).telephone = telephone;
+                  ref.read(sorucevapRiverpod).videoname = '';
 
-                    setState(() {
-                      isLoading = true;
-                    });
-                    await newUpload();
-                    setState(() {
-                      isLoading = false;
-                    });
+                  if (widget._formKey.currentState!.validate()) {
                     ref.read(sorucevapRiverpod).fetchSoruCevap();
+                    newUpload();
                   }
                 },
                 child: const Text('SORUNUZU GÖNDERİN'),
