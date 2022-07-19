@@ -1,5 +1,3 @@
-// ignore_for_file: unrelated_type_equality_checks, iterable_contains_unrelated_type
-
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -35,16 +33,21 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
     ref.read(homeRiverpod).fetchMenu();
 
     Future.delayed(const Duration(milliseconds: 100), () {
-      setState(() {
-        _isLoading = false;
-      });
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
     });
+
+    
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     var state = ref.watch(homeRiverpod);
+    int indexx = 0;
     return FutureBuilder(
         future: Service().fetchAlbum(),
         builder: (context, AsyncSnapshot<HomeModel> snapshot) {
@@ -54,7 +57,7 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
                   await Service().fetchAlbum();
                   setState(() {});
                 },
-                child: _body(snapshot, state));
+                child: _body(snapshot, state, indexx));
           } else {
             return const Center(
                 child: CircularProgressIndicator.adaptive(
@@ -106,7 +109,9 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
     );
   }
 
-  Widget _body(AsyncSnapshot<HomeModel> snapshot, HomeRiverpod state) => Column(
+  Widget _body(
+          AsyncSnapshot<HomeModel> snapshot, HomeRiverpod state, int indexx) =>
+      Column(
         children: [
           Expanded(
             child: ListView(
@@ -142,7 +147,10 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
       );
 
   /// Videoyu [GridView.builder] ile listeleme için kullanılan method.
-  Column videoGrid(AsyncSnapshot<HomeModel> snapshot, int index) {
+  Column videoGrid(
+    AsyncSnapshot<HomeModel> snapshot,
+    int index,
+  ) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -151,7 +159,8 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
           onTap: () {
             Get.toNamed('/KategoriSayfasi', arguments: [
               snapshot.data!.products![index].catHref,
-              snapshot.data!.products![index].catTitle
+              snapshot.data!.products![index].catTitle,
+              ''
             ]);
           },
           child: VideoBaslikWidget(
@@ -199,7 +208,8 @@ Column videoList(AsyncSnapshot<HomeModel> snapshot, int index) {
         onTap: () {
           Get.toNamed('/KategoriSayfasi', arguments: [
             snapshot.data!.products![index].catHref,
-            snapshot.data!.products![index].catTitle
+            snapshot.data!.products![index].catTitle,
+            ''
           ]);
         },
         child: VideoBaslikWidget(

@@ -8,7 +8,25 @@ class GirisView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title: Container(
+            alignment: Alignment.center,
+            height: 50,
+            child: Image.asset(
+              'assets/tidislam-logo-3.png',
+              fit: BoxFit.contain,
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {},
+              child: const Text(
+                '',
+                style: TextStyle(color: Colors.white),
+              ),
+            )
+          ],
+        ),
         body: const GirisWidget(),
       ),
     );

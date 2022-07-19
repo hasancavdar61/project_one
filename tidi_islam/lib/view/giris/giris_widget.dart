@@ -18,13 +18,17 @@ class _GirisWidgetState extends ConsumerState<GirisWidget> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 20.0),
-          child: Text(
-            'HOŞGELDİNİZ',
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headline4,
+        const Padding(
+          padding: EdgeInsets.all(18.0),
+          child: Divider(
+            color: Colors.grey,
+            thickness: 1,
           ),
+        ),
+        Text(
+          'HOŞGELDİNİZ',
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.headline4,
         ),
         Padding(
           padding: const EdgeInsets.all(24.0),
@@ -82,14 +86,22 @@ class _GirisWidgetState extends ConsumerState<GirisWidget> {
         Container(
           padding: const EdgeInsets.only(left: 24.0),
           alignment: Alignment.centerLeft,
-          child: TextButton(
-            onPressed: () {
-              Get.toNamed('/ForgotPassword');
-            },
-            child: const Text(
-              'Şifremi Unuttum',
-              style: TextStyle(color: Colors.white),
-            ),
+          child: Row(
+            children: [
+              const Icon(
+                Icons.key,
+                color: Colors.white,
+              ),
+              TextButton(
+                onPressed: () {
+                  Get.toNamed('/ForgotPassword');
+                },
+                child: const Text(
+                  'Şifremi Unuttum',
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+            ],
           ),
         ),
         const SizedBox(
@@ -100,8 +112,7 @@ class _GirisWidgetState extends ConsumerState<GirisWidget> {
           width: double.infinity,
           child: ElevatedButton(
             style: ButtonStyle(
-                backgroundColor:
-                    MaterialStateProperty.all<Color>(Colors.teal.shade300)),
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.teal)),
             onPressed: () => Get.toNamed('/KayitSayfasi'),
             child: Container(
               margin: const EdgeInsets.all(20.0),

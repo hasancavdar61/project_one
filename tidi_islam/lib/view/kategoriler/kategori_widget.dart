@@ -23,11 +23,16 @@ class _KategoriWidgetState extends ConsumerState<KategoriWidget> {
   var catDataTitle = Get.arguments[1];
   var catTitle = Get.arguments[2];
   List<Videox>? dataCatVideo = [];
+  List<Videox>? title = [];
+  List? items;
+  TextEditingController editingController = TextEditingController();
+
   bool isSelected = true;
   Color color = Colors.white;
   Key key = const Key('id');
   final box = GetStorage();
   var popupMenuItemIndex = 0;
+  var currentIndex = 0.obs;
 
   PopupMenuItem _buildPopupMenuItem(
       String title, IconData iconData, int position) {
@@ -75,6 +80,7 @@ class _KategoriWidgetState extends ConsumerState<KategoriWidget> {
         throw ('Bir sorun oluştu');
       }
     });
+
     super.initState();
   }
 
