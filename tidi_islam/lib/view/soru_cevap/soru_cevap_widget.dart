@@ -281,7 +281,8 @@ class _SoruCevapWidgetState extends ConsumerState<SoruCevapWidget> {
                 visible: isLoading,
                 child: SizedBox(
                   child: video != null
-                      ? const Text('Video sisteme yükleniyor...',
+                      ? const Text(
+                          'Soru gönderildi, video yükleme işlemi devam ediyor...',
                           textAlign: TextAlign.center,
                           style: TextStyle(color: Colors.amber))
                       : const Text(
@@ -314,11 +315,12 @@ class _SoruCevapWidgetState extends ConsumerState<SoruCevapWidget> {
                   ref.read(sorucevapRiverpod).surname = surname;
                   ref.read(sorucevapRiverpod).email = email;
                   ref.read(sorucevapRiverpod).telephone = telephone;
-                  ref.read(sorucevapRiverpod).videoname = '';
+                  ref.read(sorucevapRiverpod).videoname =
+                      video!.path.split('/').last;
 
                   if (widget._formKey.currentState!.validate()) {
                     ref.read(sorucevapRiverpod).fetchSoruCevap();
-                    newUpload();
+                    await newUpload();
                   }
                 },
                 child: const Text('SORUNUZU GÖNDERİN'),

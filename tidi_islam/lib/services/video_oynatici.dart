@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:tidi_islam/services/services.dart';
@@ -177,10 +178,25 @@ showVideoDialog(BuildContext context, YoutubePlayerController _controller) {
     context: context,
     builder: (context) => AlertDialog(
       contentPadding: const EdgeInsets.all(5),
-      content: YoutubePlayerIFrame(
-        controller: _controller,
-        aspectRatio: 16 / 9,
+      content: FutureBuilder(
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return playerM(_controller);
+          } else {
+            return SizedBox(
+                height: Get.height / 5,
+                child: const CircularProgressIndicator.adaptive());
+          }
+        },
+        future: Service().fetchAlbum(),
       ),
     ),
+  );
+}
+
+YoutubePlayerIFrame playerM(YoutubePlayerController _controller) {
+  return YoutubePlayerIFrame(
+    controller: _controller,
+    aspectRatio: 16 / 9,
   );
 }
