@@ -55,7 +55,6 @@ class _SoruCevapWidgetState extends ConsumerState<SoruCevapWidget> {
     });
   }
 
-  late final bool _isVisible = false;
   File? video;
   File? videoKamera;
   final videoInfo = FlutterVideoInfo();

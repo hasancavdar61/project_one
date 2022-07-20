@@ -24,9 +24,9 @@ class _KayitWidgetState extends ConsumerState<KayitWidget> {
   String? district;
   Map<String, String> map = {};
 
-  var ilceName;
+  String ilceName = 'İlçe Seçiniz';
 
-  var ilName;
+  String ilName = 'İl seçiniz';
 
   @override
   void initState() {
@@ -114,7 +114,7 @@ class _KayitWidgetState extends ConsumerState<KayitWidget> {
                                       setState(() {
                                         ref.read(registerRiverpod).city =
                                             city![index].id!;
-                                        ilName = city![index].name;
+                                        ilName = city![index].name!;
                                       });
                                       debugPrint('Seçilen il id: ' +
                                           ref
@@ -155,7 +155,7 @@ class _KayitWidgetState extends ConsumerState<KayitWidget> {
                       },
                       child: ShowerContainer(
                         topLabel: 'İL*',
-                        formFieldLabel: ilName ?? 'İl Seçiniz',
+                        formFieldLabel: ilName,
                         icColor: Colors.white,
                       ),
                     ),
@@ -177,7 +177,7 @@ class _KayitWidgetState extends ConsumerState<KayitWidget> {
                                         ref.read(registerRiverpod).district =
                                             ilceler[index].id;
 
-                                        ilceName = ilceler[index].name;
+                                        ilceName = ilceler[index].name!;
 
                                         debugPrint('Seçilen ilce id: ' +
                                             ref
@@ -215,7 +215,7 @@ class _KayitWidgetState extends ConsumerState<KayitWidget> {
                       },
                       child: ShowerContainer(
                         topLabel: 'İLÇE*',
-                        formFieldLabel: ilceName ?? 'İlçe Seçiniz',
+                        formFieldLabel: ilceName,
                         icColor: Colors.white,
                       ),
                     ),
