@@ -52,6 +52,7 @@ class _SoruCevapWidgetState extends ConsumerState<SoruCevapWidget> {
 
     setState(() {
       isLoading = false;
+      isSelectedText = 'VİDEO GÖNDERİLDİ';
     });
   }
 
@@ -315,11 +316,14 @@ class _SoruCevapWidgetState extends ConsumerState<SoruCevapWidget> {
                   ref.read(sorucevapRiverpod).email = email;
                   ref.read(sorucevapRiverpod).telephone = telephone;
                   ref.read(sorucevapRiverpod).videoname =
-                      video!.path.split('/').last;
+                      video?.path == null ? '' : video!.path.split('/').last;
 
-                  if (widget._formKey.currentState!.validate()) {
+                  if (widget._formKey.currentState!.validate() &&
+                      video?.path != null) {
                     ref.read(sorucevapRiverpod).fetchSoruCevap();
                     await newUpload();
+                  } else {
+                    ref.read(sorucevapRiverpod).fetchSoruCevap();
                   }
                 },
                 child: const Text('SORUNUZU GÖNDERİN'),

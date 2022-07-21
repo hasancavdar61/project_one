@@ -27,6 +27,11 @@ class IletisimFormRiverpod extends ChangeNotifier {
           backgroundColor: Colors.teal,
           colorText: Colors.white,
         );
+        fullname.clear();
+        email.clear();
+        telefon.clear();
+        subject.clear();
+        message.clear();
       } else {
         Get.snackbar(
           'Hata Oluştu',

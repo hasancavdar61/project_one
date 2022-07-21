@@ -31,6 +31,8 @@ class SoruCevapRiverpod extends ChangeNotifier {
           backgroundColor: Colors.teal,
           colorText: Colors.white,
         );
+        konu.clear();
+        aciklama.clear();
       } else {
         Get.snackbar(
           'Hata Oluştu',

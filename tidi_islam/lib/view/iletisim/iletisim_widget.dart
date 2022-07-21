@@ -57,7 +57,7 @@ class _IletisimWidget extends ConsumerState<IletisimWidget> {
           child: GoogleMap(
             myLocationButtonEnabled: false,
             markers: Set<Marker>.of(_markers),
-            mapType: MapType.hybrid,
+            mapType: MapType.normal,
             initialCameraPosition: _kGooglePlex,
             onMapCreated: (GoogleMapController controller) {
               _controller.complete(controller);
@@ -72,7 +72,7 @@ class _IletisimWidget extends ConsumerState<IletisimWidget> {
         const AdresWidget(
           iconData: FontAwesomeIcons.locationDot,
           text:
-              'Bahçelievler Mah 1602 Sokak NO 9\nGüner iş Merkezi Kat 8 Daire 16 Merkez Batman',
+              'Bahçelievler Mah 1602 Sokak NO 9\nGüner iş Merkezi Kat 8 Daire 16 Merkez/Batman',
         ),
         const SizedBox(
           height: 20.0,
@@ -107,7 +107,7 @@ class _IletisimWidget extends ConsumerState<IletisimWidget> {
                 ),
                 CustomForm(
                   controller: ref.read(iletisimFormRiverpod).email,
-                  inputType: TextInputType.name,
+                  inputType: TextInputType.emailAddress,
                   topLabel: 'E-POSTA*',
                   formFieldLabel: 'E-Posta giriniz',
                   maxAlan: 1,
