@@ -442,4 +442,33 @@ class Service {
       throw ("Bir sorun oluştu ${response.statusCode}");
     }
   }
+
+  Future<ChangePassModel?> iletisimFormCall({
+    required String fullname,
+    required String email,
+    required String telefon,
+    required String subject,
+    required String message,
+  }) async {
+    FormData formData = FormData.fromMap({
+      'fullname': fullname,
+      'email': email,
+      'telefon': telefon,
+      'subject': subject,
+      'message': message,
+    });
+    var response = await dio.post('https://www.api.tidislam.com/home/contact',
+        data: formData,
+        options: Options(headers: {
+          "DX-API-KEY": "53a25de5-f2c1-4d7a-abd6-3046a880c425",
+        }));
+
+    if (response.statusCode == 200) {
+      var result = ChangePassModel.fromJson(response.data);
+
+      return result;
+    } else {
+      throw ("Bir sorun oluştu ${response.statusCode}");
+    }
+  }
 }
