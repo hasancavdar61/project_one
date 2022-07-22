@@ -90,7 +90,11 @@ class _AnasayfaViewState extends State<AnasayfaView> {
     super.initState();
   }
 
- 
+  @override
+  void dispose() {
+    connection?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +117,7 @@ class _AnasayfaViewState extends State<AnasayfaView> {
               Get.bottomSheet(
                   const Center(
                       child: Text(
-                    'Uygulamamızı kullandığınız için teşekkür ederiz.\nFirma Daynex Yazılım\nGeliştirici Hasan Çavdar\nTrabzon-Türkiye\n2022',
+                    'Uygulamamızı kullandığınız için teşekkür ederiz.\nDaynex Yazılım\n2022',
                     style: TextStyle(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   )),

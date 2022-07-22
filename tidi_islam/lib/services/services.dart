@@ -14,6 +14,7 @@ import 'package:tidi_islam/model/forgot_model.dart';
 import 'package:tidi_islam/model/home_model.dart';
 import 'package:tidi_islam/model/login_model.dart';
 import 'package:tidi_islam/model/menu_model.dart';
+import 'package:tidi_islam/model/search_model.dart';
 import 'package:tidi_islam/model/slider_model.dart';
 import 'package:tidi_islam/model/user_model.dart';
 
@@ -466,6 +467,23 @@ class Service {
     if (response.statusCode == 200) {
       var result = ChangePassModel.fromJson(response.data);
 
+      return result;
+    } else {
+      throw ("Bir sorun oluştu ${response.statusCode}");
+    }
+  }
+
+  Future<SearchModel?> searchCall({required String search}) async {
+    var response = await dio.get(baseUrlHome + "/search",
+        queryParameters: ({'search': search}),
+        options: Options(
+          headers: {
+            "DX-API-KEY": "53a25de5-f2c1-4d7a-abd6-3046a880c425",
+          },
+        ));
+    if (response.statusCode == 200) {
+      var result = SearchModel.fromJson(response.data);
+      debugPrint("Gelen Response => ${response.data}");
       return result;
     } else {
       throw ("Bir sorun oluştu ${response.statusCode}");

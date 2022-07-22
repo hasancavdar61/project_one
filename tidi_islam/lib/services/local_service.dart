@@ -7,6 +7,7 @@ import 'package:tidi_islam/view/kategoriler/kategori_view.dart';
 import 'package:tidi_islam/view/kayit/kayit_view.dart';
 import 'package:tidi_islam/view/profil/profil_view.dart';
 import 'package:tidi_islam/view/profil/widgets/changepass_widget.dart';
+import 'package:tidi_islam/view/search/search_widget.dart';
 import 'package:tidi_islam/view/sifre_degistirme/sifre_degistirme_view.dart';
 import 'package:tidi_islam/view/user_detail/change_user_detail_view.dart';
 
@@ -22,6 +23,7 @@ class GetRouteService {
         gettingRoutes('/ForgotPassword', const ForgotPassword()),
         gettingRoutes('/ChangePassword', const ChangePassword()),
         gettingRoutes('/ChangeUserDetail', const ChangeUserView()),
+        gettingRoutes('/SearchPage', const SearchWidget()),
         // gettingRoutes('/test', const TestApp()),
       ];
 }

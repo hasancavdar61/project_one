@@ -19,7 +19,6 @@ class _FavorilerWidgetState extends ConsumerState<FavorilerWidget> {
   @override
   void initState() {
     ref.read(homeRiverpod).fetchFavoritelist();
-
     super.initState();
   }
 

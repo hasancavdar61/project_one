@@ -49,9 +49,7 @@ class _TidAppState extends State<TidApp> {
       enableLog: true,
       debugShowCheckedModeBanner: false,
       getPages: GetRouteService().routesGet,
-      home: const Scaffold(
-        body: AnasayfaView(),
-      ),
+      home: const AnasayfaView(),
       theme: AppTheme().themeData,
     );
   }

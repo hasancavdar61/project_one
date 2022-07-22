@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:tidi_islam/model/category_model.dart';
 import 'package:tidi_islam/model/favorite_model.dart';
 import 'package:tidi_islam/model/menu_model.dart';
+import 'package:tidi_islam/model/search_model.dart';
 import 'package:tidi_islam/model/slider_model.dart';
 import 'package:tidi_islam/services/services.dart';
 
@@ -19,6 +20,9 @@ class HomeRiverpod extends ChangeNotifier {
   List<Videox>? dataCatVideo = [];
   List<Videox>? dataId = [];
   String path = '';
+
+  List<Product>? searchVideoData = [];
+  TextEditingController search = TextEditingController();
 
   List videoPath = [];
 
@@ -97,5 +101,15 @@ class HomeRiverpod extends ChangeNotifier {
     } catch (e) {
       debugPrint(e.toString());
     }
+  }
+
+  fetchSearch() {
+    service.searchCall(search: search.text).then((value) {
+      if (value != null) {
+        searchVideoData = value.products;
+      } else {
+        throw ('Bir sorun oluştu');
+      }
+    });
   }
 }
