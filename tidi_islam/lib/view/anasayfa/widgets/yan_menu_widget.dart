@@ -42,16 +42,18 @@ class _YanMenuState extends ConsumerState<YanMenu> {
               ),
             ),
           ),
-          ListView.builder(
+          ListView.separated(
+              separatorBuilder: (context, index) {
+                return const Divider(
+                  color: Colors.grey,
+                  thickness: 1,
+                );
+              },
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               itemBuilder: ((context, index) {
                 return Column(
                   children: [
-                    const Divider(
-                      thickness: 1,
-                      color: Colors.grey,
-                    ),
                     ExpansionTile(
                       iconColor: Colors.white,
                       collapsedIconColor: Colors.white,
@@ -151,10 +153,6 @@ class _YanMenuState extends ConsumerState<YanMenu> {
                 );
               }),
               itemCount: state.dataModel?.length ?? 0),
-          const Divider(
-            thickness: 1,
-            color: Colors.grey,
-          )
         ],
       ),
     );
