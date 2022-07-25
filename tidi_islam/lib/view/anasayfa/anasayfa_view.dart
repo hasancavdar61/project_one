@@ -23,6 +23,8 @@ class _AnasayfaViewState extends State<AnasayfaView> {
   var currentIndex = 0.obs;
   final box = GetStorage();
   var popupMenuItemIndex = 0;
+  var arg = Get.arguments;
+
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   PopupMenuItem _buildPopupMenuItem(
@@ -234,7 +236,7 @@ class _AnasayfaViewState extends State<AnasayfaView> {
         body: isoffline
             ? const ErrorPage()
             : Obx(
-                () => ScreenList().screens[currentIndex.value],
+                () => ScreenList().screens[arg ?? currentIndex.value],
               ));
   }
 }

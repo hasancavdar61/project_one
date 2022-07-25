@@ -105,33 +105,6 @@ class _KategoriWidgetState extends ConsumerState<KategoriWidget> {
     });
   }
 
-  onNSelected(int index) {
-    setState(() async {
-      await Service().categoryCall(slug: catData.toString()).then((value) {
-        if (value != null) {
-          setState(() {
-            dataCatVideo = value.videosx;
-          });
-        } else {
-          throw ('Bir sorun oluştu');
-        }
-      });
-      _selectedIndex = index;
-      dataCatVideo?.retainWhere((element) {
-        return element.title!.startsWith(editingController.text);
-      });
-    });
-  }
-
-  onNotSelected(int index) {
-    setState(() {
-      _selectedIndex = index;
-      dataCatVideo?.retainWhere((element) {
-        return element.title!.startsWith(alphabet[_selectedIndex!]);
-      });
-    });
-  }
-
   @override
   void dispose() {
     myFocusNode.dispose();
@@ -482,34 +455,3 @@ class _KategoriWidgetState extends ConsumerState<KategoriWidget> {
     });
   }
 }
-
-
-
-
-
-/*
-
- setState(() {
-                            if (isSelected) {
-                              dataCatVideo?.retainWhere((element) {
-                                return element.title!
-                                    .startsWith(alphabet[index]);
-                              });
-                              _selectedIndex = index;
-                              isSelected = false;
-                            } else {
-                              Service()
-                                  .categoryCall(slug: catData.toString())
-                                  .then((value) {
-                                if (value != null) {
-                                  setState(() {
-                                    dataCatVideo = value.videosx;
-                                  });
-                                } else {
-                                  throw ('Bir sorun oluştu');
-                                }
-                              });
-
-                              isSelected = true;
-                            }
-                          }); */

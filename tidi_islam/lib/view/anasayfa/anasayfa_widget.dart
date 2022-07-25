@@ -125,11 +125,11 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
               shrinkWrap: true,
               children: [
                 /// Fotoğraf geçişleri [ImageSlideshow] ile yapılıyor.
-                /// Fotoğraflar
 
                 /// Atomic yapıda olan [VideoBaslikWidget] video başlığını tutar static.
                 /// [baslikAdi] parametresi [String] yapıdadır.
-                ///
+
+                /// Search
 
                 Container(
                   padding: const EdgeInsets.only(
@@ -365,111 +365,3 @@ Column videoList(AsyncSnapshot<HomeModel> snapshot, int index) {
     ],
   );
 }
-
-
-/*
- Container(
-                  padding: const EdgeInsets.only(
-                      top: 10.0, left: 13.50, right: 13.50),
-                  child: TextFormField(
-                    focusNode: myFocusNode,
-                    onTap: () => setState(() {
-                      isVisible = true;
-                    }),
-                    onChanged: (value) {
-                      if (value.isEmpty) {
-                        setState(() {
-                          isVisible = false;
-                        });
-                      } else {
-                        setState(() {
-                          isVisible = true;
-                        });
-                      }
-                    },
-                    onEditingComplete: () {
-                      myFocusNode.unfocus();
-                      isVisible = false;
-                    },
-                    style: const TextStyle(color: Colors.white),
-                    controller: editingController,
-                    decoration: InputDecoration(
-                      suffixIcon: const Icon(
-                        Icons.search,
-                        color: Colors.white,
-                      ),
-                      contentPadding: const EdgeInsets.only(left: 10.0),
-                      hintText: 'Aramaya buradan başlayın',
-                      hintStyle:
-                          TextStyle(color: Colors.white.withOpacity(0.5)),
-                      focusedBorder: const OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.teal),
-                      ),
-                      enabledBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(color: Colors.white),
-                          borderRadius: BorderRadius.zero),
-                    ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10.0,
-                ),
-                Visibility(
-                  visible: isVisible,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 13.50, right: 13.50, top: 10.0, bottom: 10.0),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        //arama butonu
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              myFocusNode.unfocus();
-                              setState(() {
-                                isVisible = false;
-                              });
-                            },
-                            child: Container(
-                              color: Colors.teal,
-                              padding: const EdgeInsets.all(9.0),
-                              child: const Text(
-                                'Ara',
-                                style: TextStyle(color: Colors.white),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-
-                        //sonucu temizleme butonu
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              editingController.clear();
-                              setState(() {
-                                isVisible = false;
-                              });
-                              myFocusNode.unfocus();
-                            },
-                            child: Container(
-                              color: Colors.redAccent,
-                              padding: const EdgeInsets.all(9.0),
-                              child: const Text(
-                                'Sonucu Temizle',
-                                style: TextStyle(color: Colors.white),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-*/

@@ -52,7 +52,7 @@ class _IletisimWidget extends ConsumerState<IletisimWidget> {
           height: 20,
         ),
         SizedBox(
-          height: Get.height / 4,
+          height: context.isTablet ? Get.height / 2 : Get.height / 4,
           width: double.infinity,
           child: GoogleMap(
             myLocationButtonEnabled: false,

@@ -66,9 +66,12 @@ class _TabletOynaticiState extends ConsumerState<TabletOynatici> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width / 2,
                     child: OctoImage(
-                      errorBuilder: (context, error, stackTrace) => const Text(
-                        'Görsel bulunamadı.',
-                        style: TextStyle(color: Colors.white),
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Center(
+                        child: Text(
+                          'Kapak fotoğrafı yüklenemedi',
+                          style: TextStyle(color: Colors.amber),
+                        ),
                       ),
                       image: NetworkImage(
                         baseUrl + widget.imageUrl!,

@@ -68,9 +68,12 @@ class _VideoOynaticiState extends ConsumerState<VideoOynatici> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width / 2.3,
                     child: OctoImage(
-                      errorBuilder: (context, error, stackTrace) => const Text(
-                        'Görsel bulunamadı.',
-                        style: TextStyle(color: Colors.white),
+                      errorBuilder: (context, error, stackTrace) =>
+                          const Center(
+                        child: Text(
+                          'Kapak resmi yüklenemedi',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                       image: NetworkImage(
                         baseUrl + widget.imageUrl!,
@@ -185,7 +188,8 @@ showVideoDialog(BuildContext context, YoutubePlayerController _controller) {
           } else {
             return SizedBox(
                 height: Get.height / 5,
-                child: const CircularProgressIndicator.adaptive());
+                child:
+                    const Center(child: CircularProgressIndicator.adaptive()));
           }
         },
         future: Service().fetchAlbum(),
