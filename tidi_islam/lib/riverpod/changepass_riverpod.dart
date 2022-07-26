@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tidi_islam/services/services.dart';
 
+//! Kullanıcı şifre değiştirme işlemi.
+
 class ChangePassRiverpod extends ChangeNotifier {
   final service = Service();
   TextEditingController password = TextEditingController();
@@ -21,9 +23,9 @@ class ChangePassRiverpod extends ChangeNotifier {
           backgroundColor: Colors.teal,
           colorText: Colors.white,
         );
-        Get.offAllNamed('/GirisSayfasi');
         GetStorage().remove('cookie');
         GetStorage().remove('id');
+        Get.offAllNamed('/GirisSayfasi');
       } else {
         Get.snackbar(
           'Şifre Değiştirme Başarısız',

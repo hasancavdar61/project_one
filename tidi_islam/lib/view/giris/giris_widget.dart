@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:tidi_islam/riverpod/riverpod_management.dart';
 import 'package:tidi_islam/view/soru_cevap/widgets/custom_form.dart';
 
@@ -13,6 +14,11 @@ class GirisWidget extends ConsumerStatefulWidget {
 
 class _GirisWidgetState extends ConsumerState<GirisWidget> {
   final _formKey = GlobalKey<FormState>();
+  late final String _buttonText = 'GİRİŞ YAPIN';
+  late bool _isObsecure = true;
+  final RoundedLoadingButtonController _btnController =
+      RoundedLoadingButtonController();
+  late IconData _icon = Icons.visibility;
 
   @override
   Widget build(BuildContext context) {
@@ -45,25 +51,45 @@ class _GirisWidgetState extends ConsumerState<GirisWidget> {
                 ),
                 CustomForm(
                   controller: ref.read(loginRiverpod).password,
-                  isObsecure: true,
+                  isObsecure: _isObsecure,
                   topLabel: 'Şifreniz*',
                   formFieldLabel: 'Şifre Giriniz',
                   maxAlan: 1,
+                  showIcon: _icon,
+                  showIconColor: Colors.grey,
+                  showPress: () {
+                    setState(() {
+                      _isObsecure = !_isObsecure;
+                      _icon =
+                          _isObsecure ? Icons.visibility : Icons.visibility_off;
+                    });
+                  },
                 ),
               ],
             ),
           ),
         ),
-        Container(
+        Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
-          width: double.infinity,
-          child: ElevatedButton(
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.teal)),
+          child: RoundedLoadingButton(
+            width: double.maxFinite,
+            resetAfterDuration: true,
+            borderRadius: 3,
+            color: Colors.teal,
+            child: Text(
+              _buttonText,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            controller: _btnController,
             onPressed: () {
               if (_formKey.currentState!.validate()) {
+                _btnController.start();
                 ref.read(loginRiverpod).fetch();
+                _btnController.stop();
               } else {
+                _btnController.stop();
                 Get.snackbar(
                   'Hata Oluştu',
                   'Lütfen formu doğru şekilde doldurunuz',
@@ -72,15 +98,6 @@ class _GirisWidgetState extends ConsumerState<GirisWidget> {
                 );
               }
             },
-            child: Container(
-              margin: const EdgeInsets.all(20.0),
-              child: const Text(
-                'GİRİŞ YAPIN',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
           ),
         ),
         Container(
@@ -129,3 +146,45 @@ class _GirisWidgetState extends ConsumerState<GirisWidget> {
     );
   }
 }
+
+
+/*
+Container(
+          padding: const EdgeInsets.symmetric(horizontal: 24.0),
+          width: double.infinity,
+          child: ElevatedButton(
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.teal)),
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                setState(() {
+                  _isLoading = true;
+                });
+                _isLoading == true
+                    ? _buttonText = 'Giriş Yapılıyor...'
+                    : _buttonText = 'GİRİŞ YAPIN';
+                ref.read(loginRiverpod).fetch();
+                setState(() {
+                  _isLoading = false;
+                });
+              } else {
+                Get.snackbar(
+                  'Hata Oluştu',
+                  'Lütfen formu doğru şekilde doldurunuz',
+                  backgroundColor: Colors.teal,
+                  colorText: Colors.white,
+                );
+              }
+            },
+            child: Container(
+              margin: const EdgeInsets.all(20.0),
+              child: Text(
+                _buttonText,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ),
+*/

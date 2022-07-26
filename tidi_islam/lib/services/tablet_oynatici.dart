@@ -7,6 +7,8 @@ import 'package:octo_image/octo_image.dart';
 import 'package:tidi_islam/services/services.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
+//! Tablet Oynatici tablet için responsive video oynatıcısı.
+
 class TabletOynatici extends ConsumerStatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
   TabletOynatici(

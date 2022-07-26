@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:quick_actions/quick_actions.dart';
 import 'package:tidi_islam/constants/screen_list.dart';
 import 'package:tidi_islam/view/anasayfa/widgets/yan_menu_widget.dart';
 import 'package:tidi_islam/view/error/error_page.dart';
@@ -24,6 +25,8 @@ class _AnasayfaViewState extends State<AnasayfaView> {
   final box = GetStorage();
   var popupMenuItemIndex = 0;
   var arg = Get.arguments;
+  final QuickActions _quickActions = const QuickActions();
+  late FocusNode myFocusNode;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
@@ -89,6 +92,33 @@ class _AnasayfaViewState extends State<AnasayfaView> {
       }
     });
 
+    _quickActions.setShortcutItems(<ShortcutItem>[
+      const ShortcutItem(
+          type: 'profile', localizedTitle: 'Profil', icon: 'user'),
+      const ShortcutItem(
+          type: 'info', localizedTitle: 'Hakkımızda', icon: 'info'),
+      const ShortcutItem(
+          type: 'contact', localizedTitle: 'İletişim', icon: 'contact'),
+    ]);
+
+    _quickActions.initialize((type) {
+      if (type == 'profile') {
+        if (GetStorage().read('id') != null) {
+          Get.toNamed('/ProfilSayfasi');
+        } else {
+          Get.toNamed('/GirisSayfasi');
+        }
+      } else if (type == 'info') {
+        setState(() {
+          currentIndex.value = 1;
+        });
+      } else if (type == 'contact') {
+        setState(() {
+          currentIndex.value = 4;
+        });
+      }
+    });
+
     super.initState();
   }
 
@@ -117,13 +147,61 @@ class _AnasayfaViewState extends State<AnasayfaView> {
             onTap: () => currentIndex.value = 0,
             onLongPress: () {
               Get.bottomSheet(
-                  const Center(
-                      child: Text(
-                    'Uygulamamızı kullandığınız için teşekkür ederiz.\nDaynex Yazılım\n2022',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
+                SingleChildScrollView(
+                  child: Center(
+                      child: Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              right: 75.0, left: 75.0, bottom: 20.0),
+                          child: Image.asset('assets/tidislam-logo-splash.png'),
+                        ),
+                        const Text(
+                          'Uygulamamızı kullandığınız için teşekkür ederiz.\nDaynex Yazılım\n2022',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.black),
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(
+                          height: 10.0,
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            showLicensePage(
+                                context: context,
+                                applicationIcon: Padding(
+                                  padding: const EdgeInsets.all(50.0),
+                                  child: Image.asset(
+                                      'assets/tidislam-logo-splash.png'),
+                                ),
+                                applicationName: 'Tidislam',
+                                applicationVersion: '1.0.25+25HC');
+                          },
+                          child: const Text(
+                            'Uygulama Lisansları',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white),
+                          ),
+                          style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.teal)),
+                        ),
+                      ],
+                    ),
                   )),
-                  backgroundColor: Colors.white);
+                ),
+                backgroundColor: Colors.white,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(20),
+                    topRight: Radius.circular(20),
+                  ),
+                ),
+              );
             },
             child: Container(
               alignment: Alignment.center,
@@ -240,23 +318,3 @@ class _AnasayfaViewState extends State<AnasayfaView> {
               ));
   }
 }
-/*
- TextButton(
-              onPressed: box.read('id') == null
-                  ? () => Get.toNamed('/GirisSayfasi')
-                  : () => Get.toNamed('/ProfilSayfasi'),
-              child: box.read('id') != null
-                  ? const CircleAvatar(
-                      backgroundColor: Colors.transparent,
-                      child: Icon(
-                        Icons.person,
-                        color: Colors.white,
-                      ),
-                    )
-                  : const Text(
-                      'Giriş Yap',
-                      style: TextStyle(color: Colors.white),
-                    ),
-            ),
- */
-

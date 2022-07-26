@@ -16,6 +16,9 @@ class CustomForm extends StatelessWidget {
     this.filter,
     this.padding = 14.0,
     this.initalValue,
+    this.showPress,
+    this.showIcon,
+    this.showIconColor,
   }) : super(key: key);
 
   final String? topLabel;
@@ -30,6 +33,9 @@ class CustomForm extends StatelessWidget {
   final Map<String, RegExp>? filter;
   final double padding;
   final String? initalValue;
+  final VoidCallback? showPress;
+  final IconData? showIcon;
+  final Color? showIconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +69,9 @@ class CustomForm extends StatelessWidget {
             maxLines: maxAlan,
             keyboardType: inputType,
             decoration: InputDecoration(
+              suffixIcon: IconButton(
+                  onPressed: showPress,
+                  icon: Icon(showIcon, color: showIconColor)),
               focusedBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.teal),
               ),

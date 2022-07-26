@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tidi_islam/services/services.dart';
 
+//! Kullanıcı girişi işlemi
+
 class LoginRiverpod extends ChangeNotifier {
   final service = Service();
 
@@ -26,7 +28,8 @@ class LoginRiverpod extends ChangeNotifier {
           backgroundColor: Colors.teal,
           colorText: Colors.white,
         );
-        
+        email.clear();
+        password.clear();
         Get.offAllNamed('/');
       } else {
         Get.snackbar(

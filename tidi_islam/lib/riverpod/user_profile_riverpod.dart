@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tidi_islam/services/services.dart';
 
+//! Soru cevap için otomatik tanımla işlemi
+
 class SoruCevapUPRiverpod extends ChangeNotifier {
   final service = Service();
 

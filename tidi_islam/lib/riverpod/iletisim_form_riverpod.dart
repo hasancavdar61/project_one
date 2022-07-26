@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tidi_islam/services/services.dart';
 
+//! İletişim formu gönderme işlemi
+
 class IletisimFormRiverpod extends ChangeNotifier {
   final service = Service();
 

@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tidi_islam/services/services.dart';
 
+//! Kullanıcı kayıt işlemi
+
 class RegisterRiverpod extends ChangeNotifier {
   final service = Service();
   String cities = '';

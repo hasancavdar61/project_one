@@ -7,6 +7,8 @@ import 'package:tidi_islam/model/search_model.dart';
 import 'package:tidi_islam/model/slider_model.dart';
 import 'package:tidi_islam/services/services.dart';
 
+//! Anasayfa işlemleri
+
 class HomeRiverpod extends ChangeNotifier {
   final service = Service();
   TextEditingController email = TextEditingController();
@@ -25,6 +27,8 @@ class HomeRiverpod extends ChangeNotifier {
   TextEditingController search = TextEditingController();
 
   List videoPath = [];
+
+//! Şifremi unuttum, bağlantı gönderme metodu.
 
   void fetchForgot() {
     service.forgotPassword(email: email.text).then((value) {
@@ -48,6 +52,8 @@ class HomeRiverpod extends ChangeNotifier {
     });
   }
 
+//! Favori listeleme metodu
+
   void fetchFavoritelist() {
     service.favoriteListCall(page: page, perPage: perPage).then((value) {
       if (value != null) {
@@ -58,6 +64,8 @@ class HomeRiverpod extends ChangeNotifier {
     });
   }
 
+//! Anasayfa Slider metodu 
+
   void fetchSlider() {
     service.sliderCall().then((value) {
       if (value != null) {
@@ -67,6 +75,8 @@ class HomeRiverpod extends ChangeNotifier {
       }
     });
   }
+
+  //! Drawer menü listesi fonksiyonu
 
   void fetchMenu() {
     service.menuCall().then((value) {
@@ -79,6 +89,8 @@ class HomeRiverpod extends ChangeNotifier {
     });
   }
 
+  //! Drawer açılır menü kategori fonksiyonu.
+
   void categoryCall() {
     service.categoryCall(slug: slug).then((value) {
       if (value != null) {
@@ -88,6 +100,8 @@ class HomeRiverpod extends ChangeNotifier {
       }
     });
   }
+
+  //! Favori kontrolü fonksiyonu
 
   void favoriteCheck() async {
     try {
@@ -102,6 +116,8 @@ class HomeRiverpod extends ChangeNotifier {
       debugPrint(e.toString());
     }
   }
+
+  //! Arama fonksiyonu
 
   fetchSearch() {
     service.searchCall(search: search.text).then((value) {

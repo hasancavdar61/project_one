@@ -19,10 +19,12 @@ class IletisimWidget extends ConsumerStatefulWidget {
 class _IletisimWidget extends ConsumerState<IletisimWidget> {
   final _formKey = GlobalKey<FormState>();
   final List<Marker> _markers = <Marker>[
-    const Marker(
-        markerId: MarkerId('SomeId'),
-        position: LatLng(37.89097165484678, 41.129952540533175),
-        infoWindow: InfoWindow(title: 'TİDİSLAM OFİSİ'))
+    Marker(
+        markerId: const MarkerId('SomeId'),
+        icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueCyan),
+        position: const LatLng(37.89097165484678, 41.129952540533175),
+        infoWindow: const InfoWindow(
+            title: 'TİDİSLAM OFİSİ', snippet: 'Batman,Türkiye')),
   ];
 
   final Completer<GoogleMapController> _controller = Completer();

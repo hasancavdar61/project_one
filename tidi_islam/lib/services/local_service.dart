@@ -12,6 +12,7 @@ import 'package:tidi_islam/view/sifre_degistirme/sifre_degistirme_view.dart';
 import 'package:tidi_islam/view/user_detail/change_user_detail_view.dart';
 
 ///[GetX] named route [GetRouteService] with [gettingRoutes] method.
+//! Project route management here.
 class GetRouteService {
   get routesGet => [
         gettingRoutes('/', const AnasayfaView()),

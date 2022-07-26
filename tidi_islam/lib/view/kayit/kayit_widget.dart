@@ -28,6 +28,10 @@ class _KayitWidgetState extends ConsumerState<KayitWidget> {
 
   String ilName = 'İl seçiniz';
 
+  IconData _icon = Icons.visibility;
+
+  bool _isObsecure = true;
+
   @override
   void initState() {
     Service().cityCall().then((value) {
@@ -239,19 +243,39 @@ class _KayitWidgetState extends ConsumerState<KayitWidget> {
 
                     CustomForm(
                       controller: ref.read(registerRiverpod).password,
-                      isObsecure: true,
+                      isObsecure: _isObsecure,
                       inputType: TextInputType.visiblePassword,
                       topLabel: 'ŞİFRE*',
                       formFieldLabel: 'Şifre Giriniz',
                       maxAlan: 1,
+                      showIcon: _icon,
+                      showIconColor: Colors.grey,
+                      showPress: () {
+                        setState(() {
+                          _isObsecure = !_isObsecure;
+                          _icon = _isObsecure
+                              ? Icons.visibility
+                              : Icons.visibility_off;
+                        });
+                      },
                     ),
                     CustomForm(
                       controller: ref.read(registerRiverpod).paswordconf,
-                      isObsecure: true,
+                      isObsecure: _isObsecure,
                       inputType: TextInputType.visiblePassword,
                       topLabel: 'ŞİFRE TEKRAR*',
                       formFieldLabel: 'Şifreyi Tekrar Giriniz',
                       maxAlan: 1,
+                      showIcon: _icon,
+                      showIconColor: Colors.grey,
+                      showPress: () {
+                        setState(() {
+                          _isObsecure = !_isObsecure;
+                          _icon = _isObsecure
+                              ? Icons.visibility
+                              : Icons.visibility_off;
+                        });
+                      },
                     ),
                   ],
                 ),

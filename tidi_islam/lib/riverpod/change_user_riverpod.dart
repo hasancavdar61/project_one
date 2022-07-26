@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tidi_islam/services/services.dart';
 
+//! Kullanıcı bilgileri güncelleme işlemleri.
+
 class ChangeUserRiverpod extends ChangeNotifier {
   String? controllerEmail;
   String? controllerFirstName;

@@ -1,3 +1,6 @@
+/// [KategoriView]'da kullanılan slideble alfabe yapısının verileri
+/// buradan gelmektedir. [List] türünde tutulmaktadır.
+
 final List alphabet = [
   'A',
   'B',
@@ -28,4 +31,3 @@ final List alphabet = [
   'Y',
   'Z',
 ];
-

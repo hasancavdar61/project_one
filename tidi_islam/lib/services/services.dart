@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:cookie_jar/cookie_jar.dart';
+
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
@@ -25,7 +25,7 @@ class Service {
   final String baseUrlMain = "https://www.api.tidislam.com/";
 
   final dio = Dio();
-  var cookieJar = CookieJar();
+ 
 
   /// Login işlemi [POST] metoduyla yapılır.
   /// [email] ve [password] parametreleri gönderilir.
@@ -374,6 +374,8 @@ class Service {
     }
   }
 
+  /// Şehirleri alma işlemi [GET] metoduyla yapılır.
+
   Future<City?> cityCall() async {
     var response = await dio.get(baseUrl + 'citys',
         options: Options(
@@ -389,6 +391,9 @@ class Service {
       throw ("Bir sorun oluştu ${response.statusCode}");
     }
   }
+
+  /// İlçeleri alma işlemi [POST] metoduyla yapılır.
+  /// [city_id] parametresi ile şehir id gönderilir.
 
   Future<District?> districtCall({required String cityId}) async {
     FormData formData = FormData.fromMap({'city_id': cityId});
@@ -407,6 +412,12 @@ class Service {
       throw ("Bir sorun oluştu ${response.statusCode}");
     }
   }
+
+  /// Soru gönderme işlemi [POST] metoduyla yapılır.
+  /// [name] parametresi ile isim gönderilir.
+  /// [email] parametresi ile email gönderilir.
+  /// [tel] parametresi ile telefon gönderilir.
+  /// 
 
   Future<ChangePassModel?> soruCevapCall({
     required String name,
@@ -444,6 +455,14 @@ class Service {
     }
   }
 
+  /// İletişim formu gönderme işlemi [POST] metoduyla yapılır.
+  /// [name] parametresi ile kullanıcı ismi gönderilir.
+  /// [surname] parametresi ile kullanıcı soyismi gönderilir.
+  /// [telefon] parametresi ile kullanıcı telefon numarası gönderilir.
+  /// [email] parametresi ile kullanıcı email gönderilir.
+  /// [message] parametresi ile kullanıcı mesaj gönderilir.
+  
+
   Future<ChangePassModel?> iletisimFormCall({
     required String fullname,
     required String email,
@@ -472,6 +491,10 @@ class Service {
       throw ("Bir sorun oluştu ${response.statusCode}");
     }
   }
+
+  /// Arama işlemi [GET] metoduyla yapılır.
+  /// [search] parametresi ile arama yapılır.
+  
 
   Future<SearchModel?> searchCall({required String search}) async {
     var response = await dio.get(baseUrlHome + "/search",

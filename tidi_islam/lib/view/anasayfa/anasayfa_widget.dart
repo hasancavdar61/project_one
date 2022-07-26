@@ -135,6 +135,7 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
                   padding: const EdgeInsets.only(
                       top: 10.0, left: 13.50, right: 13.50),
                   child: TextFormField(
+                    cursorColor: Colors.white,
                     focusNode: myFocusNode,
                     onTap: () => setState(() {
                       isVisible = true;

@@ -5,6 +5,9 @@ import 'package:tidi_islam/view/iletisim/iletisim_view.dart';
 import 'package:tidi_islam/view/info/info_view.dart';
 import 'package:tidi_islam/view/soru_cevap/soru_cevap_view.dart';
 
+/// [AnasayfaView]'da kullanılan [BottomNavigationBar] için gerekli ekranlar,
+/// burada [ScreenList] classında [List] olarak tutulmaktadır.
+
 class ScreenList {
   List<Widget> screens = [
     //1

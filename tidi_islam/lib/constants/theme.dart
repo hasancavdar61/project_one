@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+
+/// Uygulama teması buradan kontrol edilmektedir.
+
 class AppTheme {
   ThemeData themeData = ThemeData(
     appBarTheme: const AppBarTheme(backgroundColor: Colors.black),

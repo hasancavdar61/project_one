@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:tidi_islam/services/services.dart';
 
+//! Soru cevap formu gönderme işlemi
+
 class SoruCevapRiverpod extends ChangeNotifier {
   final service = Service();
 

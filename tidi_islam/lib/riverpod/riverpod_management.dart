@@ -8,6 +8,8 @@ import 'package:tidi_islam/riverpod/register_riverpod.dart';
 import 'package:tidi_islam/riverpod/soru_cevap_riverpod.dart';
 import 'package:tidi_islam/riverpod/user_profile_riverpod.dart';
 
+//! Tüm riverpod dosyalarının yönetimi buradan gerçekleşmektedir.
+
 final loginRiverpod = ChangeNotifierProvider((_) => LoginRiverpod());
 final homeRiverpod = ChangeNotifierProvider((_) => HomeRiverpod());
 final changePassRiverpod = ChangeNotifierProvider((_) => ChangePassRiverpod());
