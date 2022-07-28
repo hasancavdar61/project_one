@@ -34,10 +34,6 @@ class _SearchWidgetState extends ConsumerState<SearchWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () => Get.offAllNamed('/'),
-        ),
         title: const Text('Arama Sonuçları'),
       ),
       body: FutureBuilder(

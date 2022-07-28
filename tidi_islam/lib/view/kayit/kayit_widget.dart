@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:get/get.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:tidi_islam/model/city_model.dart';
 import 'package:tidi_islam/model/district_model.dart';
 import 'package:tidi_islam/riverpod/riverpod_management.dart';
@@ -31,6 +32,11 @@ class _KayitWidgetState extends ConsumerState<KayitWidget> {
   IconData _icon = Icons.visibility;
 
   bool _isObsecure = true;
+
+  late final String _buttonText = 'ÜYELİK FORMUNU GÖNDER';
+
+  final RoundedLoadingButtonController _btnController =
+      RoundedLoadingButtonController();
 
   @override
   void initState() {
@@ -284,17 +290,27 @@ class _KayitWidgetState extends ConsumerState<KayitWidget> {
 
             /// Submit butonu [ElevatedButton]
 
-            Container(
+            Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24.0),
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.teal)),
+              child: RoundedLoadingButton(
+                width: double.maxFinite,
+                resetAfterDuration: true,
+                borderRadius: 3,
+                color: Colors.teal,
+                child: Text(
+                  _buttonText,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                controller: _btnController,
                 onPressed: () {
                   if (widget._formKey.currentState!.validate()) {
+                    _btnController.start();
                     ref.read(registerRiverpod).fetchRegister();
+                    _btnController.stop();
                   } else {
+                    _btnController.stop();
                     Get.snackbar(
                       'Hata Oluştu',
                       'Lütfen formu doğru şekilde doldurunuz',
@@ -303,15 +319,6 @@ class _KayitWidgetState extends ConsumerState<KayitWidget> {
                     );
                   }
                 },
-                child: Container(
-                  margin: const EdgeInsets.all(20.0),
-                  child: const Text(
-                    'ÜYELİK FORMUNU GÖNDER',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
               ),
             ),
             const SizedBox(

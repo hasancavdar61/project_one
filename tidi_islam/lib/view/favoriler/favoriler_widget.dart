@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:tidi_islam/riverpod/home_riverpod.dart';
@@ -82,9 +83,14 @@ class _FavorilerWidgetState extends ConsumerState<FavorilerWidget> {
               );
             }
           } else if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(
-              child: CircularProgressIndicator.adaptive(
-                backgroundColor: Colors.white,
+            return Center(
+              child: SpinKitPumpingHeart(
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                      width: 50.0,
+                      height: 50.0,
+                      child: Image.asset('assets/tidislam-logo-splash.png'));
+                },
               ),
             );
           } else if (!snapshot.hasData) {

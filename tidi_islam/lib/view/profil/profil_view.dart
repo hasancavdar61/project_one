@@ -3,6 +3,7 @@ library profil_view.dart;
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -54,11 +55,16 @@ class _ProfilViewState extends State<ProfilView> {
           if (snapshot.hasData) {
             return ProfilWidget(userModel: snapshot.data!);
           } else {
-            return const Center(
-                child: CircularProgressIndicator.adaptive(
-              backgroundColor: Colors.white,
-              strokeWidth: 5.0,
-            ));
+            return Center(
+              child: SpinKitPumpingHeart(
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                      width: 50.0,
+                      height: 50.0,
+                      child: Image.asset('assets/tidislam-logo-splash.png'));
+                },
+              ),
+            );
           }
         },
       ),

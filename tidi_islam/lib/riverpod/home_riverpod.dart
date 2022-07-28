@@ -22,6 +22,7 @@ class HomeRiverpod extends ChangeNotifier {
   List<Videox>? dataCatVideo = [];
   List<Videox>? dataId = [];
   String path = '';
+  bool value = true;
 
   List<Product>? searchVideoData = [];
   TextEditingController search = TextEditingController();
@@ -64,7 +65,7 @@ class HomeRiverpod extends ChangeNotifier {
     });
   }
 
-//! Anasayfa Slider metodu 
+//! Anasayfa Slider metodu
 
   void fetchSlider() {
     service.sliderCall().then((value) {

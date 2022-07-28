@@ -119,13 +119,6 @@ class _KategoriWidgetState extends ConsumerState<KategoriWidget> {
         child: Column(
           children: [
             AppBar(
-              leading: IconButton(
-                onPressed: (() => Get.offAllNamed('/')),
-                icon: const Icon(
-                  Icons.arrow_back_ios_new,
-                  color: Colors.white,
-                ),
-              ),
               centerTitle: true,
               title: Container(
                 alignment: Alignment.center,

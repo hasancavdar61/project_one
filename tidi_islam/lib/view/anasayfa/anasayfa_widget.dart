@@ -66,11 +66,16 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
                 },
                 child: _body(snapshot, state, indexx));
           } else {
-            return const Center(
-                child: CircularProgressIndicator.adaptive(
-              backgroundColor: Colors.white,
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.red),
-            ));
+            return Center(
+              child: SpinKitPumpingHeart(
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                      width: 50.0,
+                      height: 50.0,
+                      child: Image.asset('assets/tidislam-logo-splash.png'));
+                },
+              ),
+            );
           }
         });
   }
@@ -152,6 +157,8 @@ class _AnasayfaWidgetState extends ConsumerState<AnasayfaWidget> {
                       }
                     },
                     onEditingComplete: () {
+                      Get.toNamed('/SearchPage',
+                          arguments: [editingController.text]);
                       myFocusNode.unfocus();
                       isVisible = false;
                     },

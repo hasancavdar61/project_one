@@ -81,9 +81,10 @@ class _VideoOynaticiState extends ConsumerState<VideoOynatici> {
                         baseUrl + widget.imageUrl!,
                       ),
                       placeholderBuilder: (context) => const Center(
-                          child: SpinKitCubeGrid(
-                        color: Colors.red,
-                      )),
+                        child: SpinKitCubeGrid(
+                          color: Colors.red,
+                        ),
+                      ),
                       fit: BoxFit.scaleDown,
                     ),
                   ),
@@ -167,11 +168,6 @@ class _VideoOynaticiState extends ConsumerState<VideoOynatici> {
         ],
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 }
 
