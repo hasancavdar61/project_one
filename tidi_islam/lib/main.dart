@@ -10,7 +10,6 @@ import 'package:tidi_islam/constants/theme.dart';
 import 'package:tidi_islam/firebase_options.dart';
 import 'package:tidi_islam/services/local_service.dart';
 import 'package:tidi_islam/view/anasayfa/anasayfa_view.dart';
-import 'package:tidi_islam/view/onboard/onboard_screen.dart';
 
 int? initScreen;
 Future<void> main() async {
@@ -57,10 +56,13 @@ class _TidAppState extends State<TidApp> {
       enableLog: true,
       debugShowCheckedModeBanner: false,
       getPages: GetRouteService().routesGet,
-      home: initScreen == 0 || initScreen == null
-          ? const OnBoardScreen()
-          : const AnasayfaView(),
+      home: const AnasayfaView(),
       theme: AppTheme().themeData,
     );
   }
 }
+/*
+initScreen == 0 || initScreen == null
+          ? const OnBoardScreen()
+          : const AnasayfaView(),
+*/

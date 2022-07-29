@@ -18,6 +18,7 @@ class AnasayfaView extends StatefulWidget {
 }
 
 enum Menu { profilSayfasi, changePassword, itemThree }
+
 enum Options { profile, password, detail, exit }
 
 class _AnasayfaViewState extends State<AnasayfaView> {
@@ -178,7 +179,7 @@ class _AnasayfaViewState extends State<AnasayfaView> {
                                       'assets/tidislam-logo-splash.png'),
                                 ),
                                 applicationName: 'Tidislam',
-                                applicationVersion: '1.0.25+25HC');
+                                applicationVersion: '1.0.27+27HC');
                           },
                           child: const Text(
                             'Uygulama Lisansları',
