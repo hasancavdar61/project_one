@@ -32,9 +32,8 @@ class _YanMenuState extends ConsumerState<YanMenu> {
           Container(
             margin: EdgeInsets.zero,
             decoration: BoxDecoration(
-                color: Colors.teal.shade600,
-                border: const Border(
-                    bottom: BorderSide(color: Colors.black, width: 1))),
+              color: Colors.teal.shade600,
+            ),
             padding: const EdgeInsets.all(14.0),
             child: const Text(
               'MENÜLERİMİZ',
@@ -44,6 +43,16 @@ class _YanMenuState extends ConsumerState<YanMenu> {
                 fontSize: 22,
                 fontWeight: FontWeight.w500,
               ),
+            ),
+          ),
+
+          //Siyah çizgi
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Container(
+              color: Colors.black,
+              height: 2,
+              width: Get.width / 2.3,
             ),
           ),
           ListView.separated(
