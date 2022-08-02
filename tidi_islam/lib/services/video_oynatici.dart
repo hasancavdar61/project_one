@@ -88,6 +88,22 @@ class _VideoOynaticiState extends ConsumerState<VideoOynatici> {
                       fit: BoxFit.scaleDown,
                     ),
                   ),
+                  Positioned(
+                    top: 0,
+                    right: 0,
+                    bottom: 0,
+                    left: 0,
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.play_circle_outline,
+                        color: Colors.red,
+                        size: 40.0,
+                      ),
+                      onPressed: () {
+                        showVideoDialog(context, _controller);
+                      },
+                    ),
+                  )
                 ]),
                 const SizedBox(
                   width: 10.0,

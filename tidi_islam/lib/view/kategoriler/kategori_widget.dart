@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -114,99 +115,59 @@ class _KategoriWidgetState extends ConsumerState<KategoriWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(105.0),
-        child: Column(
-          children: [
-            AppBar(
-              centerTitle: true,
-              title: Container(
-                alignment: Alignment.center,
-                height: 50,
-                child: Image.asset(
-                  'assets/tidislam-logo-3.png',
-                  fit: BoxFit.contain,
-                ),
-              ),
-              actions: [
-                box.read('id') == null
-                    ? TextButton(
-                        onPressed: (() {
-                          Get.toNamed('/GirisSayfasi');
-                        }),
-                        child: const Text(
-                          'Giriş Yap',
-                          style: TextStyle(color: Colors.white),
-                        ))
-                    : PopupMenuButton(
-                        icon: const Icon(
-                          FontAwesomeIcons.solidCircleUser,
-                          color: Colors.teal,
-                        ),
-                        onSelected: (value) {
-                          _onMenuItemSelected(value as int);
-                        },
-                        itemBuilder: (ctx) => [
-                          _buildPopupMenuItem(
-                            'Kullanıcı Bilgileri',
-                            Icons.person_outline,
-                            Options.profile.index,
-                          ),
-                          _buildPopupMenuItem(
-                            'Bilgileri Güncelle',
-                            Icons.update,
-                            Options.detail.index,
-                          ),
-                          _buildPopupMenuItem(
-                            'Şifre Değiştir',
-                            Icons.change_circle_outlined,
-                            Options.password.index,
-                          ),
-                          _buildPopupMenuItem(
-                            'Çıkış Yap',
-                            Icons.exit_to_app,
-                            Options.exit.index,
-                          ),
-                        ],
-                      )
-              ],
-              automaticallyImplyLeading: true,
-            ),
-            Expanded(
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                itemBuilder: ((context, index) {
-                  return InkWell(
-                    onTap: () {
-                      onSelected(index);
-                    },
-                    highlightColor: Colors.teal,
-                    child: Container(
-                      padding: const EdgeInsets.all(15.0),
-                      height: double.infinity,
-                      key: key,
-                      child: AutoSizeText(
-                        alphabet[index],
-                        maxFontSize: 20,
-                        minFontSize: 8,
-                        style: const TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
-                      ),
-                      decoration: BoxDecoration(
-                          border: Border.all(),
-                          color:
-                              _selectedIndex != null && _selectedIndex == index
-                                  ? Colors.teal
-                                  : Colors.white),
-                    ),
-                  );
-                }),
-                itemCount: alphabet.length,
-              ),
-            ),
-          ],
+      appBar: AppBar(
+        centerTitle: true,
+        title: Container(
+          alignment: Alignment.center,
+          height: 50,
+          child: Image.asset(
+            'assets/tidislam-logo-3.png',
+            fit: BoxFit.contain,
+          ),
         ),
+        actions: [
+          box.read('id') == null
+              ? TextButton(
+                  onPressed: (() {
+                    Get.toNamed('/GirisSayfasi');
+                  }),
+                  child: const Text(
+                    'Giriş Yap',
+                    style: TextStyle(color: Colors.white),
+                  ))
+              : PopupMenuButton(
+                  icon: const Icon(
+                    FontAwesomeIcons.solidCircleUser,
+                    color: Colors.teal,
+                  ),
+                  onSelected: (value) {
+                    _onMenuItemSelected(value as int);
+                  },
+                  itemBuilder: (ctx) => [
+                    _buildPopupMenuItem(
+                      'Kullanıcı Bilgileri',
+                      Icons.person_outline,
+                      Options.profile.index,
+                    ),
+                    _buildPopupMenuItem(
+                      'Bilgileri Güncelle',
+                      Icons.update,
+                      Options.detail.index,
+                    ),
+                    _buildPopupMenuItem(
+                      'Şifre Değiştir',
+                      Icons.change_circle_outlined,
+                      Options.password.index,
+                    ),
+                    _buildPopupMenuItem(
+                      'Çıkış Yap',
+                      Icons.exit_to_app,
+                      Options.exit.index,
+                    ),
+                  ],
+                )
+        ],
+        automaticallyImplyLeading: true,
       ),
 
       /// Kategori listeden gelen embed codeları kullanır.
@@ -217,24 +178,75 @@ class _KategoriWidgetState extends ConsumerState<KategoriWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                const Divider(
+                  thickness: 1,
+                  color: Colors.grey,
+                ),
                 Padding(
                   padding: const EdgeInsets.only(
-                    top: 10.0,
+                    top: 5.0,
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'Anasayfa | $catDataTitle',
+                        'anasayfa | ${catDataTitle.toString().toLowerCase()} ',
                         style: const TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w600),
+                            color: Colors.grey, fontWeight: FontWeight.w600),
                       ),
                       Text(
-                        '| $catTitle',
+                        ' | ${catTitle.toString().toLowerCase()}',
                         style: const TextStyle(
                             color: Colors.teal, fontWeight: FontWeight.w600),
                       ),
                     ],
+                  ),
+                ),
+
+                SizedBox(
+                  height: Get.height * 0.08,
+                  child: ListView.separated(
+                    separatorBuilder: (context, index) {
+                      return const Divider(
+                        color: Colors.grey,
+                      );
+                    },
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemBuilder: ((context, index) {
+                      return InkWell(
+                        onTap: () {
+                          onSelected(index);
+                        },
+                        highlightColor: Colors.teal,
+                        child: Center(
+                          child: Container(
+                            width: context.isTablet
+                                ? Get.width * 0.04
+                                : Get.width * 0.1,
+                            height: Get.height * 0.06,
+                            key: key,
+                            child: Center(
+                              child: AutoSizeText(
+                                alphabet[index],
+                                maxFontSize: 20,
+                                minFontSize: 5,
+                                style: const TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                            decoration: BoxDecoration(
+                                border: Border.all(),
+                                color: _selectedIndex != null &&
+                                        _selectedIndex == index
+                                    ? Colors.teal
+                                    : Colors.white),
+                          ),
+                        ),
+                      );
+                    }),
+                    itemCount: alphabet.length,
                   ),
                 ),
 
@@ -376,10 +388,16 @@ class _KategoriWidgetState extends ConsumerState<KategoriWidget> {
               ),
             );
           } else {
-            return const Center(
-                child: CircularProgressIndicator.adaptive(
-              backgroundColor: Colors.white,
-            ));
+            return Center(
+              child: SpinKitPumpingHeart(
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                      width: 50.0,
+                      height: 50.0,
+                      child: Image.asset('assets/tidislam-logo-splash.png'));
+                },
+              ),
+            );
           }
         }),
         future: Service().categoryCall(slug: catData.toString()),

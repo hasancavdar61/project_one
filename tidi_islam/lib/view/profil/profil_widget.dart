@@ -153,3 +153,38 @@ class _ProfilWidgetState extends State<ProfilWidget> {
     );
   }
 }
+
+
+/*
+ const SizedBox(
+                      height: 20,
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.black,
+                        border: Border.all(color: Colors.white),
+                      ),
+                      padding: const EdgeInsets.only(
+                          top: 8.0, bottom: 8.0, left: 10.0),
+                      child: Row(
+                        children: [
+                          Text('Video Asistan Durumu',
+                              style: Theme.of(context).textTheme.headline6),
+                          const Spacer(
+                            flex: 1,
+                          ),
+                          Switch.adaptive(
+                              value: widget.userModel.videoAsistan == '0'
+                                  ? _switched ?? false
+                                  : _switched ?? true,
+                              onChanged: (val) {
+                                setState(() {
+                                  _switched == true
+                                      ? _switched = false
+                                      : _switched = true;
+                                });
+                              }),
+                        ],
+                      ),
+                    )
+*/

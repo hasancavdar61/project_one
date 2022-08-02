@@ -129,13 +129,17 @@ class _GirisWidgetState extends ConsumerState<GirisWidget> {
           width: double.infinity,
           child: ElevatedButton(
             style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.teal)),
+              backgroundColor: MaterialStateProperty.all<Color>(
+                const Color(0xFF7fb9b6),
+              ),
+            ),
             onPressed: () => Get.toNamed('/KayitSayfasi'),
             child: Container(
               margin: const EdgeInsets.all(20.0),
               child: const Text(
                 'ÜYELİK OLUŞTUR',
                 style: TextStyle(
+                  color: Colors.black,
                   fontWeight: FontWeight.bold,
                 ),
               ),

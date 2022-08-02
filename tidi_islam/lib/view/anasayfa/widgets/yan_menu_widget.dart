@@ -30,8 +30,12 @@ class _YanMenuState extends ConsumerState<YanMenu> {
         shrinkWrap: true,
         children: [
           Container(
+            margin: EdgeInsets.zero,
+            decoration: BoxDecoration(
+                color: Colors.teal.shade600,
+                border: const Border(
+                    bottom: BorderSide(color: Colors.black, width: 1))),
             padding: const EdgeInsets.all(14.0),
-            color: Colors.teal.shade600,
             child: const Text(
               'MENÜLERİMİZ',
               textAlign: TextAlign.start,
