@@ -378,6 +378,16 @@ class _KategoriWidgetState extends ConsumerState<KategoriWidget> {
                   ),
                 ),
                 Expanded(child: context.isTablet ? videoGridT() : videoListT()),
+                SizedBox(
+                  height: Get.height * 0.05,
+                  child: Center(
+                    child: Text(
+                      dataCatVideo!.length.toString() + ' adet video bulundu',
+                      style: const TextStyle(
+                          color: Colors.grey, fontWeight: FontWeight.w600),
+                    ),
+                  ),
+                ),
               ],
             );
           } else if (snapshot.hasError) {

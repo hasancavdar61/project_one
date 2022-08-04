@@ -315,7 +315,7 @@ class _AnasayfaViewState extends State<AnasayfaView> {
         body: isoffline
             ? const ErrorPage()
             : Obx(
-                () => ScreenList().screens[arg ?? currentIndex.value],
+                () => ScreenList().screens[currentIndex.value],
               ));
   }
 }
