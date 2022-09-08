@@ -179,7 +179,7 @@ class _AnasayfaViewState extends State<AnasayfaView> {
                                       'assets/tidislam-logo-splash.png'),
                                 ),
                                 applicationName: 'Tidislam',
-                                applicationVersion: '1.0.27+27HC');
+                                applicationVersion: '1.0.28+28HC');
                           },
                           child: const Text(
                             'Uygulama Lisansları',
